@@ -186,17 +186,14 @@
     }
     .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 30px rgba(59,130,246,0.5); }
 
-    /* === HERO === */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      padding: 160px 32px 120px; position: relative; overflow: hidden;
+    /* === HERO STORY === */
+    .hero-story {
+      height: 700vh; position: relative;
       background: var(--dark);
     }
-
-    /* WebGL Canvas */
-    #hero-canvas {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0; pointer-events: none;
+    .hero-story-bg {
+      position: absolute; top: 0; left: 0; right: 0; height: 100vh;
+      z-index: 0; overflow: hidden;
     }
 
     /* Aurora / Northern Lights */
@@ -207,125 +204,82 @@
     .aurora-1 {
       position: absolute; width: 150%; height: 60%;
       top: -20%; left: -25%;
-      background: linear-gradient(
-        180deg,
-        transparent 0%,
-        rgba(59,130,246,0.08) 20%,
-        rgba(37,99,235,0.12) 40%,
-        rgba(96,165,250,0.06) 60%,
-        transparent 100%
-      );
-      animation: aurora 20s ease-in-out infinite;
-      filter: blur(60px);
+      background: linear-gradient(180deg, transparent 0%, rgba(59,130,246,0.08) 20%, rgba(37,99,235,0.12) 40%, rgba(96,165,250,0.06) 60%, transparent 100%);
+      animation: aurora 20s ease-in-out infinite; filter: blur(60px);
     }
     .aurora-2 {
       position: absolute; width: 120%; height: 50%;
       top: -10%; right: -20%;
-      background: linear-gradient(
-        200deg,
-        transparent 0%,
-        rgba(96,165,250,0.06) 30%,
-        rgba(59,130,246,0.1) 50%,
-        rgba(37,99,235,0.04) 70%,
-        transparent 100%
-      );
-      animation: aurora2 25s ease-in-out infinite;
-      filter: blur(80px);
+      background: linear-gradient(200deg, transparent 0%, rgba(96,165,250,0.06) 30%, rgba(59,130,246,0.1) 50%, rgba(37,99,235,0.04) 70%, transparent 100%);
+      animation: aurora2 25s ease-in-out infinite; filter: blur(80px);
     }
     .aurora-3 {
       position: absolute; width: 80%; height: 40%;
       bottom: 0; left: 10%;
       background: radial-gradient(ellipse, rgba(59,130,246,0.06), transparent 70%);
-      animation: aurora 30s ease-in-out infinite reverse;
-      filter: blur(100px);
+      animation: aurora 30s ease-in-out infinite reverse; filter: blur(100px);
     }
 
-    /* Gradient mesh */
-    .hero-gradient-mesh {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 20% 40%, rgba(59,130,246,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(96,165,250,0.04) 0%, transparent 60%),
-        radial-gradient(ellipse 70% 50% at 50% 80%, rgba(37,99,235,0.05) 0%, transparent 60%);
-      animation: gradient-shift 12s ease infinite;
-      background-size: 200% 200%;
+    .story-container {
+      position: sticky; top: 0; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      gap: 80px; max-width: 1100px; margin: 0 auto;
+      padding: 0 32px; z-index: 2;
     }
 
-    /* Blue light streaks */
-    .light-streak {
-      position: absolute; z-index: 0; pointer-events: none;
-      height: 1px; opacity: 0.15;
-      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.8), transparent);
+    /* Text panels */
+    .story-text-panel {
+      flex: 1; position: relative; min-height: 120px;
     }
-    .light-streak-1 { top: 30%; left: -10%; width: 60%; transform: rotate(-5deg); }
-    .light-streak-2 { top: 60%; right: -10%; width: 50%; transform: rotate(3deg); }
-    .light-streak-3 { bottom: 20%; left: 20%; width: 40%; transform: rotate(-2deg); }
-
-    /* Morphing blobs */
-    .hero-blob {
-      position: absolute; width: 600px; height: 600px;
-      top: 5%; right: -10%;
-      background: radial-gradient(circle, rgba(59,130,246,0.08), transparent 70%);
-      animation: morph 12s ease-in-out infinite;
-      filter: blur(40px); z-index: 0;
+    .story-text-item {
+      position: absolute; top: 50%; left: 0; right: 0;
+      transform: translateY(-50%);
+      opacity: 0; transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
     }
-    .hero-blob-2 {
-      position: absolute; width: 500px; height: 500px;
-      bottom: 0%; left: -10%;
-      background: radial-gradient(circle, rgba(96,165,250,0.06), transparent 70%);
-      animation: morph 15s ease-in-out infinite reverse;
-      filter: blur(50px); z-index: 0;
+    .story-text-item.active {
+      opacity: 1; transform: translateY(-50%); pointer-events: auto;
     }
-
-    .hero-inner {
-      max-width: 1200px; width: 100%; display: flex;
-      align-items: center; gap: 100px; position: relative; z-index: 2;
+    .story-text-item:not(.active) {
+      transform: translateY(calc(-50% + 30px));
     }
-    .hero-text { flex: 1.2; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px;
-      background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2);
-      border-radius: 100px; font-size: 13px; font-weight: 600;
-      color: var(--accent-light); margin-bottom: 32px;
-      animation: fade-up 0.6s ease both;
+    .story-text-content {
+      font-size: 28px; font-weight: 500; color: var(--text-on-dark);
+      line-height: 1.5; max-width: 400px;
+      font-family: var(--font);
     }
-    .hero-badge::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent); box-shadow: 0 0 12px var(--accent);
+    .story-text-scene-num {
+      font-family: var(--font-display); font-size: 12px; font-weight: 700;
+      color: var(--accent-light); text-transform: uppercase;
+      letter-spacing: 3px; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
     }
-
-    .hero h1 {
-      font-family: var(--font-display); font-size: clamp(48px, 6.5vw, 88px);
-      font-weight: 700; line-height: 1.02; letter-spacing: -3px;
-      color: var(--text-on-dark);
-      background: linear-gradient(180deg, #ffffff 0%, #60a5fa 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .story-text-scene-num::before {
+      content: ''; width: 24px; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+    .story-scroll-hint {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      opacity: 0.5; z-index: 10; transition: opacity 0.5s;
+    }
+    .story-scroll-hint.hidden { opacity: 0; }
+    .story-scroll-hint span {
+      font-size: 12px; color: var(--text-muted-dark);
+      text-transform: uppercase; letter-spacing: 2px; font-weight: 600;
+    }
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+    .story-scroll-hint svg {
+      animation: scroll-bounce 1.5s ease-in-out infinite;
     }
 
-    /* Text clip reveal */
-    .text-clip-reveal {
-      overflow: hidden; display: inline-block;
+    /* Phone in story */
+    .story-phone {
+      flex-shrink: 0; position: relative; perspective: 1200px;
     }
-    .text-clip-inner {
-      display: inline-block;
-      animation: text-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: var(--delay, 0s);
-    }
-
-    .hero-sub {
-      font-size: 19px; color: var(--text-muted-dark); margin-top: 32px;
-      line-height: 1.75; max-width: 520px;
-    }
-    .typewriter-cursor {
-      display: inline-block; width: 3px; height: 1.1em;
-      background: var(--accent); margin-left: 2px;
-      animation: blink 0.8s step-end infinite;
-      vertical-align: text-bottom;
-      box-shadow: 0 0 8px var(--accent);
-    }
-
-    .hero-actions { display: flex; gap: 16px; margin-top: 52px; }
 
     /* Magnetic button */
     .btn-blue {
@@ -334,8 +288,7 @@
       font-weight: 700; text-decoration: none; border: none; cursor: pointer;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); font-family: var(--font);
       box-shadow: 0 4px 40px rgba(59,130,246,0.4), 0 0 0 1px rgba(59,130,246,0.2);
-      position: relative; overflow: hidden;
-      will-change: transform;
+      position: relative; overflow: hidden; will-change: transform;
     }
     .btn-blue::before {
       content: ''; position: absolute; inset: -2px; border-radius: 100px;
@@ -348,8 +301,7 @@
       content: ''; position: absolute; top: -50%; left: -50%;
       width: 200%; height: 200%;
       background: linear-gradient(transparent, rgba(255,255,255,0.15), transparent);
-      transform: rotate(45deg) translateX(-100%);
-      transition: transform 0.6s;
+      transform: rotate(45deg) translateX(-100%); transition: transform 0.6s;
     }
     .btn-blue:hover::after { transform: rotate(45deg) translateX(100%); }
     .btn-blue:hover {
@@ -364,24 +316,21 @@
     }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent-light); background: rgba(59,130,246,0.05); }
 
-    /* === HERO PHONE MOCKUP === */
-    .hero-visual { flex: 1; position: relative; perspective: 1200px; }
+    /* === STORY PHONE MOCKUP === */
     .phone-wrapper {
-      width: 320px; margin: 0 auto; position: relative;
+      width: 280px; margin: 0 auto; position: relative;
       transform-style: preserve-3d;
-      animation: float 6s ease-in-out infinite;
     }
     .phone-glow {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 460px; height: 460px; border-radius: 50%;
+      width: 400px; height: 400px; border-radius: 50%;
       background: radial-gradient(circle, rgba(59,130,246,0.18) 0%, rgba(96,165,250,0.08) 40%, transparent 70%);
       filter: blur(40px); animation: pulse-glow 4s ease-in-out infinite;
     }
     .phone-frame {
       position: relative; z-index: 2;
-      width: 290px; margin: 0 auto;
-      border-radius: 50px;
-      overflow: hidden;
+      width: 280px; margin: 0 auto;
+      border-radius: 50px; overflow: hidden;
       border: 3px solid #1c1c1e;
       box-shadow:
         0 0 0 1px rgba(255,255,255,0.08),
@@ -390,7 +339,6 @@
         inset 0 0 0 1px rgba(255,255,255,0.04);
       background: #1c1c1e;
     }
-    /* Dynamic Island */
     .phone-dynamic-island {
       position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
       width: 100px; height: 28px; background: #000;
@@ -398,12 +346,10 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
     }
     .phone-screen-area {
-      overflow: hidden; position: relative; min-height: 580px;
+      overflow: hidden; position: relative; min-height: 560px;
       background: #fafaf8;
       border-radius: 0 0 47px 47px;
     }
-
-    /* Status bar */
     .phone-status-bar {
       display: flex; justify-content: space-between; align-items: center;
       padding: 14px 24px 0; position: relative; z-index: 5;
@@ -412,130 +358,216 @@
       font-size: 14px; font-weight: 600; color: #1a1a2e;
       font-family: var(--font); letter-spacing: -0.3px;
     }
-    .phone-status-icons {
-      display: flex; align-items: center; gap: 5px;
-    }
+    .phone-status-icons { display: flex; align-items: center; gap: 5px; }
     .phone-status-icons svg { opacity: 0.7; }
 
-    /* Screen content */
-    .phone-screen-content {
-      padding: 8px 18px 16px;
-    }
+    /* Phone screen content */
+    .phone-screen-content { padding: 8px 18px 16px; position: relative; }
 
-    /* Dashboard header */
-    .dash-header {
-      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    /* Dashboard elements */
+    .story-dash-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
     }
-    .dash-avatar {
+    .story-dash-avatar {
       width: 34px; height: 34px; border-radius: 50%;
       background: linear-gradient(135deg, #e8d5b7, #c9a96e);
       display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 700; color: #5a4520;
+      font-size: 12px; font-weight: 700; color: #5a4520;
       font-family: var(--font-display);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
-    .dash-biz-name {
+    .story-dash-greeting {
       font-size: 15px; font-weight: 700; color: #1a1a2e;
       font-family: var(--font-display); letter-spacing: -0.3px;
     }
-
-    /* Points card */
-    .dash-points-card {
-      background: linear-gradient(145deg, #1a1a2e 0%, #111 100%);
-      border-radius: 20px; padding: 22px 20px 18px;
-      position: relative; overflow: hidden;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.1);
+    .story-dash-badge-text {
+      font-size: 10px; color: #9ca3af; margin-top: 1px;
     }
-    .dash-points-card::before {
+
+    /* Points card in story */
+    .story-points-card {
+      background: linear-gradient(145deg, #1a1a2e 0%, #111 100%);
+      border-radius: 20px; padding: 20px 18px 16px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+    .story-points-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       background: linear-gradient(135deg, rgba(59,130,246,0.08) 0%, transparent 50%, rgba(96,165,250,0.05) 100%);
       border-radius: 20px;
     }
-    .dash-points-big {
-      font-family: var(--font-display); font-size: 36px; font-weight: 800;
+    .story-points-num {
+      font-family: var(--font-display); font-size: 34px; font-weight: 800;
       color: #fff; line-height: 1; position: relative; z-index: 1;
+      transition: none;
     }
-    .dash-points-label {
-      font-size: 12px; color: rgba(255,255,255,0.5);
-      margin-top: 3px; position: relative; z-index: 1;
-      letter-spacing: 0.3px;
+    .story-points-label {
+      font-size: 11px; color: rgba(255,255,255,0.5);
+      margin-top: 3px; position: relative; z-index: 1; letter-spacing: 0.3px;
     }
-    .dash-shimmer-bar {
-      height: 4px; border-radius: 100px; margin-top: 16px;
+    .story-progress-bar {
+      height: 4px; border-radius: 100px; margin-top: 14px;
       background: rgba(255,255,255,0.08);
       overflow: hidden; position: relative; z-index: 1;
     }
-    .dash-shimmer-fill {
-      height: 100%; width: 72%; border-radius: 100px;
+    .story-progress-fill {
+      height: 100%; width: 0%; border-radius: 100px;
       background: linear-gradient(90deg, #2563eb, #3b82f6, #60a5fa, #3b82f6);
       background-size: 200% 100%;
-      animation: shimmer 2.5s linear infinite;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .dash-tier-pill {
+    .story-progress-fill.shimmer {
+      animation: shimmer 2s linear infinite;
+    }
+    .story-tier-pill {
       display: inline-flex; align-items: center; gap: 5px;
-      background: rgba(59,130,246,0.15); color: #60a5fa;
       font-size: 10px; font-weight: 700; padding: 4px 12px;
-      border-radius: 100px; margin-top: 12px;
+      border-radius: 100px; margin-top: 10px;
       letter-spacing: 0.5px; text-transform: uppercase;
       position: relative; z-index: 1;
-      border: 1px solid rgba(59,130,246,0.2);
+      transition: all 0.5s ease;
+      background: rgba(156,163,175,0.15); color: #9ca3af;
+      border: 1px solid rgba(156,163,175,0.2);
+    }
+    .story-tier-pill.silver {
+      background: rgba(59,130,246,0.15); color: #60a5fa;
+      border-color: rgba(59,130,246,0.3);
     }
 
-    /* Next reward section */
-    .dash-next-section {
-      margin-top: 16px;
+    /* Phone notification */
+    .story-notification {
+      position: absolute; top: 50px; left: 10px; right: 10px;
+      background: rgba(20,20,35,0.92);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px; padding: 10px 14px;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      z-index: 20;
+      opacity: 0; transform: translateY(-30px);
+      transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
     }
-    .dash-next-title {
-      font-size: 11px; color: #9ca3af; text-transform: uppercase;
-      letter-spacing: 1px; font-weight: 600; margin-bottom: 10px;
+    .story-notification.visible {
+      opacity: 1; transform: translateY(0);
     }
-    .dash-reward-card {
+    .story-notif-icon {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(34,197,94,0.15);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .story-notif-text {
+      font-size: 12px; color: #fff; font-weight: 600; font-family: var(--font);
+    }
+    .story-notif-sub {
+      font-size: 9px; color: rgba(255,255,255,0.45); margin-top: 1px;
+    }
+
+    /* Transaction list */
+    .story-transactions {
+      margin-top: 12px; position: relative; z-index: 1;
+    }
+    .story-tx-title {
+      font-size: 10px; color: #9ca3af; text-transform: uppercase;
+      letter-spacing: 1px; font-weight: 600; margin-bottom: 6px;
+    }
+    .story-tx-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.04);
+      font-size: 11px; opacity: 0; transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .story-tx-item.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .story-tx-name { color: #1a1a2e; font-weight: 500; }
+    .story-tx-pts { color: #22c55e; font-weight: 700; font-family: var(--font-display); }
+
+    /* Reward card in story */
+    .story-reward-card {
       background: #fff; border: 1px solid #eef0f4;
-      border-radius: 14px; padding: 12px 14px;
-      display: flex; align-items: center; gap: 12px;
+      border-radius: 14px; padding: 10px 12px;
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 12px; position: relative; z-index: 1;
+      transition: all 0.5s ease;
       box-shadow: 0 1px 4px rgba(0,0,0,0.04);
     }
-    .dash-reward-icon {
-      width: 38px; height: 38px; border-radius: 12px;
-      background: linear-gradient(135deg, #f0f4ff, #e0e8ff);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+    .story-reward-card.glow {
+      border-color: rgba(59,130,246,0.4);
+      box-shadow: 0 0 20px rgba(59,130,246,0.15), 0 2px 8px rgba(0,0,0,0.08);
     }
-    .dash-reward-info { flex: 1; min-width: 0; }
-    .dash-reward-name {
-      font-size: 13px; font-weight: 700; color: #1a1a2e;
+    .story-reward-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, #f0f4ff, #e0e8ff);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .story-reward-info { flex: 1; }
+    .story-reward-name {
+      font-size: 12px; font-weight: 700; color: #1a1a2e;
       font-family: var(--font-display);
     }
-    .dash-reward-remaining {
-      font-size: 10px; color: #9ca3af; margin-top: 1px;
-    }
-    .dash-reward-progress {
-      height: 5px; background: #eef0f4; border-radius: 100px;
-      overflow: hidden; margin-top: 6px;
-    }
-    .dash-reward-progress-fill {
-      height: 100%; width: 0; border-radius: 100px;
-      background: linear-gradient(90deg, #2563eb, #3b82f6, #60a5fa);
-      box-shadow: 0 0 8px rgba(59,130,246,0.25);
-      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .dash-reward-progress-fill.animate { width: 62%; }
-
-    /* Mini stat pills */
-    .dash-stat-pills {
-      display: flex; gap: 7px; margin-top: 14px;
-    }
-    .dash-stat-pill {
-      flex: 1; background: #fff; border: 1px solid #eef0f4;
-      border-radius: 10px; padding: 8px 4px; text-align: center;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    }
-    .dash-stat-pill-num {
-      font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #1a1a2e;
-    }
-    .dash-stat-pill-label {
+    .story-reward-sub {
       font-size: 9px; color: #9ca3af; margin-top: 1px;
-      text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .story-reward-btn {
+      font-size: 9px; font-weight: 700; padding: 4px 10px;
+      border-radius: 100px; border: none; cursor: default;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      transition: all 0.5s ease;
+      background: #eef0f4; color: #9ca3af;
+    }
+    .story-reward-btn.active {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 2px 10px rgba(59,130,246,0.3);
+    }
+
+    /* QR Screen */
+    .story-qr-screen {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: #fafaf8; z-index: 15;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 60px 30px 30px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    .story-qr-screen.visible { opacity: 1; }
+    .story-qr-title {
+      font-family: var(--font-display); font-size: 18px; font-weight: 700;
+      color: #1a1a2e; margin-bottom: 24px; text-align: center;
+    }
+    .story-qr-code {
+      width: 160px; height: 160px;
+      display: grid; grid-template-columns: repeat(13, 1fr);
+      gap: 1px; margin-bottom: 20px;
+    }
+    .story-qr-cell {
+      aspect-ratio: 1; border-radius: 1px;
+    }
+    .story-qr-cell.black { background: #1a1a2e; }
+    .story-qr-cell.white { background: #fff; }
+    .story-qr-subtitle {
+      font-size: 14px; color: #6b7280; text-align: center;
+    }
+    .story-qr-points {
+      font-family: var(--font-display); font-size: 24px; font-weight: 700;
+      color: #22c55e; margin-top: 12px;
+    }
+
+    /* Confetti */
+    .story-confetti-container {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 16; overflow: hidden;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .story-confetti-container.visible { opacity: 1; }
+    @keyframes confetti-fall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
+    }
+    .confetti-dot {
+      position: absolute; width: 6px; height: 6px; border-radius: 50%;
+      animation: confetti-fall var(--duration, 3s) ease-in var(--delay, 0s) infinite;
+      top: -10px;
     }
 
     /* Bottom tab bar */
@@ -547,55 +579,11 @@
       border-radius: 0 0 47px 47px;
     }
     .phone-tab {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: #c9cdd4;
+      width: 5px; height: 5px; border-radius: 50%; background: #c9cdd4;
     }
     .phone-tab.active {
-      width: 6px; height: 6px;
-      background: var(--accent);
+      width: 6px; height: 6px; background: var(--accent);
       box-shadow: 0 0 6px rgba(59,130,246,0.4);
-    }
-
-    /* Floating notification cards */
-    @keyframes float-notif-1 {
-      0%, 100% { transform: translateY(0) translateX(0); }
-      25% { transform: translateY(-6px) translateX(2px); }
-      75% { transform: translateY(4px) translateX(-2px); }
-    }
-    @keyframes float-notif-2 {
-      0%, 100% { transform: translateY(0) translateX(0); }
-      30% { transform: translateY(5px) translateX(-3px); }
-      70% { transform: translateY(-4px) translateX(3px); }
-    }
-    .floating-notif {
-      position: absolute; z-index: 10;
-      background: rgba(20,20,35,0.85);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 14px; padding: 10px 14px;
-      display: flex; align-items: center; gap: 9px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(255,255,255,0.08);
-      opacity: 0; white-space: nowrap;
-    }
-    .floating-notif-1 {
-      top: 15%; right: -55px;
-      animation: notification-slide 0.6s ease 2.5s forwards, float-notif-1 5s ease-in-out 3.1s infinite;
-    }
-    .floating-notif-2 {
-      bottom: 22%; left: -55px;
-      animation: notification-slide 0.6s ease 4s forwards, float-notif-2 6s ease-in-out 4.6s infinite;
-    }
-    .floating-notif-icon {
-      width: 30px; height: 30px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .floating-notif-text {
-      font-size: 12px; color: #fff; font-weight: 600;
-      font-family: var(--font);
-    }
-    .floating-notif-sub {
-      font-size: 9px; color: rgba(255,255,255,0.45); margin-top: 1px;
     }
 
     /* === STATS BAR === */
@@ -1104,21 +1092,18 @@
     .footer-links a:hover { color: var(--accent-light); }
 
     /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .hero-story { height: auto; min-height: 100vh; }
+      .story-container {
+        position: relative; flex-direction: column;
+        padding: 120px 20px 60px; gap: 0;
+      }
+      .story-text-panel { display: none; }
+      .story-scroll-hint { display: none; }
+      .story-phone { margin: 0 auto; }
+    }
     @media (max-width: 900px) {
-      .hero-inner { flex-direction: column; gap: 60px; text-align: center; }
-      .hero-sub { margin: 24px auto 0; }
-      .hero-actions { justify-content: center; flex-wrap: wrap; }
-      .hero-visual { order: -1; }
-      .phone-wrapper { width: 270px; }
-      .phone-frame { width: 250px; }
-      .phone-screen-area { min-height: 500px; }
-      .phone-screen-content { padding: 6px 14px 12px; }
-      .dash-points-big { font-size: 30px; }
-      .dash-points-card { padding: 18px 16px 14px; }
-      .floating-notif { display: none; }
       .nav-links { display: none; }
-      .hero { padding: 130px 20px 100px; }
-      .hero-blob, .hero-blob-2 { width: 300px; height: 300px; }
       .scroll-orb { display: none; }
 
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -1181,42 +1166,56 @@
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <canvas id="hero-canvas"></canvas>
-    <div class="aurora-container">
-      <div class="aurora-1"></div>
-      <div class="aurora-2"></div>
-      <div class="aurora-3"></div>
+  <!-- HERO STORY -->
+  <section class="hero-story" id="hero">
+    <div class="hero-story-bg">
+      <div class="aurora-container">
+        <div class="aurora-1"></div>
+        <div class="aurora-2"></div>
+        <div class="aurora-3"></div>
+      </div>
     </div>
-    <div class="hero-gradient-mesh"></div>
-    <div class="light-streak light-streak-1"></div>
-    <div class="light-streak light-streak-2"></div>
-    <div class="light-streak light-streak-3"></div>
-    <div class="hero-blob"></div>
-    <div class="hero-blob-2"></div>
 
-    <div class="hero-inner">
-      <div class="hero-text">
-        <div class="hero-badge">Applications de fidelite sur mesure</div>
-        <h1>
-          <span id="typewriter-target"></span><span class="typewriter-cursor"></span>
-        </h1>
-        <p class="hero-sub" style="opacity:0; animation: fade-up 0.8s ease 2.2s forwards;">
-          On cree votre application de fidelite personnalisee. Points, recompenses, parrainage — tout automatique. Vos clients reviennent. Votre chiffre d'affaires augmente.
-        </p>
-        <div class="hero-actions" style="opacity:0; animation: fade-up 0.8s ease 2.5s forwards;">
-          <a href="mailto:olivier@logiccsupplies.ca?subject=Demande%20de%20demo%20gratuite&body=Bonjour,%20je%20suis%20interesse%20par%20une%20demo%20pour%20mon%20commerce.%0A%0ANom%20du%20commerce:%0AType%20(salon,%20resto,%20gym,%20etc.):" class="btn-blue magnetic-btn">Demander une demo gratuite</a>
-          <a href="#comment-ca-marche" class="btn-ghost">Comment ca marche</a>
+    <div class="story-container">
+      <!-- Text panels (left side) -->
+      <div class="story-text-panel" id="story-text-panel">
+        <div class="story-text-item active" data-scene="1">
+          <div class="story-text-scene-num">Scene 1</div>
+          <div class="story-text-content">Sophie vient de s'inscrire au programme fid&eacute;lit&eacute; de son caf&eacute; pr&eacute;f&eacute;r&eacute;.</div>
+        </div>
+        <div class="story-text-item" data-scene="2">
+          <div class="story-text-scene-num">Scene 2</div>
+          <div class="story-text-content">Elle re&ccedil;oit 75 points de bienvenue instantan&eacute;ment.</div>
+        </div>
+        <div class="story-text-item" data-scene="3">
+          <div class="story-text-scene-num">Scene 3</div>
+          <div class="story-text-content">&Agrave; chaque achat, les points s'accumulent automatiquement.</div>
+        </div>
+        <div class="story-text-item" data-scene="4">
+          <div class="story-text-scene-num">Scene 4</div>
+          <div class="story-text-content">Sophie parraine une amie. Elles re&ccedil;oivent chacune 75 points bonus.</div>
+        </div>
+        <div class="story-text-item" data-scene="5">
+          <div class="story-text-scene-num">Scene 5</div>
+          <div class="story-text-content">Apr&egrave;s quelques visites, sa premi&egrave;re r&eacute;compense est d&eacute;bloqu&eacute;e.</div>
+        </div>
+        <div class="story-text-item" data-scene="6">
+          <div class="story-text-scene-num">Scene 6</div>
+          <div class="story-text-content">Un caf&eacute; gratuit, juste comme &ccedil;a. Sophie n'a qu'&agrave; montrer son QR code.</div>
+        </div>
+        <div class="story-text-item" data-scene="7">
+          <div class="story-text-scene-num">Scene 7</div>
+          <div class="story-text-content">Et le cycle recommence. Plus elle revient, plus elle gagne.</div>
         </div>
       </div>
 
-      <div class="hero-visual">
-        <div class="phone-wrapper" id="phone-3d">
+      <!-- Phone -->
+      <div class="story-phone">
+        <div class="phone-wrapper">
           <div class="phone-glow"></div>
           <div class="phone-frame">
             <div class="phone-dynamic-island"></div>
-            <div class="phone-screen-area">
+            <div class="phone-screen-area" id="story-screen">
 
               <!-- Status Bar -->
               <div class="phone-status-bar">
@@ -1229,57 +1228,64 @@
               </div>
 
               <!-- Dashboard Content -->
-              <div class="phone-screen-content">
-                <div class="dash-header">
-                  <div class="dash-avatar">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5a4520" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <div class="phone-screen-content" id="story-dashboard">
+                <div class="story-dash-header">
+                  <div class="story-dash-avatar">S</div>
+                  <div>
+                    <div class="story-dash-greeting" id="story-greeting">Bonjour, Sophie</div>
+                    <div class="story-dash-badge-text" id="story-badge-text">Nouveau membre</div>
                   </div>
-                  <div class="dash-biz-name">Caf&eacute;</div>
                 </div>
 
                 <!-- Points Card -->
-                <div class="dash-points-card">
-                  <div class="dash-points-big">1,250</div>
-                  <div class="dash-points-label">Points fid&eacute;lit&eacute;</div>
-                  <div class="dash-shimmer-bar">
-                    <div class="dash-shimmer-fill"></div>
+                <div class="story-points-card">
+                  <div class="story-points-num" id="story-points">0</div>
+                  <div class="story-points-label">Points fid&eacute;lit&eacute;</div>
+                  <div class="story-progress-bar">
+                    <div class="story-progress-fill" id="story-progress"></div>
                   </div>
-                  <div class="dash-tier-pill">Niveau Platine</div>
+                  <div class="story-tier-pill" id="story-tier">Nouveau membre</div>
                 </div>
 
-                <!-- Next Reward -->
-                <div class="dash-next-section">
-                  <div class="dash-next-title">Prochaine r&eacute;compense</div>
-                  <div class="dash-reward-card">
-                    <div class="dash-reward-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-                    </div>
-                    <div class="dash-reward-info">
-                      <div class="dash-reward-name">Caf&eacute; Gratuit</div>
-                      <div class="dash-reward-remaining">250 pts restants</div>
-                      <div class="dash-reward-progress">
-                        <div class="dash-reward-progress-fill" id="dash-progress"></div>
-                      </div>
-                    </div>
+                <!-- Reward Card -->
+                <div class="story-reward-card" id="story-reward">
+                  <div class="story-reward-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
                   </div>
+                  <div class="story-reward-info">
+                    <div class="story-reward-name">Caf&eacute; Gratuit</div>
+                    <div class="story-reward-sub" id="story-reward-sub">500 pts requis</div>
+                  </div>
+                  <div class="story-reward-btn" id="story-reward-btn">Verrouill&eacute;</div>
                 </div>
 
-                <!-- Stat Pills -->
-                <div class="dash-stat-pills">
-                  <div class="dash-stat-pill">
-                    <div class="dash-stat-pill-num">8</div>
-                    <div class="dash-stat-pill-label">Achats</div>
-                  </div>
-                  <div class="dash-stat-pill">
-                    <div class="dash-stat-pill-num">3</div>
-                    <div class="dash-stat-pill-label">Visites</div>
-                  </div>
-                  <div class="dash-stat-pill">
-                    <div class="dash-stat-pill-num">2</div>
-                    <div class="dash-stat-pill-label">Amis</div>
-                  </div>
+                <!-- Transactions -->
+                <div class="story-transactions" id="story-transactions">
+                  <div class="story-tx-title">Historique</div>
                 </div>
               </div>
+
+              <!-- Notification overlay -->
+              <div class="story-notification" id="story-notif">
+                <div class="story-notif-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                  <div class="story-notif-text" id="story-notif-text">+75 points</div>
+                  <div class="story-notif-sub" id="story-notif-sub">Bonus inscription</div>
+                </div>
+              </div>
+
+              <!-- QR Screen overlay -->
+              <div class="story-qr-screen" id="story-qr">
+                <div class="story-qr-title">Montrez ce code &agrave; la caisse</div>
+                <div class="story-qr-code" id="story-qr-grid"></div>
+                <div class="story-qr-subtitle">Caf&eacute; Gratuit</div>
+                <div class="story-qr-points" id="story-qr-points">-500 pts</div>
+              </div>
+
+              <!-- Confetti -->
+              <div class="story-confetti-container" id="story-confetti"></div>
 
               <!-- Tab Bar -->
               <div class="phone-tab-bar">
@@ -1291,34 +1297,15 @@
               </div>
             </div>
           </div>
-
-          <!-- Floating glass notification cards -->
-          <div class="floating-notif floating-notif-1">
-            <div class="floating-notif-icon" style="background: rgba(34,197,94,0.15);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div>
-              <div class="floating-notif-text">+50 points ajout&eacute;s</div>
-              <div class="floating-notif-sub">Achat enregistr&eacute;</div>
-            </div>
-          </div>
-          <div class="floating-notif floating-notif-2">
-            <div class="floating-notif-icon" style="background: rgba(59,130,246,0.15);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <div>
-              <div class="floating-notif-text">Nouveau palier!</div>
-              <div class="floating-notif-sub">Niveau Platine atteint</div>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
 
-    <!-- SVG connector to next section -->
-    <svg class="section-connector" width="2" height="60" viewBox="0 0 2 60">
-      <line x1="1" y1="0" x2="1" y2="60" stroke-dasharray="8 4" style="stroke: rgba(59,130,246,0.15); stroke-width: 1;" />
-    </svg>
+      <!-- Scroll hint -->
+      <div class="story-scroll-hint" id="story-scroll-hint">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(232,234,240,0.45)" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        <span>Scroll</span>
+      </div>
+    </div>
   </section>
 
   <!-- STATS BAR -->
@@ -1617,226 +1604,312 @@
 
   <script>
     // =============================================
-    // WEBGL GRADIENT ANIMATION (Stripe-style)
+    // SCROLL-DRIVEN PHONE STORY
     // =============================================
     (function() {
-      const canvas = document.getElementById('hero-canvas');
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      if (!gl) {
-        // Fallback to 2D particles
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-        let w, h;
-        const particles = [];
-        const COUNT = window.innerWidth < 768 ? 40 : 80;
-        function resize() { w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight; }
-        resize(); window.addEventListener('resize', resize);
-        class P {
-          constructor() { this.reset(); }
-          reset() {
-            this.x = Math.random() * w; this.y = Math.random() * h;
-            this.size = Math.random() * 2.5 + 0.5;
-            this.speedX = (Math.random() - 0.5) * 0.3;
-            this.speedY = (Math.random() - 0.5) * 0.3 - 0.15;
-            this.opacity = Math.random() * 0.5 + 0.1;
-            this.opTarget = this.opacity;
-            this.pulse = Math.random() * Math.PI * 2;
-            this.pulseSpeed = Math.random() * 0.02 + 0.005;
-          }
-          update() {
-            this.x += this.speedX; this.y += this.speedY;
-            this.pulse += this.pulseSpeed;
-            this.opacity = this.opTarget + Math.sin(this.pulse) * 0.15;
-            if (this.x < -10 || this.x > w + 10 || this.y < -10 || this.y > h + 10) this.reset();
-          }
-          draw() {
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(59,130,246,${Math.max(0, this.opacity)})`;
-            ctx.fill();
-            if (this.size > 1.5) {
-              ctx.beginPath(); ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
-              ctx.fillStyle = `rgba(59,130,246,${Math.max(0, this.opacity * 0.15)})`;
-              ctx.fill();
-            }
-          }
-        }
-        for (let i = 0; i < COUNT; i++) particles.push(new P());
-        function animate() {
-          ctx.clearRect(0, 0, w, h);
-          particles.forEach(p => { p.update(); p.draw(); });
-          requestAnimationFrame(animate);
-        }
-        animate();
-        return;
-      }
+      const heroSection = document.querySelector('.hero-story');
+      const textItems = document.querySelectorAll('.story-text-item');
+      const pointsEl = document.getElementById('story-points');
+      const progressEl = document.getElementById('story-progress');
+      const tierEl = document.getElementById('story-tier');
+      const badgeText = document.getElementById('story-badge-text');
+      const notifEl = document.getElementById('story-notif');
+      const notifText = document.getElementById('story-notif-text');
+      const notifSub = document.getElementById('story-notif-sub');
+      const rewardBtn = document.getElementById('story-reward-btn');
+      const rewardCard = document.getElementById('story-reward');
+      const rewardSub = document.getElementById('story-reward-sub');
+      const qrScreen = document.getElementById('story-qr');
+      const confettiContainer = document.getElementById('story-confetti');
+      const txContainer = document.getElementById('story-transactions');
+      const scrollHint = document.getElementById('story-scroll-hint');
+      const dashboard = document.getElementById('story-dashboard');
+      const qrPointsEl = document.getElementById('story-qr-points');
 
-      // WebGL gradient blobs
-      let w, h;
-      function resize() {
-        w = canvas.width = canvas.offsetWidth;
-        h = canvas.height = canvas.offsetHeight;
-        gl.viewport(0, 0, w, h);
-      }
-      resize();
-      window.addEventListener('resize', resize);
+      let currentScene = 0;
+      let currentPoints = 0;
+      let animatingPoints = false;
+      let pointsAnimFrame = null;
 
-      const vertSrc = `attribute vec2 a_position;
-        void main() { gl_Position = vec4(a_position, 0.0, 1.0); }`;
-
-      const fragSrc = `precision mediump float;
-        uniform vec2 u_resolution;
-        uniform float u_time;
-        void main() {
-          vec2 uv = gl_FragCoord.xy / u_resolution;
-          float t = u_time * 0.15;
-          // Animated gradient blobs
-          vec2 p1 = vec2(0.3 + sin(t * 0.7) * 0.2, 0.4 + cos(t * 0.5) * 0.25);
-          vec2 p2 = vec2(0.7 + cos(t * 0.6) * 0.2, 0.3 + sin(t * 0.8) * 0.2);
-          vec2 p3 = vec2(0.5 + sin(t * 0.9) * 0.15, 0.7 + cos(t * 0.4) * 0.2);
-          vec2 p4 = vec2(0.2 + cos(t * 0.5) * 0.15, 0.8 + sin(t * 0.6) * 0.15);
-
-          float d1 = exp(-3.5 * length(uv - p1));
-          float d2 = exp(-4.0 * length(uv - p2));
-          float d3 = exp(-3.0 * length(uv - p3));
-          float d4 = exp(-4.5 * length(uv - p4));
-
-          float field = d1 + d2 + d3 + d4;
-
-          // Blue color palette
-          vec3 c1 = vec3(0.231, 0.510, 0.965); // #3b82f6
-          vec3 c2 = vec3(0.376, 0.647, 0.980); // #60a5fa
-          vec3 c3 = vec3(0.145, 0.388, 0.922); // #2563eb
-          vec3 c4 = vec3(0.082, 0.200, 0.502);
-
-          vec3 col = mix(c4, c3, d1 * 2.0);
-          col = mix(col, c1, d2 * 2.0);
-          col = mix(col, c2, d3 * 1.5);
-          col += c1 * d4;
-
-          float alpha = field * 0.12;
-          gl_FragColor = vec4(col * alpha, alpha);
-        }`;
-
-      function compileShader(src, type) {
-        const s = gl.createShader(type);
-        gl.shaderSource(s, src);
-        gl.compileShader(s);
-        return s;
-      }
-
-      const prog = gl.createProgram();
-      gl.attachShader(prog, compileShader(vertSrc, gl.VERTEX_SHADER));
-      gl.attachShader(prog, compileShader(fragSrc, gl.FRAGMENT_SHADER));
-      gl.linkProgram(prog);
-      gl.useProgram(prog);
-
-      const buf = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
-
-      const aPos = gl.getAttribLocation(prog, 'a_position');
-      gl.enableVertexAttribArray(aPos);
-      gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
-
-      const uRes = gl.getUniformLocation(prog, 'u_resolution');
-      const uTime = gl.getUniformLocation(prog, 'u_time');
-
-      gl.enable(gl.BLEND);
-      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-
-      function render(time) {
-        gl.uniform2f(uRes, w, h);
-        gl.uniform1f(uTime, time * 0.001);
-        gl.clearColor(0, 0, 0, 0);
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-        requestAnimationFrame(render);
-      }
-      requestAnimationFrame(render);
-
-      // Also draw particles on a second 2D canvas overlay
-      const c2d = document.createElement('canvas');
-      c2d.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
-      canvas.parentElement.insertBefore(c2d, canvas.nextSibling);
-      const ctx2 = c2d.getContext('2d');
-      let pw, ph;
-      const particles = [];
-      const PCOUNT = window.innerWidth < 768 ? 30 : 60;
-      function resizeP() { pw = c2d.width = c2d.offsetWidth; ph = c2d.height = c2d.offsetHeight; }
-      resizeP(); window.addEventListener('resize', resizeP);
-      class Particle {
-        constructor() { this.reset(); }
-        reset() {
-          this.x = Math.random() * pw; this.y = Math.random() * ph;
-          this.size = Math.random() * 2 + 0.5;
-          this.speedX = (Math.random() - 0.5) * 0.25;
-          this.speedY = (Math.random() - 0.5) * 0.25 - 0.1;
-          this.opacity = Math.random() * 0.4 + 0.1;
-          this.opTarget = this.opacity;
-          this.pulse = Math.random() * Math.PI * 2;
-          this.pulseSpeed = Math.random() * 0.02 + 0.005;
-        }
-        update() {
-          this.x += this.speedX; this.y += this.speedY;
-          this.pulse += this.pulseSpeed;
-          this.opacity = this.opTarget + Math.sin(this.pulse) * 0.12;
-          if (this.x < -10 || this.x > pw + 10 || this.y < -10 || this.y > ph + 10) this.reset();
-        }
-        draw() {
-          ctx2.beginPath(); ctx2.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx2.fillStyle = `rgba(96,165,250,${Math.max(0, this.opacity)})`;
-          ctx2.fill();
-          if (this.size > 1.2) {
-            ctx2.beginPath(); ctx2.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
-            ctx2.fillStyle = `rgba(59,130,246,${Math.max(0, this.opacity * 0.12)})`;
-            ctx2.fill();
-          }
-        }
-      }
-      for (let i = 0; i < PCOUNT; i++) particles.push(new Particle());
-      function animP() {
-        ctx2.clearRect(0, 0, pw, ph);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animP);
-      }
-      animP();
-    })();
-
-    // =============================================
-    // TYPEWRITER EFFECT
-    // =============================================
-    (function() {
-      const lines = [
-        "Fidelisez vos clients.",
-        "Automatiquement."
+      // Generate QR code grid (CSS pattern)
+      const qrGrid = document.getElementById('story-qr-grid');
+      // Simplified QR pattern
+      const qrPattern = [
+        1,1,1,1,1,1,1,0,1,1,1,1,1,
+        1,0,0,0,0,0,1,0,0,1,0,0,1,
+        1,0,1,1,1,0,1,0,1,0,1,0,1,
+        1,0,1,1,1,0,1,0,0,1,1,0,1,
+        1,0,1,1,1,0,1,0,1,0,0,1,1,
+        1,0,0,0,0,0,1,0,1,1,0,0,1,
+        1,1,1,1,1,1,1,0,1,0,1,0,1,
+        0,0,0,0,0,0,0,0,0,1,0,0,0,
+        1,0,1,1,0,1,1,0,1,1,0,1,1,
+        0,1,0,1,1,0,0,1,0,0,1,0,1,
+        1,0,1,0,1,1,1,0,1,1,1,1,0,
+        0,0,0,1,0,0,0,0,1,0,1,0,1,
+        1,1,1,1,1,1,1,0,0,1,1,0,0,
       ];
-      const target = document.getElementById('typewriter-target');
-      let lineIndex = 0, charIndex = 0;
-      let currentText = '';
+      qrPattern.forEach(v => {
+        const cell = document.createElement('div');
+        cell.className = 'story-qr-cell ' + (v ? 'black' : 'white');
+        qrGrid.appendChild(cell);
+      });
 
-      function type() {
-        if (lineIndex >= lines.length) return;
-        const line = lines[lineIndex];
-        if (charIndex < line.length) {
-          currentText += line[charIndex];
-          charIndex++;
-          updateDisplay();
-          setTimeout(type, 35 + Math.random() * 25);
-        } else {
-          lineIndex++;
-          if (lineIndex < lines.length) {
-            currentText += '<br>';
-            charIndex = 0;
-            setTimeout(type, 350);
+      // Generate confetti dots
+      const confettiColors = ['#3b82f6', '#60a5fa', '#93c5fd', '#ffffff', '#2563eb', '#dbeafe'];
+      for (let i = 0; i < 30; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'confetti-dot';
+        dot.style.left = Math.random() * 100 + '%';
+        dot.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        dot.style.setProperty('--duration', (2 + Math.random() * 2) + 's');
+        dot.style.setProperty('--delay', (Math.random() * 1.5) + 's');
+        dot.style.width = (4 + Math.random() * 4) + 'px';
+        dot.style.height = dot.style.width;
+        confettiContainer.appendChild(dot);
+      }
+
+      // Animate points counter
+      function animatePoints(from, to, duration) {
+        if (pointsAnimFrame) cancelAnimationFrame(pointsAnimFrame);
+        const start = performance.now();
+        animatingPoints = true;
+        function tick(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          currentPoints = Math.round(from + (to - from) * eased);
+          pointsEl.textContent = currentPoints;
+          if (progress < 1) {
+            pointsAnimFrame = requestAnimationFrame(tick);
+          } else {
+            animatingPoints = false;
           }
+        }
+        pointsAnimFrame = requestAnimationFrame(tick);
+      }
+
+      // Add transaction line
+      function addTransaction(name, pts) {
+        const existing = txContainer.querySelectorAll('.story-tx-item');
+        const item = document.createElement('div');
+        item.className = 'story-tx-item';
+        item.innerHTML = '<span class="story-tx-name">' + name + '</span><span class="story-tx-pts">+' + pts + ' pts</span>';
+        txContainer.appendChild(item);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { item.classList.add('visible'); });
+        });
+      }
+
+      // Clear transactions
+      function clearTransactions() {
+        txContainer.querySelectorAll('.story-tx-item').forEach(el => el.remove());
+      }
+
+      // Show notification
+      function showNotification(text, sub) {
+        notifText.textContent = text;
+        notifSub.textContent = sub;
+        notifEl.classList.add('visible');
+        // Auto-hide after transition to next scene handles it
+      }
+
+      function hideNotification() {
+        notifEl.classList.remove('visible');
+      }
+
+      // Scene definitions
+      const scenes = {
+        1: function() {
+          hideNotification();
+          qrScreen.classList.remove('visible');
+          confettiContainer.classList.remove('visible');
+          dashboard.style.opacity = '1';
+          if (!animatingPoints || currentPoints !== 0) animatePoints(currentPoints, 0, 400);
+          progressEl.style.width = '0%';
+          progressEl.classList.remove('shimmer');
+          tierEl.textContent = 'Nouveau membre';
+          tierEl.className = 'story-tier-pill';
+          badgeText.textContent = 'Nouveau membre';
+          rewardBtn.textContent = 'Verrouill\u00e9';
+          rewardBtn.className = 'story-reward-btn';
+          rewardCard.classList.remove('glow');
+          rewardSub.textContent = '500 pts requis';
+          clearTransactions();
+        },
+        2: function() {
+          hideNotification();
+          qrScreen.classList.remove('visible');
+          confettiContainer.classList.remove('visible');
+          dashboard.style.opacity = '1';
+          setTimeout(() => showNotification('+75 points', 'Bonus inscription'), 200);
+          animatePoints(currentPoints, 75, 800);
+          progressEl.style.width = '15%';
+          progressEl.classList.remove('shimmer');
+          tierEl.textContent = 'Nouveau membre';
+          tierEl.className = 'story-tier-pill';
+          badgeText.textContent = 'Nouveau membre';
+          rewardBtn.textContent = 'Verrouill\u00e9';
+          rewardBtn.className = 'story-reward-btn';
+          rewardCard.classList.remove('glow');
+          rewardSub.textContent = '425 pts restants';
+          clearTransactions();
+          addTransaction('Bonus inscription', 75);
+        },
+        3: function() {
+          hideNotification();
+          qrScreen.classList.remove('visible');
+          confettiContainer.classList.remove('visible');
+          dashboard.style.opacity = '1';
+          setTimeout(() => showNotification('+120 points', 'Achat de 12$'), 200);
+          animatePoints(currentPoints, 195, 800);
+          progressEl.style.width = '39%';
+          progressEl.classList.remove('shimmer');
+          tierEl.textContent = 'Nouveau membre';
+          tierEl.className = 'story-tier-pill';
+          badgeText.textContent = 'Nouveau membre';
+          rewardBtn.textContent = 'Verrouill\u00e9';
+          rewardBtn.className = 'story-reward-btn';
+          rewardCard.classList.remove('glow');
+          rewardSub.textContent = '305 pts restants';
+          clearTransactions();
+          addTransaction('Bonus inscription', 75);
+          setTimeout(() => addTransaction('Achat', 120), 300);
+        },
+        4: function() {
+          hideNotification();
+          qrScreen.classList.remove('visible');
+          confettiContainer.classList.remove('visible');
+          dashboard.style.opacity = '1';
+          setTimeout(() => showNotification('+75 points', 'Parrainage'), 200);
+          animatePoints(currentPoints, 270, 800);
+          progressEl.style.width = '54%';
+          progressEl.classList.remove('shimmer');
+          tierEl.textContent = 'Niveau Argent';
+          tierEl.className = 'story-tier-pill silver';
+          badgeText.textContent = 'Niveau Argent';
+          rewardBtn.textContent = 'Verrouill\u00e9';
+          rewardBtn.className = 'story-reward-btn';
+          rewardCard.classList.remove('glow');
+          rewardSub.textContent = '230 pts restants';
+          clearTransactions();
+          addTransaction('Bonus inscription', 75);
+          setTimeout(() => addTransaction('Achat', 120), 200);
+          setTimeout(() => addTransaction('Parrainage', 75), 400);
+        },
+        5: function() {
+          hideNotification();
+          qrScreen.classList.remove('visible');
+          confettiContainer.classList.remove('visible');
+          dashboard.style.opacity = '1';
+          animatePoints(currentPoints, 520, 1200);
+          progressEl.style.width = '100%';
+          progressEl.classList.add('shimmer');
+          tierEl.textContent = 'Niveau Argent';
+          tierEl.className = 'story-tier-pill silver';
+          badgeText.textContent = 'Niveau Argent';
+          rewardBtn.textContent = '\u00c9changer';
+          rewardBtn.className = 'story-reward-btn active';
+          rewardCard.classList.add('glow');
+          rewardSub.textContent = 'Disponible!';
+          clearTransactions();
+          addTransaction('Bonus inscription', 75);
+          setTimeout(() => addTransaction('Achat', 120), 100);
+          setTimeout(() => addTransaction('Parrainage', 75), 200);
+          setTimeout(() => addTransaction('Achat', 95), 300);
+          setTimeout(() => addTransaction('Achat', 80), 400);
+          setTimeout(() => addTransaction('Achat', 75), 500);
+        },
+        6: function() {
+          hideNotification();
+          dashboard.style.opacity = '0.3';
+          qrScreen.classList.add('visible');
+          confettiContainer.classList.add('visible');
+          animatePoints(currentPoints, 20, 800);
+          progressEl.style.width = '4%';
+          progressEl.classList.remove('shimmer');
+          rewardBtn.textContent = 'Verrouill\u00e9';
+          rewardBtn.className = 'story-reward-btn';
+          rewardCard.classList.remove('glow');
+          rewardSub.textContent = '480 pts restants';
+        },
+        7: function() {
+          hideNotification();
+          qrScreen.classList.remove('visible');
+          confettiContainer.classList.remove('visible');
+          dashboard.style.opacity = '1';
+          animatePoints(currentPoints, 20, 400);
+          progressEl.style.width = '4%';
+          progressEl.classList.remove('shimmer');
+          tierEl.textContent = 'Niveau Argent';
+          tierEl.className = 'story-tier-pill silver';
+          badgeText.textContent = 'Niveau Argent';
+          rewardBtn.textContent = 'Verrouill\u00e9';
+          rewardBtn.className = 'story-reward-btn';
+          rewardCard.classList.remove('glow');
+          rewardSub.textContent = '480 pts restants';
+          clearTransactions();
+          addTransaction('Caf\u00e9 Gratuit', -500);
+          // Fix the last tx to show negative
+          const lastTx = txContainer.querySelector('.story-tx-item:last-child .story-tx-pts');
+          if (lastTx) { lastTx.textContent = '-500 pts'; lastTx.style.color = '#ef4444'; }
+        }
+      };
+
+      function setScene(scene) {
+        if (scene === currentScene) return;
+        currentScene = scene;
+
+        // Update text panels
+        textItems.forEach(item => {
+          const s = parseInt(item.dataset.scene);
+          item.classList.toggle('active', s === scene);
+        });
+
+        // Run scene logic
+        if (scenes[scene]) scenes[scene]();
+
+        // Hide scroll hint after first scroll
+        if (scene > 1 && scrollHint) {
+          scrollHint.classList.add('hidden');
         }
       }
 
-      function updateDisplay() {
-        target.innerHTML = currentText;
+      // Scroll handler (desktop)
+      let ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const rect = heroSection.getBoundingClientRect();
+          const scrolled = -rect.top;
+          const vh = window.innerHeight;
+
+          if (scrolled < 0) {
+            setScene(1);
+          } else {
+            const scene = Math.min(7, Math.max(1, Math.floor(scrolled / vh) + 1));
+            setScene(scene);
+          }
+          ticking = false;
+        });
       }
 
-      setTimeout(type, 500);
+      // Mobile: auto-play scenes
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
+        heroSection.style.height = 'auto';
+        let mobileScene = 1;
+        setScene(1);
+        setInterval(() => {
+          mobileScene = mobileScene >= 7 ? 1 : mobileScene + 1;
+          setScene(mobileScene);
+        }, 2000);
+      } else {
+        window.addEventListener('scroll', onScroll, { passive: true });
+        // Initialize scene 1
+        setScene(1);
+      }
     })();
 
     // =============================================
@@ -1978,36 +2051,7 @@
       });
     });
 
-    // =============================================
-    // PHONE DASHBOARD — animate progress bar
-    // =============================================
-    (function() {
-      const bar = document.getElementById('dash-progress');
-      if (bar) {
-        setTimeout(() => { bar.classList.add('animate'); }, 800);
-      }
-    })();
-
-    // =============================================
-    // 3D PHONE PARALLAX ON SCROLL
-    // =============================================
-    (function() {
-      const phone = document.getElementById('phone-3d');
-      if (!phone) return;
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            const scrollY = window.scrollY;
-            const rotateY = Math.sin(scrollY * 0.003) * 10;
-            const rotateX = Math.cos(scrollY * 0.002) * 5;
-            phone.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-            ticking = false;
-          });
-          ticking = true;
-        }
-      });
-    })();
+    // (Phone parallax and dashboard progress removed — handled by scroll story)
 
     // =============================================
     // SCROLL ORBS FOLLOW SCROLL POSITION
@@ -2041,26 +2085,7 @@
       document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    // =============================================
-    // PARALLAX BLOBS
-    // =============================================
-    (function() {
-      const blob1 = document.querySelector('.hero-blob');
-      const blob2 = document.querySelector('.hero-blob-2');
-      if (!blob1) return;
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            const s = window.scrollY;
-            blob1.style.transform = `translate(${Math.sin(s*0.002)*25}px, ${s*-0.2}px)`;
-            blob2.style.transform = `translate(${Math.cos(s*0.002)*20}px, ${s*-0.12}px)`;
-            ticking = false;
-          });
-          ticking = true;
-        }
-      });
-    })();
+    // (Parallax blobs removed — hero uses scroll story now)
 
     // =============================================
     // SMOOTH SCROLL
