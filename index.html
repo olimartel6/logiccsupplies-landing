@@ -307,17 +307,23 @@
       pointer-events: none;
     }
     .scroll-hint {
-      margin-top: 24px;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
       text-align: center;
+      z-index: 50;
       opacity: 0;
       animation: scroll-hint-appear 1s ease 3s forwards, bounce-down 2s ease 4s infinite;
+      transition: opacity 0.3s;
     }
+    .scroll-hint.hide { opacity: 0 !important; animation: none !important; }
     @keyframes scroll-hint-appear {
       to { opacity: 1; }
     }
     @keyframes bounce-down {
-      0%, 100% { transform: translateY(0); opacity: 1; }
-      50% { transform: translateY(10px); opacity: 1; }
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+      50% { transform: translateX(-50%) translateY(10px); opacity: 1; }
     }
     /* Story text panels (left side, overlaying hero-text area) */
     .story-text-overlay {
@@ -1463,6 +1469,11 @@
     </div>
   </nav>
 
+  <!-- Scroll hint -->
+  <div class="scroll-hint" id="scroll-hint">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+
   <!-- UNIFIED HERO + STORY -->
   <div class="hero-story-wrapper" id="hero-story-wrapper">
     <div class="hero-story-sticky">
@@ -1492,9 +1503,6 @@
             <div class="hero-actions" style="opacity:0; animation: fade-up 0.8s ease 2.5s forwards;">
               <a href="mailto:olivier@logiccsupplies.ca?subject=Demande%20de%20demo%20gratuite&body=Bonjour,%20je%20suis%20interesse%20par%20une%20demo%20pour%20mon%20commerce.%0A%0ANom%20du%20commerce:%0AType%20(salon,%20resto,%20gym,%20etc.):" class="btn-blue magnetic-btn">Demander une demo gratuite</a>
               <a href="#comment-ca-marche" class="btn-ghost">Comment ca marche</a>
-            </div>
-            <div class="scroll-hint">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
             </div>
           </div>
 
@@ -2824,6 +2832,14 @@
       }
 
       window.addEventListener('scroll', handleScroll, { passive: true });
+      // Hide scroll hint on scroll
+      const scrollHintEl = document.getElementById('scroll-hint');
+      if (scrollHintEl) {
+        window.addEventListener('scroll', function() {
+          if (window.scrollY > 100) scrollHintEl.classList.add('hide');
+          else scrollHintEl.classList.remove('hide');
+        }, { passive: true });
+      }
       handleScroll();
 
       // Scroll-driven on all devices (no auto-play)
