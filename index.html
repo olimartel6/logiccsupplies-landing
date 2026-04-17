@@ -306,6 +306,15 @@
       transform: translateY(-30px) !important;
       pointer-events: none;
     }
+    .scroll-hint {
+      margin-top: 24px;
+      text-align: center;
+      animation: bounce-down 2s ease infinite 3.5s !important;
+    }
+    @keyframes bounce-down {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
     /* Story text panels (left side, overlaying hero-text area) */
     .story-text-overlay {
       position: absolute;
@@ -1479,6 +1488,9 @@
             <div class="hero-actions" style="opacity:0; animation: fade-up 0.8s ease 2.5s forwards;">
               <a href="mailto:olivier@logiccsupplies.ca?subject=Demande%20de%20demo%20gratuite&body=Bonjour,%20je%20suis%20interesse%20par%20une%20demo%20pour%20mon%20commerce.%0A%0ANom%20du%20commerce:%0AType%20(salon,%20resto,%20gym,%20etc.):" class="btn-blue magnetic-btn">Demander une demo gratuite</a>
               <a href="#comment-ca-marche" class="btn-ghost">Comment ca marche</a>
+            </div>
+            <div class="scroll-hint" style="opacity:0; animation: fade-up 0.8s ease 2.8s forwards;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
             </div>
           </div>
 
