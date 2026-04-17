@@ -387,92 +387,175 @@
         0 40px 80px rgba(0,0,0,0.6),
         0 0 80px rgba(59,130,246,0.12),
         inset 0 0 0 1px rgba(255,255,255,0.05);
-      background: linear-gradient(160deg, #0f1528 0%, #080812 100%);
+      background: #1a1a1a;
     }
     .phone-notch {
       position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 120px; height: 28px; background: #050510;
+      width: 120px; height: 28px; background: #1a1a1a;
       border-radius: 0 0 20px 20px; z-index: 10;
     }
-    .phone-screen {
-      padding: 40px 24px 24px; min-height: 520px;
-      background: linear-gradient(160deg, #0f1528 0%, #080812 100%);
+    .phone-notch::after {
+      content: ''; position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+      width: 8px; height: 8px; border-radius: 50%; background: #2a2a2a;
     }
-    .phone-header { text-align: center; margin-bottom: 20px; }
-    .phone-greeting {
-      font-size: 13px; color: rgba(232,234,240,0.35);
-      font-family: var(--font); margin-bottom: 4px;
+    .phone-screen-area {
+      overflow: hidden; position: relative; min-height: 540px;
+      background: #fafaf8;
     }
-    .phone-user-name {
-      font-family: var(--font-display); font-size: 18px; font-weight: 600;
-      color: var(--text-on-dark);
+    .phone-carousel-track {
+      display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 300%;
     }
-    .phone-points-card {
-      background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(59,130,246,0.03));
-      border: 1px solid rgba(59,130,246,0.2); border-radius: 20px;
-      padding: 24px; text-align: center; margin-bottom: 16px;
-      position: relative; overflow: hidden;
+    .phone-slide {
+      width: 100%; flex-shrink: 0;
+      padding: 42px 20px 16px; min-height: 540px;
+      box-sizing: border-box;
     }
-    .phone-points-card::before {
-      content: ''; position: absolute; top: -50%; right: -50%;
-      width: 100%; height: 100%; border-radius: 50%;
-      background: radial-gradient(circle, rgba(59,130,246,0.1), transparent);
+
+    /* Screen 1: Dashboard */
+    .dash-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
     }
-    .phone-points-label {
-      font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
-      color: var(--accent-light); font-weight: 600; margin-bottom: 8px;
+    .dash-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 14px; font-family: var(--font-display);
     }
-    .phone-points-number {
-      font-family: var(--font-display); font-size: 48px; font-weight: 700;
-      color: var(--accent); line-height: 1;
-      text-shadow: 0 0 30px rgba(59,130,246,0.4);
+    .dash-greeting { font-size: 12px; color: #9ca3af; font-family: var(--font); }
+    .dash-name { font-size: 16px; font-weight: 700; color: #1a1a2e; font-family: var(--font-display); }
+    .dash-points-display {
+      text-align: center; margin: 16px 0 10px;
     }
-    .phone-points-unit {
-      font-size: 12px; color: rgba(232,234,240,0.35); margin-top: 4px;
+    .dash-points-big {
+      font-family: var(--font-display); font-size: 56px; font-weight: 800;
+      background: linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; line-height: 1;
     }
-    .phone-progress {
-      margin: 16px 0 8px; height: 6px; background: rgba(255,255,255,0.06);
-      border-radius: 100px; overflow: hidden;
+    .dash-points-label { font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
+    .dash-tier {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff; font-size: 11px; font-weight: 700;
+      padding: 4px 14px; border-radius: 100px; margin: 10px auto; display: flex; width: fit-content;
+      letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(59,130,246,0.3);
     }
-    .phone-progress-bar {
-      height: 100%; width: 65%; border-radius: 100px;
-      background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light));
-      box-shadow: 0 0 12px rgba(59,130,246,0.5);
+    .dash-tier svg { width: 12px; height: 12px; }
+    .dash-next-reward {
+      background: #f0f4ff; border-radius: 14px; padding: 14px 16px; margin: 14px 0;
     }
-    .phone-progress-text {
-      display: flex; justify-content: space-between;
-      font-size: 10px; color: rgba(232,234,240,0.3);
+    .dash-next-label { font-size: 10px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
+    .dash-progress-wrap {
+      height: 8px; background: #e5e7eb; border-radius: 100px; overflow: hidden; position: relative;
     }
-    .phone-reward {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 16px; padding: 16px; display: flex;
-      align-items: center; gap: 14px; margin-top: 12px;
+    .dash-progress-fill {
+      height: 100%; width: 0; border-radius: 100px;
+      background: linear-gradient(90deg, #2563eb, #3b82f6, #60a5fa);
+      box-shadow: 0 0 10px rgba(59,130,246,0.4);
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .dash-progress-fill.animate { width: 62%; }
+    .dash-next-text { font-size: 11px; color: #4b5563; margin-top: 6px; }
+    .dash-next-text strong { color: #1a1a2e; }
+    .dash-stats {
+      display: flex; gap: 8px; margin-top: 14px;
+    }
+    .dash-stat-card {
+      flex: 1; background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 12px; padding: 10px 6px; text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .dash-stat-num {
+      font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #1a1a2e;
+    }
+    .dash-stat-label { font-size: 9px; color: #9ca3af; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Screen 2: Rewards */
+    .rew-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+    }
+    .rew-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #1a1a2e; }
+    .rew-points-badge {
+      background: #f0f4ff; color: #3b82f6; font-size: 12px; font-weight: 700;
+      padding: 4px 12px; border-radius: 100px;
+    }
+    .rew-card {
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 16px;
+      padding: 14px 16px; margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
       transition: all 0.3s;
     }
-    .phone-reward:hover { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.15); }
-    .phone-reward-icon {
-      width: 44px; height: 44px; border-radius: 12px;
+    .rew-card.locked { opacity: 0.55; }
+    .rew-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .rew-card-name { font-size: 14px; font-weight: 700; color: #1a1a2e; }
+    .rew-card-pts { font-size: 11px; color: #9ca3af; font-weight: 600; }
+    .rew-card-bar {
+      height: 6px; background: #e5e7eb; border-radius: 100px; overflow: hidden; margin-bottom: 8px;
+    }
+    .rew-card-bar-fill {
+      height: 100%; border-radius: 100px;
+      background: linear-gradient(90deg, #2563eb, #3b82f6, #60a5fa);
+      box-shadow: 0 0 8px rgba(59,130,246,0.3);
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .rew-card-action {
+      display: inline-block; background: #3b82f6; color: #fff;
+      font-size: 11px; font-weight: 700; padding: 5px 16px;
+      border-radius: 100px; letter-spacing: 0.3px;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.3);
+    }
+    .rew-card-locked-label {
+      font-size: 10px; color: #9ca3af; display: flex; align-items: center; gap: 4px;
+    }
+
+    /* Screen 3: QR Code */
+    .qr-header { text-align: center; margin-bottom: 8px; }
+    .qr-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #1a1a2e; }
+    .qr-business { font-size: 13px; color: #6b7280; margin-top: 2px; }
+    .qr-code-wrap {
+      width: 160px; height: 160px; margin: 20px auto;
+      background: #fff; border-radius: 16px; padding: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       display: flex; align-items: center; justify-content: center;
-      font-size: 20px; flex-shrink: 0;
     }
-    .phone-reward-text { flex: 1; }
-    .phone-reward-name {
-      font-size: 14px; font-weight: 600; color: var(--text-on-dark);
-      font-family: var(--font);
+    .qr-grid {
+      display: grid; grid-template-columns: repeat(11, 1fr); gap: 2px;
+      width: 120px; height: 120px;
     }
-    .phone-reward-pts { font-size: 11px; color: var(--accent-light); margin-top: 2px; }
-    .phone-reward-btn {
-      font-size: 10px; color: #fff; background: var(--accent);
-      padding: 5px 12px; border-radius: 100px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.5px;
-      box-shadow: 0 0 10px rgba(59,130,246,0.3);
+    .qr-cell {
+      border-radius: 1px; transition: background 0.1s;
     }
-    .phone-nav { display: flex; justify-content: center; gap: 6px; margin-top: 20px; }
+    .qr-cell.filled { background: #1a1a2e; }
+    .qr-cell.empty { background: transparent; }
+    .qr-cell.accent { background: #3b82f6; }
+    .qr-scan-text { text-align: center; font-size: 12px; color: #6b7280; margin: 14px 0; }
+    .qr-wallet-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: #3b82f6; color: #fff; font-size: 13px; font-weight: 700;
+      padding: 12px 20px; border-radius: 14px; margin: 0 auto; width: fit-content;
+      box-shadow: 0 4px 16px rgba(59,130,246,0.3);
+    }
+    .qr-wallet-btn svg { width: 16px; height: 16px; }
+    .qr-bottom {
+      display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px;
+    }
+    .qr-bottom-pts {
+      font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #1a1a2e;
+    }
+    .qr-bottom-tier {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff; font-size: 9px; font-weight: 700;
+      padding: 3px 10px; border-radius: 100px; letter-spacing: 0.5px;
+    }
+
+    /* Phone nav dots */
+    .phone-nav { display: flex; justify-content: center; gap: 8px; padding: 10px 0 14px; background: #fafaf8; position: relative; z-index: 5; }
     .phone-nav-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,0.12);
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #d1d5db; cursor: pointer; transition: all 0.3s;
     }
-    .phone-nav-dot.active { background: var(--accent); width: 20px; border-radius: 3px; box-shadow: 0 0 8px rgba(59,130,246,0.4); }
+    .phone-nav-dot.active { background: var(--accent); width: 24px; border-radius: 4px; box-shadow: 0 0 8px rgba(59,130,246,0.4); }
 
     /* Phone notification slides */
     .phone-notification {
@@ -483,9 +566,9 @@
       box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 20px rgba(59,130,246,0.1);
       opacity: 0; white-space: nowrap;
     }
-    .phone-notification-1 { top: 25%; animation: notification-slide 0.6s ease 3s forwards; }
-    .phone-notification-2 { top: 45%; animation: notification-slide 0.6s ease 4.5s forwards; }
-    .phone-notification-3 { top: 65%; animation: notification-slide 0.6s ease 6s forwards; }
+    .phone-notification-1 { top: 20%; animation: notification-slide 0.6s ease 3s forwards; }
+    .phone-notification-2 { top: 42%; animation: notification-slide 0.6s ease 4.5s forwards; }
+    .phone-notification-3 { top: 64%; animation: notification-slide 0.6s ease 6s forwards; }
     .notif-icon {
       width: 32px; height: 32px; border-radius: 8px;
       display: flex; align-items: center; justify-content: center; font-size: 14px;
@@ -504,8 +587,8 @@
       animation: floatSlow 5s ease-in-out infinite;
       box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 20px rgba(59,130,246,0.05);
     }
-    .floating-card-1 { top: 15%; right: -30px; animation-delay: -1s; }
-    .floating-card-2 { bottom: 20%; left: -40px; animation-delay: -3s; }
+    .floating-card-1 { top: 12%; right: -30px; animation-delay: -1s; }
+    .floating-card-2 { bottom: 18%; left: -40px; animation-delay: -3s; }
     .floating-icon {
       width: 36px; height: 36px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center; font-size: 16px;
@@ -1026,8 +1109,9 @@
       .hero-visual { order: -1; }
       .phone-wrapper { width: 260px; }
       .phone-frame { width: 240px; }
-      .phone-screen { min-height: 420px; padding: 36px 18px 18px; }
-      .phone-points-number { font-size: 36px; }
+      .phone-screen-area { min-height: 460px; }
+      .phone-slide { min-height: 460px; padding: 38px 16px 12px; }
+      .dash-points-big { font-size: 42px; }
       .floating-el { display: none; }
       .phone-notification { display: none; }
       .nav-links { display: none; }
@@ -1130,44 +1214,109 @@
           <div class="phone-glow"></div>
           <div class="phone-frame">
             <div class="phone-notch"></div>
-            <div class="phone-screen">
-              <div class="phone-header">
-                <div class="phone-greeting">Bonjour</div>
-                <div class="phone-user-name">Olivier</div>
-              </div>
-              <div class="phone-points-card">
-                <div class="phone-points-label">Vos points</div>
-                <div class="phone-points-number" id="phone-points">1,250</div>
-                <div class="phone-points-unit">points accumules</div>
-                <div class="phone-progress">
-                  <div class="phone-progress-bar"></div>
+            <div class="phone-screen-area" id="phone-carousel">
+              <div class="phone-carousel-track" id="phone-track">
+
+                <!-- SCREEN 1: Dashboard -->
+                <div class="phone-slide" id="slide-dashboard">
+                  <div class="dash-header">
+                    <div class="dash-avatar">O</div>
+                    <div>
+                      <div class="dash-greeting">Bonjour,</div>
+                      <div class="dash-name">Olivier</div>
+                    </div>
+                  </div>
+                  <div class="dash-points-display">
+                    <div class="dash-points-big">1,250</div>
+                    <div class="dash-points-label">points</div>
+                  </div>
+                  <div class="dash-tier">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    Niveau Platine
+                  </div>
+                  <div class="dash-next-reward">
+                    <div class="dash-next-label">Prochain objectif</div>
+                    <div class="dash-progress-wrap">
+                      <div class="dash-progress-fill" id="dash-progress"></div>
+                    </div>
+                    <div class="dash-next-text"><strong>Cafe Gratuit</strong> — 250 pts restants</div>
+                  </div>
+                  <div class="dash-stats">
+                    <div class="dash-stat-card">
+                      <div class="dash-stat-num">8</div>
+                      <div class="dash-stat-label">Achats</div>
+                    </div>
+                    <div class="dash-stat-card">
+                      <div class="dash-stat-num">3</div>
+                      <div class="dash-stat-label">Visites</div>
+                    </div>
+                    <div class="dash-stat-card">
+                      <div class="dash-stat-num">2</div>
+                      <div class="dash-stat-label">Parrainages</div>
+                    </div>
+                  </div>
                 </div>
-                <div class="phone-progress-text">
-                  <span>Niveau Platine</span>
-                  <span>1,250 / 2,000</span>
+
+                <!-- SCREEN 2: Rewards -->
+                <div class="phone-slide" id="slide-rewards">
+                  <div class="rew-header">
+                    <div class="rew-title">Recompenses</div>
+                    <div class="rew-points-badge">1,250 pts</div>
+                  </div>
+                  <div class="rew-card">
+                    <div class="rew-card-top">
+                      <div class="rew-card-name">Cafe Gratuit</div>
+                      <div class="rew-card-pts">500 pts</div>
+                    </div>
+                    <div class="rew-card-bar"><div class="rew-card-bar-fill" data-width="100%"></div></div>
+                    <div class="rew-card-action">Echanger</div>
+                  </div>
+                  <div class="rew-card">
+                    <div class="rew-card-top">
+                      <div class="rew-card-name">15% Rabais</div>
+                      <div class="rew-card-pts">800 pts</div>
+                    </div>
+                    <div class="rew-card-bar"><div class="rew-card-bar-fill" data-width="75%"></div></div>
+                    <div style="font-size:10px;color:#9ca3af;margin-top:2px;">200 pts restants</div>
+                  </div>
+                  <div class="rew-card locked">
+                    <div class="rew-card-top">
+                      <div class="rew-card-name">Massage Gratuit</div>
+                      <div class="rew-card-pts">1,500 pts</div>
+                    </div>
+                    <div class="rew-card-bar"><div class="rew-card-bar-fill" data-width="40%"></div></div>
+                    <div class="rew-card-locked-label">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      250 pts restants
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="phone-reward">
-                <div class="phone-reward-icon" style="background: linear-gradient(135deg, rgba(59,130,246,0.25), rgba(59,130,246,0.08));">&#9749;</div>
-                <div class="phone-reward-text">
-                  <div class="phone-reward-name">Cafe Gratuit</div>
-                  <div class="phone-reward-pts">500 points</div>
+
+                <!-- SCREEN 3: QR Code -->
+                <div class="phone-slide" id="slide-qr">
+                  <div class="qr-header">
+                    <div class="qr-title">Mon QR</div>
+                    <div class="qr-business">Cafe Maelstrom</div>
+                  </div>
+                  <div class="qr-code-wrap">
+                    <div class="qr-grid" id="qr-grid"></div>
+                  </div>
+                  <div class="qr-scan-text">Montrez ce code a la caisse</div>
+                  <div class="qr-wallet-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                    Ajouter au Wallet
+                  </div>
+                  <div class="qr-bottom">
+                    <div class="qr-bottom-pts">1,250</div>
+                    <div class="qr-bottom-tier">PLATINE</div>
+                  </div>
                 </div>
-                <div class="phone-reward-btn">Echanger</div>
+
               </div>
-              <div class="phone-reward">
-                <div class="phone-reward-icon" style="background: linear-gradient(135deg, rgba(139,92,246,0.25), rgba(139,92,246,0.08));">&#127873;</div>
-                <div class="phone-reward-text">
-                  <div class="phone-reward-name">15% de rabais</div>
-                  <div class="phone-reward-pts">800 points</div>
-                </div>
-                <div class="phone-reward-btn">Echanger</div>
-              </div>
-              <div class="phone-nav">
-                <div class="phone-nav-dot active"></div>
-                <div class="phone-nav-dot"></div>
-                <div class="phone-nav-dot"></div>
-                <div class="phone-nav-dot"></div>
+              <div class="phone-nav" id="phone-nav">
+                <div class="phone-nav-dot active" data-slide="0"></div>
+                <div class="phone-nav-dot" data-slide="1"></div>
+                <div class="phone-nav-dot" data-slide="2"></div>
               </div>
             </div>
           </div>
@@ -1200,7 +1349,7 @@
             <div class="floating-icon" style="background: rgba(34,197,94,0.15);">&#10003;</div>
             <div>
               <div class="floating-text">+50 points</div>
-              <div class="floating-sub">Achat enregistre</div>
+              <div class="floating-sub">Achat valide</div>
             </div>
           </div>
           <div class="floating-el floating-card floating-card-2">
@@ -1876,6 +2025,96 @@
         btn.style.transition = 'transform 0.15s ease-out';
       });
     });
+
+    // =============================================
+    // PHONE CAROUSEL — auto-cycle 3 screens
+    // =============================================
+    (function() {
+      const track = document.getElementById('phone-track');
+      const dots = document.querySelectorAll('#phone-nav .phone-nav-dot');
+      if (!track || !dots.length) return;
+
+      let current = 0;
+      let interval;
+      let hovered = false;
+
+      function goTo(idx) {
+        current = idx;
+        track.style.transform = 'translateX(-' + (idx * 33.333) + '%)';
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        animateSlide(idx);
+      }
+
+      function animateSlide(idx) {
+        if (idx === 0) {
+          const bar = document.getElementById('dash-progress');
+          if (bar) { bar.classList.remove('animate'); void bar.offsetWidth; bar.classList.add('animate'); }
+        }
+        if (idx === 1) {
+          document.querySelectorAll('.rew-card-bar-fill').forEach(el => {
+            const w = el.getAttribute('data-width');
+            el.style.width = '0'; void el.offsetWidth; el.style.width = w;
+          });
+        }
+      }
+
+      function startAuto() {
+        interval = setInterval(() => {
+          if (!hovered) goTo((current + 1) % 3);
+        }, 3000);
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          goTo(parseInt(dot.getAttribute('data-slide')));
+          clearInterval(interval);
+          startAuto();
+        });
+      });
+
+      const carousel = document.getElementById('phone-carousel');
+      if (carousel) {
+        carousel.addEventListener('mouseenter', () => { hovered = true; });
+        carousel.addEventListener('mouseleave', () => { hovered = false; });
+      }
+
+      // Generate QR code grid pattern
+      const qrGrid = document.getElementById('qr-grid');
+      if (qrGrid) {
+        // QR-like pattern (11x11)
+        const pattern = [
+          1,1,1,1,1,1,1,0,1,0,1,
+          1,0,0,0,0,0,1,0,0,1,0,
+          1,0,1,1,1,0,1,0,1,0,1,
+          1,0,1,1,1,0,1,0,0,1,1,
+          1,0,1,1,1,0,1,0,1,1,0,
+          1,0,0,0,0,0,1,0,0,0,1,
+          1,1,1,1,1,1,1,0,1,0,1,
+          0,0,0,0,0,0,0,0,1,1,0,
+          1,0,1,0,1,1,1,0,0,1,1,
+          0,1,0,1,0,0,0,0,1,0,1,
+          1,1,1,0,1,0,1,1,1,1,1
+        ];
+        pattern.forEach((v, i) => {
+          const cell = document.createElement('div');
+          cell.className = 'qr-cell';
+          // Corner squares get accent color
+          const row = Math.floor(i / 11);
+          const col = i % 11;
+          const isCornerSquare = (row < 2 && col < 2) || (row < 2 && col > 8) || (row > 8 && col < 2);
+          if (v) {
+            cell.classList.add(isCornerSquare ? 'accent' : 'filled');
+          } else {
+            cell.classList.add('empty');
+          }
+          qrGrid.appendChild(cell);
+        });
+      }
+
+      // Initial animation
+      setTimeout(() => animateSlide(0), 500);
+      startAuto();
+    })();
 
     // =============================================
     // 3D PHONE PARALLAX ON SCROLL
