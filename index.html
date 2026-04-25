@@ -1427,77 +1427,57 @@
       100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
     }
 
-    /* Mobile: auto-play instead of scroll */
+    /* Mobile: clean natural flow — no sticky scroll-story chopping */
     @media (max-width: 768px) {
       .hero-story-wrapper {
-        height: 600vh;
+        height: auto;
+        background: var(--dark);
       }
       .hero-story-sticky {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        padding-top: 96px;
-        padding-bottom: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
+        position: relative;
+        top: auto;
+        height: auto;
+        padding: 110px 0 60px;
+        display: block;
+        overflow: visible;
       }
       .hero {
         position: relative;
         display: block;
         padding: 0 20px;
+        background: transparent;
+        overflow: visible;
+      }
+      /* Kill desktop-only visual noise that creates seams on mobile */
+      #hero-canvas,
+      .aurora-container,
+      .hero-gradient-mesh,
+      .light-streak,
+      .hero-blob,
+      .hero-blob-2,
+      .phone-glow,
+      .floating-notif,
+      .story-text-overlay,
+      .story-gradient-overlay,
+      .scroll-hint {
+        display: none !important;
       }
       .hero-inner {
         flex-direction: column;
-        gap: 14px;
+        gap: 32px;
         text-align: center;
       }
-      .hero-visual { order: 2; margin-top: 4px; }
+      .hero-visual { order: 2; margin-top: 8px; perspective: none; }
       .hero-text { order: 1; padding-top: 0; }
-      .hero-text h1 { font-size: 30px; line-height: 1.1; }
-      .hero-sub { font-size: 14px; line-height: 1.55; margin: 14px auto 0; }
-      .hero-trust { justify-content: center; margin-top: 10px !important; font-size: 13px !important; }
-      .hero-email-fallback { margin-top: 14px !important; font-size: 13px !important; }
-      .hero-actions { margin-top: 18px !important; gap: 10px; }
-      .hero-badge { margin-bottom: 14px; }
-      .phone-frame { width: 180px !important; }
-      .phone-screen-area { min-height: 340px !important; }
-      .scroll-hint { display: none !important; }
-      .story-text-overlay {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 60px;
-        top: auto;
-        transform: none;
-        width: 100%;
-        max-width: 100%;
-        padding: 0 24px;
-        text-align: center;
-        z-index: 20;
-        background: linear-gradient(transparent, rgba(5,5,16,0.95) 30%);
-        padding-top: 30px;
-        padding-bottom: 20px;
-      }
-      .story-text-panel {
-        position: absolute;
-        top: 0; left: 0; right: 0;
-      }
-      .story-text-panel.active {
-        text-align: center;
-      }
-      .story-text-panel p {
-        font-size: 18px;
-        line-height: 1.4;
-      }
-      .story-label {
-        text-align: center;
-        font-size: 11px;
-      }
-      .story-gradient-overlay {
-        display: none;
-      }
+      .hero-text h1 { font-size: 32px; line-height: 1.1; }
+      .hero-sub { font-size: 14.5px; line-height: 1.6; margin: 16px auto 0; max-width: 380px; }
+      .hero-trust { justify-content: center; margin-top: 14px !important; font-size: 13px !important; }
+      .hero-email-fallback { margin-top: 18px !important; font-size: 13px !important; }
+      .hero-actions { margin-top: 22px !important; gap: 12px; }
+      .hero-badge { margin-bottom: 16px; }
+      .phone-wrapper { animation: none; }
+      .phone-frame { width: 240px !important; }
+      .phone-screen-area { min-height: 460px !important; }
       .dash-points-big { font-size: 28px !important; }
       .dash-points-label { font-size: 10px !important; }
       .dash-tier-pill { font-size: 9px !important; }
@@ -2849,8 +2829,14 @@
 
       function isMobile() { return window.innerWidth <= 768; }
 
-      // Desktop: scroll-driven
+      // Desktop: scroll-driven. Mobile: static dashboard (clean layout, no scroll fade).
       function handleScroll() {
+        if (isMobile()) {
+          exitStoryMode();
+          heroText.style.opacity = '';
+          heroText.style.transform = '';
+          return;
+        }
         const rect = wrapper.getBoundingClientRect();
         const wrapperH = wrapper.offsetHeight;
         const scrolled = -rect.top;
