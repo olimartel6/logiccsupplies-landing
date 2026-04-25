@@ -1436,12 +1436,12 @@
         position: sticky;
         top: 0;
         height: 100vh;
-        padding-top: 70px;
-        padding-bottom: 160px;
+        padding-top: 96px;
+        padding-bottom: 40px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
       }
       .hero {
         position: relative;
@@ -1450,16 +1450,20 @@
       }
       .hero-inner {
         flex-direction: column;
-        gap: 24px;
+        gap: 14px;
         text-align: center;
       }
-      .hero-visual { order: 2; }
+      .hero-visual { order: 2; margin-top: 4px; }
       .hero-text { order: 1; padding-top: 0; }
-      .hero-text h1 { font-size: 32px; }
-      .hero-sub { font-size: 15px; }
-      .hero-trust, .hero-email-fallback { justify-content: center; }
-      .phone-frame { width: 200px !important; }
-      .phone-screen-area { min-height: 380px !important; }
+      .hero-text h1 { font-size: 30px; line-height: 1.1; }
+      .hero-sub { font-size: 14px; line-height: 1.55; margin: 14px auto 0; }
+      .hero-trust { justify-content: center; margin-top: 10px !important; font-size: 13px !important; }
+      .hero-email-fallback { margin-top: 14px !important; font-size: 13px !important; }
+      .hero-actions { margin-top: 18px !important; gap: 10px; }
+      .hero-badge { margin-bottom: 14px; }
+      .phone-frame { width: 180px !important; }
+      .phone-screen-area { min-height: 340px !important; }
+      .scroll-hint { display: none !important; }
       .story-text-overlay {
         position: fixed;
         left: 0;
