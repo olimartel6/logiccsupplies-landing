@@ -36,24 +36,131 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "LogicSupplies",
-    "description": "Application de fidélité personnalisée pour commerces locaux à Québec. Points, récompenses, parrainage, Apple Wallet.",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "iOS, Android, Web",
-    "offers": {
-      "@type": "Offer",
-      "availability": "https://schema.org/InStock"
-    },
-    "provider": {
-      "@type": "Organization",
-      "name": "LogicSupplies",
-      "url": "https://logiccsupplies.ca",
-      "areaServed": {
-        "@type": "City",
-        "name": "Québec"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://logiccsupplies.ca/#organization",
+        "name": "LogicSupplies",
+        "alternateName": "Loggic",
+        "url": "https://logiccsupplies.ca",
+        "logo": "https://logiccsupplies.ca/favicon-192x192.png",
+        "description": "Studio québécois qui crée des applications de fidélité sur mesure pour commerces locaux.",
+        "founder": { "@type": "Person", "name": "Olivier Martel" },
+        "email": "olivier@logiccsupplies.ca",
+        "sameAs": ["https://github.com/olimartel6"],
+        "areaServed": { "@type": "City", "name": "Québec, QC" }
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://logiccsupplies.ca/#localbusiness",
+        "name": "LogicSupplies — Apps de fidélité Québec",
+        "url": "https://logiccsupplies.ca",
+        "image": "https://logiccsupplies.ca/favicon-192x192.png",
+        "telephone": "+1-418-000-0000",
+        "email": "olivier@logiccsupplies.ca",
+        "priceRange": "$$",
+        "address": { "@type": "PostalAddress", "addressLocality": "Québec", "addressRegion": "QC", "addressCountry": "CA" },
+        "geo": { "@type": "GeoCoordinates", "latitude": 46.8139, "longitude": -71.208 },
+        "areaServed": [
+          { "@type": "City", "name": "Québec" },
+          { "@type": "City", "name": "Lévis" },
+          { "@type": "City", "name": "Sainte-Foy" },
+          { "@type": "AdministrativeArea", "name": "Capitale-Nationale, QC" }
+        ]
+      },
+      {
+        "@type": "Service",
+        "@id": "https://logiccsupplies.ca/#service",
+        "serviceType": "Développement d'application de fidélité personnalisée",
+        "provider": { "@id": "https://logiccsupplies.ca/#organization" },
+        "areaServed": { "@type": "City", "name": "Québec" },
+        "audience": { "@type": "BusinessAudience", "audienceType": "Cafés, restaurants, salons de coiffure, gyms, esthétique, boulangeries, fleuristes, boutiques" },
+        "name": "App de fidélité sur mesure pour commerce local",
+        "description": "Application native iOS et Android avec votre logo et vos couleurs, programme de points, récompenses personnalisées, parrainage automatique, intégration Apple Wallet. Mise en ligne en 7 à 14 jours.",
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "businessFunction": "https://schema.org/Sell",
+          "areaServed": { "@type": "City", "name": "Québec" }
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Fonctionnalités",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "App native personnalisée (App Store + Google Play)" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Programme de points et récompenses" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Parrainage automatique" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Carte de fidélité Apple Wallet" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tableau de bord admin et scanner QR" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Notifications SMS et email automatiques" } }
+          ]
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://logiccsupplies.ca/#software",
+        "name": "LogicSupplies Loyalty Platform",
+        "description": "Plateforme SaaS pour créer une application de fidélité personnalisée pour un commerce local au Québec.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "iOS, Android, Web",
+        "offers": { "@type": "Offer", "availability": "https://schema.org/InStock", "category": "subscription" },
+        "provider": { "@id": "https://logiccsupplies.ca/#organization" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://logiccsupplies.ca/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Combien de temps faut-il pour créer une app de fidélité pour mon commerce?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "LogicSupplies livre une application de fidélité personnalisée en 7 à 14 jours. Vous fournissez votre logo, vos couleurs et la liste de vos récompenses. Nous nous occupons du développement, de la publication sur l'App Store et Google Play, ainsi que de la configuration du tableau de bord admin."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "À quels types de commerces s'adresse LogicSupplies?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nous travaillons avec tous les commerces locaux qui ont des clients récurrents : cafés, restaurants, salons de coiffure, barbiers, gyms, studios de yoga, esthétique, boulangeries, pâtisseries, boucheries, fleuristes, boutiques et cliniques. Notre clientèle est principalement à Québec, Lévis et la grande région de la Capitale-Nationale."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quelle est la différence entre une app de fidélité et une carte poinçon en papier?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Une app de fidélité numérique offre plusieurs avantages sur la carte poinçon papier : impossible à oublier (toujours sur le téléphone du client), parrainage automatique, statistiques en temps réel, intégration Apple Wallet, scanner QR à la caisse et notifications de retour. Les études montrent que les programmes numériques génèrent en moyenne 40% de visites supplémentaires par client."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Comment fonctionne le programme de points et de récompenses?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vos clients accumulent des points à chaque achat selon le ratio que vous configurez (par exemple 10 points par dollar dépensé). Quand ils atteignent un palier, ils débloquent une récompense que vous avez définie : rabais, service gratuit, produit offert, etc. Le système calcule tout automatiquement, vous n'avez rien à gérer manuellement."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Avez-vous une application qui supporte Apple Wallet?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, chaque app LogicSupplies inclut une carte de fidélité Apple Wallet certifiée Apple. Vos clients ajoutent leur carte à Apple Wallet en un clic et l'ont toujours sur eux, même hors ligne."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Combien coûte une application de fidélité au Québec?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Les prix LogicSupplies dépendent de la taille de votre commerce et du niveau de personnalisation. Contactez olivier@logiccsupplies.ca pour un devis personnalisé. Une démo gratuite est offerte sans engagement en moins de 24 heures."
+            }
+          }
+        ]
       }
-    }
+    ]
   }
   </script>
 
