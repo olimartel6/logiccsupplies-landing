@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cold Call — Top 10 prospects haut potentiel | LogicSupplies</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gold: #C9A96E;
+      --gold-dark: #B08D4F;
+      --bg: #f5f0e8;
+      --card: #ffffff;
+      --ink: #1a1a1f;
+      --muted: #66635c;
+      --line: rgba(0,0,0,0.07);
+      --green: #10b981;
+      --green-dark: #059669;
+      --red: #ef4444;
+      --warn: #f59e0b;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 24px 16px 80px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .head {
+      max-width: 740px; margin: 0 auto 24px;
+      text-align: center;
+    }
+    .head .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      color: var(--gold-dark); text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .head h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 36px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .head .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+
+    .progress {
+      display: flex; gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .pip {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.06);
+      border: 1.5px solid rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+    .pip.done { background: var(--green); border-color: var(--green-dark); }
+    .pip.skip { background: rgba(0,0,0,0.2); border-color: rgba(0,0,0,0.25); }
+    .progress-text { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+
+    main {
+      max-width: 740px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.03);
+      border-left: 4px solid var(--card-color, var(--gold));
+      transition: opacity 0.3s;
+    }
+    .card.done { opacity: 0.55; }
+    .card.skip { opacity: 0.4; }
+
+    .card-head {
+      display: flex; align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+    .card-num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 28px; font-weight: 500;
+      color: var(--gold-dark);
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 36px;
+    }
+    .card-title {
+      flex: 1;
+    }
+    .card-name {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .card-tags {
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      padding: 4px 8px;
+      border-radius: 100px;
+      text-transform: uppercase;
+    }
+    .tag-industry {
+      background: rgba(201,169,110,0.14);
+      color: var(--gold-dark);
+    }
+    .tag-virgin { background: rgba(16,185,129,0.13); color: var(--green-dark); }
+    .tag-warm { background: rgba(239,68,68,0.13); color: var(--red); }
+
+    .card-info {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+    .card-info svg { vertical-align: -2px; margin-right: 6px; opacity: 0.7; }
+    .card-info-row { margin-bottom: 4px; }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-call {
+      background: var(--green);
+      color: white;
+      box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+    }
+    .btn-call:hover { background: var(--green-dark); box-shadow: 0 6px 16px rgba(16,185,129,0.4); }
+    .btn-demo {
+      background: var(--ink);
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .btn-demo:hover { background: #000; box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+
+    details.talking {
+      background: rgba(201,169,110,0.06);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+    }
+    details.talking summary {
+      cursor: pointer;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      list-style: none;
+    }
+    details.talking summary::-webkit-details-marker { display: none; }
+    details.talking summary::before {
+      content: '▸ ';
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+    details.talking[open] summary::before { transform: rotate(90deg); }
+    details.talking[open] { padding-bottom: 14px; }
+    details.talking ul {
+      list-style: none;
+      margin-top: 12px;
+      padding: 0;
+    }
+    details.talking li {
+      padding: 6px 0 6px 18px;
+      position: relative;
+      font-size: 13.5px;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    details.talking li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gold-dark);
+      font-weight: 700;
+    }
+
+    .status-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+    .status-btn {
+      flex: 1;
+      padding: 9px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1.5px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .status-btn:hover { background: rgba(0,0,0,0.03); }
+    .status-btn.active.todo { background: rgba(0,0,0,0.04); color: var(--ink); border-color: rgba(0,0,0,0.15); }
+    .status-btn.active.done { background: var(--green); color: white; border-color: var(--green); }
+    .status-btn.active.skip { background: rgba(0,0,0,0.6); color: white; border-color: rgba(0,0,0,0.6); }
+
+    .notes {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      font-family: inherit;
+      font-size: 13.5px;
+      color: var(--ink);
+      background: #fafafa;
+      resize: vertical;
+      min-height: 36px;
+    }
+    .notes::placeholder { color: rgba(0,0,0,0.3); }
+    .notes:focus { outline: none; border-color: var(--gold-dark); background: white; }
+
+    footer {
+      max-width: 740px; margin: 36px auto 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 16px 12px 60px; }
+      .head h1 { font-size: 28px; }
+      .card { padding: 18px; }
+      .card-num { font-size: 22px; min-width: 30px; }
+      .card-name { font-size: 17px; }
+      .btn { padding: 12px 8px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="head">
+    <div class="eyebrow">Liste cold-call · Top 10 haut potentiel</div>
+    <h1>Charles-Antoine, c'est parti.</h1>
+    <div class="subtitle">10 prospects soigneusement choisis · segments vierges · démos déjà déployées</div>
+    <div class="progress" id="progress"></div>
+    <div class="progress-text" id="progress-text">0 / 10 traités</div>
+  </div>
+
+  <main id="cards">
+    <!-- Cards rendered by JS for ease of edits -->
+  </main>
+
+  <footer>
+    Statuts et notes sauvegardés localement sur ton téléphone.<br>
+    Démos hébergées sur demo.logiccsupplies.ca · Pages signed Apple PassKit.
+  </footer>
+
+  <script>
+  const PROSPECTS = [
+    {
+      slug: 'pur-visage',
+      name: 'Esthétique Pur Visage',
+      industry: 'Esthétique',
+      virgin: true,
+      address: 'Sainte-Foy, Québec',
+      phone: '418-650-0309',
+      color: '#7d4f8a',
+      points: [
+        "Esthétique = segment quasi-vierge en QC, aucune solution loyalty installée chez 90 % des indépendants",
+        "Soins récurrents (faciaux, épilation, cire) — programme de points naturellement attrayant pour ce volume",
+        "Mention Apple Wallet : la cliente n'oublie plus jamais sa carte papier",
+        "Bonus anniversaire automatique = plus-value forte pour ce type de clientèle",
+      ],
+    },
+    {
+      slug: 'esthetique-mimosa',
+      name: 'Esthétique Mimosa',
+      industry: 'Esthétique',
+      virgin: true,
+      address: 'Sainte-Foy, Québec',
+      phone: '418-653-2333',
+      color: '#a78bfa',
+      points: [
+        "Salon esthétique indépendant — segment vierge",
+        "Clientèle féminine 25-55 — taux d'adoption mobile très élevé",
+        "Récompenses naturelles : soin offert au 5e visite, % rabais sur produits",
+        "Démo personnalisée à leur logo + couleurs déjà prête",
+      ],
+    },
+    {
+      slug: 'spa-infinima',
+      name: 'Spa Infinima',
+      industry: 'Spa',
+      virgin: true,
+      address: 'Sainte-Foy, Québec',
+      phone: '418-651-0001',
+      color: '#345C00',
+      points: [
+        "Spa = haut panier moyen, clients récurrents, fidélisation cruciale",
+        "Mention : programme de tiers (Bronze → Argent → Or) déclenche la sur-consommation pour atteindre Or",
+        "SMS de relance pour les clients dormants (>60 j sans visite) = ROI immédiat",
+        "Apple Wallet réduit drastiquement la friction au comptoir",
+      ],
+    },
+    {
+      slug: 'sento-spa',
+      name: 'Sento Spa',
+      industry: 'Spa',
+      virgin: true,
+      address: 'Lévis, QC',
+      phone: '418-988-1730',
+      color: '#1a1a1a',
+      points: [
+        "Spa premium Lévis — moins ciblé que Québec central, marché plus ouvert",
+        "Démo déjà à leur branding (noir épuré)",
+        "Argument fort : visibilité dans App Store sous leur nom = positionnement",
+        "Multi-services (massage, soins, hydrothérapie) = parfait pour points par dollar",
+      ],
+    },
+    {
+      slug: 'concept-beaute',
+      name: 'Concept Beauté Signature',
+      industry: 'Beauté · Coiffure',
+      virgin: true,
+      address: '990 Bd de la Chaudière, Cap-Rouge',
+      phone: '418-877-4198',
+      color: '#B8860B',
+      points: [
+        "Coiffure + esthétique combinés — cycle de retour très haut (4-6 sem)",
+        "Cap-Rouge = quartier moins desservi par les SaaS loyalty traditionnels",
+        "Récompenses sur produits revendus en salon = upsell direct",
+        "Parrainage : amener une amie = récompense pour les 2",
+      ],
+    },
+    {
+      slug: 'pro-coiffure',
+      name: 'Pro Coiffure',
+      industry: 'Coiffure',
+      virgin: true,
+      address: '1070 Bd Chaudière, Cap-Rouge',
+      phone: '581-994-6867',
+      color: '#2C3E50',
+      points: [
+        "Coiffure indépendante — segment 90% vierge",
+        "Argument simple : remplace la carte poinçon papier en 14 jours",
+        "Pas d'engagement, mensuel, démo gratuite à voir avant tout achat",
+        "Mention si possible : 130+ démos déjà déployées dans la région de Québec",
+      ],
+    },
+    {
+      slug: 'el-padrino',
+      name: 'Barbershop El Padrino',
+      industry: 'Barbier',
+      virgin: true,
+      address: '1409 Ch Sainte-Foy, Québec',
+      phone: '418-686-8856',
+      color: '#121212',
+      points: [
+        "Barbershops = segment vierge dans QC (quasi 100% sans loyalty installé)",
+        "Clientèle masculine 18-45 ans = adoption mobile maximale",
+        "Cycle de coupe 3-4 sem = fréquence parfaite pour points",
+        "Wow factor : leur app à eux dans l'App Store, brandée El Padrino",
+      ],
+    },
+    {
+      slug: 'krwn',
+      name: 'KRWN Barbershop',
+      industry: 'Barbier',
+      virgin: true,
+      address: '827 Ave Myrand, Sainte-Foy',
+      phone: '418-805-6611',
+      color: '#000000',
+      points: [
+        "Barbershop premium positionné sur image + branding fort",
+        "Branding existant déjà soigné = parfait pour app native sous leur nom",
+        "Référer comme Tim Hortons / Starbucks : grande marque a son app, pourquoi pas KRWN ?",
+        "QR scan à la caisse = aligné avec leur expérience client moderne",
+      ],
+    },
+    {
+      slug: 'barbier-nomade',
+      name: 'Barbier Nomade',
+      industry: 'Barbier',
+      virgin: true,
+      address: '3128 Chemin Royal, Beauport',
+      phone: '581-307-3325',
+      color: '#1A1A1A',
+      points: [
+        "Barbier indépendant Beauport — moins de bruit dans le marché",
+        "Modèle prise de RV en ligne possible si déjà existant",
+        "Programme tiers : VIP qui revient toutes les 3 sem = traitement prioritaire",
+        "Démo gratuite à leur branding livrée en 24 h — argument de fermeture",
+      ],
+    },
+    {
+      slug: 'studio-bella',
+      name: 'Studio Bella',
+      industry: 'Esthétique',
+      virgin: true,
+      address: 'Sainte-Foy, Québec',
+      phone: '418-914-4413',
+      color: '#f00a77',
+      points: [
+        "Esthétique indépendante avec branding rose/fuchsia distinctif",
+        "Clientèle jeune femme = engagement mobile très élevé",
+        "Apple Wallet inclus = différenciation visuelle au comptoir",
+        "Multi-services soins permet structure de récompenses créative",
+      ],
+    },
+  ];
+
+  const cardsEl = document.getElementById('cards');
+  const progressEl = document.getElementById('progress');
+  const progressText = document.getElementById('progress-text');
+
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem('coldCallState') || '{}'); } catch { return {}; }
+  }
+  function saveState(s) {
+    localStorage.setItem('coldCallState', JSON.stringify(s));
+  }
+
+  function tagsHtml(p) {
+    let t = `<span class="tag tag-industry">${p.industry}</span>`;
+    if (p.virgin) t += '<span class="tag tag-virgin">Segment vierge</span>';
+    if (p.warm) t += '<span class="tag tag-warm">Lead chaud</span>';
+    return t;
+  }
+
+  function pointsHtml(p) {
+    return p.points.map(x => `<li>${x}</li>`).join('');
+  }
+
+  function render() {
+    const state = loadState();
+    cardsEl.innerHTML = PROSPECTS.map((p, i) => {
+      const ps = state[p.slug] || {};
+      const status = ps.status || 'todo';
+      const note = (ps.note || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      return `
+        <div class="card ${status === 'done' ? 'done' : status === 'skip' ? 'skip' : ''}" style="--card-color: ${p.color}" data-slug="${p.slug}">
+          <div class="card-head">
+            <div class="card-num">${String(i+1).padStart(2,'0')}.</div>
+            <div class="card-title">
+              <div class="card-name">${p.name}</div>
+              <div class="card-tags">${tagsHtml(p)}</div>
+            </div>
+          </div>
+          <div class="card-info">
+            <div class="card-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              ${p.address}
+            </div>
+            <div class="card-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              <strong style="color:#1a1a1f">${p.phone}</strong>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="btn btn-call" href="tel:+1${p.phone.replace(/[^0-9]/g,'')}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              Appeler
+            </a>
+            <a class="btn btn-demo" href="https://demo.logiccsupplies.ca/?tenant=${p.slug}" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Voir la démo
+            </a>
+          </div>
+
+          <details class="talking">
+            <summary>Points de discussion</summary>
+            <ul>${pointsHtml(p)}</ul>
+          </details>
+
+          <div class="status-bar">
+            <button class="status-btn todo ${status==='todo'?'active':''}" data-status="todo">À faire</button>
+            <button class="status-btn done ${status==='done'?'active':''}" data-status="done">✓ Fait</button>
+            <button class="status-btn skip ${status==='skip'?'active':''}" data-status="skip">↷ Skip</button>
+          </div>
+          <textarea class="notes" placeholder="Notes après l'appel… (sauvegardées sur ton téléphone)" rows="1">${note}</textarea>
+        </div>
+      `;
+    }).join('');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const state = loadState();
+    progressEl.innerHTML = '';
+    let done = 0, skip = 0;
+    PROSPECTS.forEach(p => {
+      const status = (state[p.slug] || {}).status || 'todo';
+      const pip = document.createElement('div');
+      pip.className = 'pip ' + (status === 'done' ? 'done' : status === 'skip' ? 'skip' : '');
+      progressEl.appendChild(pip);
+      if (status === 'done') done++;
+      else if (status === 'skip') skip++;
+    });
+    progressText.textContent = `${done} appelés · ${skip} skipped · ${PROSPECTS.length - done - skip} restants`;
+  }
+
+  cardsEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.status-btn');
+    if (!btn) return;
+    const card = e.target.closest('.card');
+    const slug = card.dataset.slug;
+    const status = btn.dataset.status;
+    const state = loadState();
+    state[slug] = { ...(state[slug] || {}), status };
+    saveState(state);
+    render();
+  });
+
+  cardsEl.addEventListener('input', (e) => {
+    if (!e.target.classList.contains('notes')) return;
+    const card = e.target.closest('.card');
+    const slug = card.dataset.slug;
+    const state = loadState();
+    state[slug] = { ...(state[slug] || {}), note: e.target.value };
+    saveState(state);
+    updateProgress();
+  });
+
+  render();
+  </script>
+
+</body>
+</html>
