@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadmap publique — LogicSupplies | Ce qu'on livre, ce qui s'en vient</title>
+  <meta name="description" content="Roadmap publique LogicSupplies — features livrées, en développement, et prévues. Mise à jour mensuelle.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://logiccsupplies.ca/roadmap.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://logiccsupplies.ca/roadmap.html">
+  <meta property="og:title" content="Roadmap publique — LogicSupplies">
+  <meta property="og:description" content="Features livrées et prévues pour LogicSupplies.">
+  <meta property="og:locale" content="fr_CA">
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./blog/blog.css">
+  <style>
+    .roadmap-section { margin: 32px 0; }
+    .roadmap-status {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: 0.4px;
+      margin-bottom: 8px;
+    }
+    .status-live { background: #d1fae5; color: #065f46; }
+    .status-progress { background: #fef3c7; color: #92400e; }
+    .status-planned { background: #dbeafe; color: #1e40af; }
+    .status-considering { background: #f3e8ff; color: #6b21a8; }
+    .roadmap-item {
+      background: var(--bg-light);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      margin: 12px 0;
+      border-radius: 4px;
+    }
+    .roadmap-item.done { border-left-color: #10b981; background: #ecfdf5; }
+    .roadmap-item.progress { border-left-color: #f59e0b; }
+    .roadmap-item.planned { border-left-color: #3b82f6; }
+    .roadmap-item.considering { border-left-color: #a855f7; }
+    .roadmap-item h4 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+    .roadmap-item p { margin: 0; font-size: 13.5px; color: var(--text-light); }
+    .roadmap-date { font-size: 11px; color: var(--text-light); font-family: 'Space Grotesk', monospace; }
+  </style>
+</head>
+<body>
+  <header class="blog-header">
+    <div class="wrap">
+      <a href="/" class="logo">Logic<span>Supplies</span></a>
+      <nav>
+        <a href="/">Accueil</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">À propos</a>
+        <a href="/roadmap.html">Roadmap</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article">
+    <div class="eyebrow">Roadmap publique</div>
+    <h1>Ce qu'on livre, ce qu'on développe, ce qu'on imagine</h1>
+    <p class="lead">Mise à jour mensuelle. Si vous voyez une fonctionnalité importante manquante pour votre cas d'usage, écrivez à <a href="mailto:olivier@logiccsupplies.ca">olivier@logiccsupplies.ca</a> — la roadmap est influencée directement par les besoins clients.</p>
+
+    <p style="margin-top: 16px; font-size: 13px; color: var(--text-light);">Dernière mise à jour : 26 avril 2026</p>
+
+    <!-- ========== LIVE ========== -->
+    <section class="roadmap-section">
+      <span class="roadmap-status status-live">✓ En production</span>
+      <h2>Livré et en production</h2>
+
+      <div class="roadmap-item done">
+        <span class="roadmap-date">Q2 2026</span>
+        <h4>Apple Wallet + Google Wallet</h4>
+        <p>Carte de fidélité ajoutable en un clic dans le portefeuille natif. Mise à jour automatique du solde de points. Certificat Apple PassKit signé.</p>
+      </div>
+
+      <div class="roadmap-item done">
+        <span class="roadmap-date">Q2 2026</span>
+        <h4>Programme de parrainage automatique</h4>
+        <p>Les clients invitent leurs amis via lien partageable. Les deux gagnent des points automatiquement à l'inscription. SMS et liens partageables sur Messenger, WhatsApp, Instagram.</p>
+      </div>
+
+      <div class="roadmap-item done">
+        <span class="roadmap-date">Q2 2026</span>
+        <h4>Tableau de bord admin</h4>
+        <p>Scanner QR à la caisse, ajout de points par montant ou manuel, gestion des récompenses, statistiques de fréquence et de panier moyen, export CSV.</p>
+      </div>
+
+      <div class="roadmap-item done">
+        <span class="roadmap-date">Q2 2026</span>
+        <h4>Tiers VIP automatiques</h4>
+        <p>Bronze → Argent → Or → Platine selon les visites cumulées. Avantages exclusifs par tier configurables.</p>
+      </div>
+
+      <div class="roadmap-item done">
+        <span class="roadmap-date">Q2 2026</span>
+        <h4>Bonus anniversaire automatique</h4>
+        <p>+100 points crédités automatiquement le jour anniversaire du client, avec rappel SMS optionnel.</p>
+      </div>
+
+      <div class="roadmap-item done">
+        <span class="roadmap-date">Q2 2026</span>
+        <h4>Mode démo sans inscription</h4>
+        <p>Les prospects peuvent tester l'app complète sans créer de compte. Friction zéro pour évaluer.</p>
+      </div>
+
+      <div class="roadmap-item done">
+        <span class="roadmap-date">Q2 2026</span>
+        <h4>Conformité Loi 25 du Québec</h4>
+        <p>Consentement explicite, export de données, suppression de compte, politique de confidentialité bilingue.</p>
+      </div>
+    </section>
+
+    <!-- ========== IN PROGRESS ========== -->
+    <section class="roadmap-section">
+      <span class="roadmap-status status-progress">▶ En développement</span>
+      <h2>En développement actif</h2>
+
+      <div class="roadmap-item progress">
+        <span class="roadmap-date">Mai 2026</span>
+        <h4>SMS de reconquête automatique (Twilio)</h4>
+        <p>Détection automatique des clients dormants (pas de visite depuis 30 / 60 / 90 jours) avec SMS de relance personnalisé incluant un bonus de points.</p>
+      </div>
+
+      <div class="roadmap-item progress">
+        <span class="roadmap-date">Mai 2026</span>
+        <h4>Analytics avancés v2</h4>
+        <p>Cohorts de clients par mois d'inscription, taux de rétention sur 30/60/90 jours, valeur vie client (LTV), prédiction de churn.</p>
+      </div>
+
+      <div class="roadmap-item progress">
+        <span class="roadmap-date">Mai 2026</span>
+        <h4>Intégration Stripe pour le paiement de l'abonnement commerce</h4>
+        <p>Paiement de l'abonnement LogicSupplies par carte de crédit avec facturation automatique. Self-service complet.</p>
+      </div>
+    </section>
+
+    <!-- ========== PLANNED ========== -->
+    <section class="roadmap-section">
+      <span class="roadmap-status status-planned">📅 Prévu</span>
+      <h2>Prévu — prochains 60 à 90 jours</h2>
+
+      <div class="roadmap-item planned">
+        <span class="roadmap-date">Juin 2026</span>
+        <h4>Multi-succursales</h4>
+        <p>Pour les commerces avec plusieurs locations : un seul programme de fidélité, points cumulables entre succursales, statistiques par location dans le dashboard.</p>
+      </div>
+
+      <div class="roadmap-item planned">
+        <span class="roadmap-date">Juin 2026</span>
+        <h4>Promotions limitées dans le temps</h4>
+        <p>Possibilité de créer des récompenses temporaires (ex : « Double points cette fin de semaine », « Récompense exclusive en avril »).</p>
+      </div>
+
+      <div class="roadmap-item planned">
+        <span class="roadmap-date">Juillet 2026</span>
+        <h4>Intégration POS Lightspeed et Square</h4>
+        <p>Connexion automatique au point de vente pour ajouter les points sans scanner manuel. Le client paye, les points apparaissent automatiquement.</p>
+      </div>
+
+      <div class="roadmap-item planned">
+        <span class="roadmap-date">Juillet 2026</span>
+        <h4>Cartes-cadeaux numériques</h4>
+        <p>Vente de cartes-cadeaux via l'app, livrable par courriel ou SMS au destinataire. Commission incluse pour le commerce.</p>
+      </div>
+    </section>
+
+    <!-- ========== CONSIDERING ========== -->
+    <section class="roadmap-section">
+      <span class="roadmap-status status-considering">💭 En réflexion</span>
+      <h2>En réflexion — feedback bienvenu</h2>
+
+      <div class="roadmap-item considering">
+        <h4>Intégration Google Reviews automatique</h4>
+        <p>Inviter automatiquement les clients heureux à laisser une review Google après plusieurs visites positives. Boost SEO local.</p>
+      </div>
+
+      <div class="roadmap-item considering">
+        <h4>Application admin mobile (iOS / Android)</h4>
+        <p>Pour gérer le programme depuis un téléphone (actuellement le tableau de bord admin est web seulement).</p>
+      </div>
+
+      <div class="roadmap-item considering">
+        <h4>Programme de fidélité « coalition » entre commerces voisins</h4>
+        <p>Plusieurs commerces d'un même quartier qui partagent un programme commun (ex : Saint-Roch, Montcalm). Les clients accumulent des points utilisables chez tous les participants.</p>
+      </div>
+
+      <div class="roadmap-item considering">
+        <h4>API publique</h4>
+        <p>Pour les commerces avec des besoins d'intégration custom (ex : connecter le programme à leur newsletter, leur CRM existant).</p>
+      </div>
+
+      <div class="roadmap-item considering">
+        <h4>Mode multilingue (anglais / espagnol)</h4>
+        <p>Pour servir les commerces avec une clientèle hors-francophone, ou pour expansion hors-Québec éventuelle.</p>
+      </div>
+    </section>
+
+    <h2>Suggérer une fonctionnalité</h2>
+    <p>Cette roadmap est vivante. Si vous avez besoin d'une feature qui n'apparaît pas ici, ou si une priorité devrait être différente, écrivez à <a href="mailto:olivier@logiccsupplies.ca">olivier@logiccsupplies.ca</a>. Les besoins de nos clients existants pèsent plus lourd que mes idées personnelles dans la priorisation.</p>
+
+    <div class="cta-box">
+      <h3>Démo gratuite avec votre branding</h3>
+      <p>Voyez l'app en action avec votre logo et vos couleurs en moins de 24 h.</p>
+      <a href="/" class="btn">Demander une démo gratuite</a>
+    </div>
+  </main>
+
+  <footer class="blog-footer">
+    <p>© 2026 LogicSupplies — Apps de fidélité pour commerces locaux au Québec</p>
+    <p style="margin-top: 8px;">
+      <a href="/">Accueil</a> ·
+      <a href="/blog/">Blog</a> ·
+      <a href="/about.html">À propos</a> ·
+      <a href="/security.html">Sécurité &amp; confidentialité</a> ·
+      <a href="/roadmap.html">Roadmap</a>
+    </p>
+  </footer>
+</body>
+</html>

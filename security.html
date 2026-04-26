@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sécurité &amp; confidentialité — LogicSupplies | Loi 25 Québec, données canadiennes</title>
+  <meta name="description" content="Comment LogicSupplies protège les données de vos clients : hébergement canadien, chiffrement, conformité Loi 25 du Québec, propriété des données, exports CSV.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://logiccsupplies.ca/security.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://logiccsupplies.ca/security.html">
+  <meta property="og:title" content="Sécurité &amp; confidentialité — LogicSupplies">
+  <meta property="og:description" content="Conformité Loi 25, données canadiennes, propriété complète des données client.">
+  <meta property="og:locale" content="fr_CA">
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./blog/blog.css">
+</head>
+<body>
+  <header class="blog-header">
+    <div class="wrap">
+      <a href="/" class="logo">Logic<span>Supplies</span></a>
+      <nav>
+        <a href="/">Accueil</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">À propos</a>
+        <a href="/security.html">Sécurité</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article">
+    <div class="eyebrow">Sécurité &amp; confidentialité</div>
+    <h1>Comment on protège les données de vos clients</h1>
+    <p class="lead">Quand vous confiez à LogicSupplies les courriels, numéros de téléphone et historiques d'achat de vos clients, vous nous confiez une responsabilité légale et morale. Voici ce qu'on fait avec — et tout ce qu'on ne fait pas.</p>
+
+    <h2>1. Hébergement 100 % canadien</h2>
+    <p>Toutes les données collectées via nos applications sont stockées sur <strong>Supabase</strong>, une infrastructure cloud avec serveurs en Amérique du Nord, dont des régions canadiennes. Aucune donnée n'est transférée hors-Canada sauf pour des intégrations explicitement nécessaires (par exemple, l'envoi de courriels via un service tiers, où seule l'adresse courriel est partagée).</p>
+
+    <h2>2. Conformité Loi 25 du Québec</h2>
+    <p>Le 22 septembre 2022, le Québec a adopté la <strong>Loi 25</strong> (modernisation des dispositions sur la protection des renseignements personnels). Tous les commerces québécois sont maintenant tenus de :</p>
+    <ul>
+      <li>Obtenir le consentement explicite avant de collecter des renseignements personnels</li>
+      <li>Permettre aux clients d'accéder à leurs données et de les supprimer sur demande</li>
+      <li>Notifier la Commission d'accès à l'information (CAI) en cas de fuite</li>
+      <li>Effectuer une évaluation des facteurs relatifs à la vie privée pour les transferts hors-Québec</li>
+    </ul>
+    <p>Nos applications intègrent par défaut :</p>
+    <ul>
+      <li>Une case à cocher de consentement explicite à l'inscription</li>
+      <li>Un lien vers la politique de confidentialité visible et permanent</li>
+      <li>Un bouton « Exporter mes données » dans le profil client</li>
+      <li>Un bouton « Supprimer mon compte » qui efface l'historique sous 30 jours</li>
+      <li>Un journal d'audit des accès admin aux données client</li>
+    </ul>
+
+    <h2>3. Chiffrement</h2>
+    <ul>
+      <li><strong>Au repos :</strong> AES-256 via Supabase (chiffrement de la base de données complète)</li>
+      <li><strong>En transit :</strong> TLS 1.3 sur tous les endpoints API et les connexions web</li>
+      <li><strong>Mots de passe clients :</strong> hashés avec bcrypt + sel unique par compte (jamais stockés en clair)</li>
+      <li><strong>Apple Wallet :</strong> passes signés cryptographiquement avec certificat Apple PassKit (Team ID D8SXYV7QXP)</li>
+    </ul>
+
+    <h2>4. Propriété de vos données</h2>
+    <p>Les données collectées via votre app appartiennent à <strong>VOUS</strong>, pas à LogicSupplies. Concrètement :</p>
+    <ul>
+      <li>Vous pouvez exporter la base complète de vos clients en CSV en tout temps depuis le tableau de bord admin</li>
+      <li>Vous pouvez résilier l'abonnement et garder votre export comme archive permanente</li>
+      <li>LogicSupplies n'utilise jamais vos données client pour faire du marketing ou de la vente à des tiers</li>
+      <li>Aucune donnée client ne sera jamais utilisée pour entraîner des modèles d'IA</li>
+      <li>En cas de fermeture de LogicSupplies, vous obtenez automatiquement votre export complet 60 jours avant la fin du service</li>
+    </ul>
+
+    <h2>5. Données collectées par défaut</h2>
+    <p>Pour le programme de fidélité de base, nos applications collectent :</p>
+    <ul>
+      <li>Nom et courriel du client (obligatoire à l'inscription)</li>
+      <li>Numéro de téléphone (optionnel — requis seulement si SMS activés)</li>
+      <li>Date d'anniversaire (optionnel — pour les bonus anniversaire)</li>
+      <li>Historique de transactions (montant et date — pas les détails de paiement, qui restent chez votre POS)</li>
+      <li>Solde de points et historique de récompenses débloquées</li>
+    </ul>
+    <p>Nous ne collectons <strong>jamais</strong> :</p>
+    <ul>
+      <li>Numéros de carte de crédit ou détails bancaires (zéro stockage côté nous)</li>
+      <li>Adresse domiciliaire (sauf si le commerce l'active explicitement pour livraison)</li>
+      <li>Données biométriques</li>
+      <li>Géolocalisation continue (seulement à l'ouverture de l'app si l'utilisateur consent à recevoir des notifications de proximité)</li>
+    </ul>
+
+    <h2>6. Accès aux données</h2>
+    <ul>
+      <li><strong>Vous (commerce admin) :</strong> accès complet via le tableau de bord</li>
+      <li><strong>Vos employés :</strong> accès limité au scanner QR (peuvent ajouter des points, voir le solde d'un client, échanger une récompense — pas exporter ni voir l'historique global)</li>
+      <li><strong>LogicSupplies :</strong> accès admin pour le support technique et les déploiements, journalisé. Aucun employé de LogicSupplies ne consulte vos données sauf à votre demande explicite</li>
+      <li><strong>Tiers :</strong> aucun</li>
+    </ul>
+
+    <h2>7. Notification de fuite</h2>
+    <p>Si une fuite de données se produit, nous nous engageons à :</p>
+    <ul>
+      <li>Notifier le commerce affecté sous 24 heures</li>
+      <li>Notifier la Commission d'accès à l'information (CAI) dans les délais prescrits par la Loi 25</li>
+      <li>Aider le commerce à notifier ses clients selon les exigences légales</li>
+      <li>Documenter la cause, l'étendue et les mesures correctives</li>
+    </ul>
+
+    <h2>8. Sous-traitants</h2>
+    <p>Pour livrer notre service, nous utilisons les sous-traitants suivants. Tous ont des engagements contractuels de confidentialité :</p>
+    <ul>
+      <li><strong>Supabase</strong> (base de données + auth) — données stockées en région nord-américaine</li>
+      <li><strong>Twilio</strong> (envoi de SMS, optionnel) — numéros de téléphone seulement</li>
+      <li><strong>Resend</strong> (envoi de courriels, optionnel) — adresses courriel seulement</li>
+      <li><strong>Apple</strong> (Wallet pass certificate authority) — métadonnées de carte seulement</li>
+      <li><strong>GitHub Pages</strong> (hébergement statique de la démo) — aucune donnée client</li>
+      <li><strong>Cloudflare</strong> (CDN + protection DDoS) — aucune donnée client persistée</li>
+    </ul>
+
+    <h2>9. Demande d'accès / suppression</h2>
+    <p>Tout client final peut demander :</p>
+    <ul>
+      <li>Une copie complète de ses données personnelles dans son profil de l'app</li>
+      <li>La suppression complète de son compte et de son historique</li>
+      <li>La rectification d'une information erronée</li>
+    </ul>
+    <p>Le commerce peut aussi initier ces actions depuis son tableau de bord admin. Toutes les demandes sont traitées sous 30 jours conformément à la Loi 25.</p>
+
+    <h2>10. Mises à jour de cette politique</h2>
+    <p>Cette politique évolue avec nos pratiques et la législation. Toute modification matérielle est annoncée par courriel à l'admin du commerce avec au moins 30 jours d'avis avant l'entrée en vigueur. La version actuelle a été mise à jour le 26 avril 2026.</p>
+
+    <h2>Contact pour questions sur la confidentialité</h2>
+    <p>Email : <a href="mailto:olivier@logiccsupplies.ca">olivier@logiccsupplies.ca</a> (mentionner « Confidentialité » dans l'objet)</p>
+    <p>Adresse postale : disponible sur demande via courriel.</p>
+    <p>Pour les plaintes formelles : Commission d'accès à l'information du Québec — <a href="https://www.cai.gouv.qc.ca/" target="_blank">cai.gouv.qc.ca</a></p>
+  </main>
+
+  <footer class="blog-footer">
+    <p>© 2026 LogicSupplies — Apps de fidélité pour commerces locaux au Québec</p>
+    <p style="margin-top: 8px;">
+      <a href="/">Accueil</a> ·
+      <a href="/blog/">Blog</a> ·
+      <a href="/about.html">À propos</a> ·
+      <a href="/security.html">Sécurité &amp; confidentialité</a> ·
+      <a href="/roadmap.html">Roadmap</a>
+    </p>
+  </footer>
+</body>
+</html>
