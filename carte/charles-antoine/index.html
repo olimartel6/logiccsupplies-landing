@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charles-Antoine Dubé — Cofondateur, LogicSupplies | Carte d'affaires</title>
+  <meta name="description" content="Carte d'affaires numérique de Charles-Antoine Dubé, cofondateur de LogicSupplies. Apple Wallet, vCard, contact direct.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://logiccsupplies.ca/carte/charles-antoine/">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://logiccsupplies.ca/carte/charles-antoine/">
+  <meta property="og:title" content="Charles-Antoine Dubé — Cofondateur, LogicSupplies">
+  <meta property="og:description" content="Carte d'affaires numérique. Ajoutez-la à votre Apple Wallet.">
+  <meta property="og:locale" content="fr_CA">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gold: #C9A96E;
+      --gold-dark: #B08D4F;
+      --bg: #0a0a11;
+      --text: #f5efe6;
+      --muted: rgba(245,239,230,0.55);
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .bg-spotlight {
+      position: absolute;
+      width: 130%; height: 140%;
+      top: -20%; left: -15%;
+      background: radial-gradient(
+        ellipse 50% 60% at 35% 50%,
+        rgba(201, 169, 110, 0.32) 0%,
+        rgba(176, 141, 79, 0.18) 25%,
+        rgba(176, 141, 79, 0.08) 50%,
+        transparent 70%
+      );
+      filter: blur(60px);
+      animation: bg-breathe 10s ease-in-out infinite;
+    }
+    @keyframes bg-breathe {
+      0%, 100% { transform: scale(1) translateX(0); opacity: 1; }
+      50% { transform: scale(1.05) translateX(-1.5%); opacity: 0.85; }
+    }
+    .bg-vignette {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 100% 80% at center, transparent 50%, rgba(0,0,0,0.7) 100%),
+        linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.4) 100%);
+    }
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 460px;
+      width: 100%;
+      animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hello {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 50px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -1px;
+      text-align: center;
+      color: var(--gold);
+      text-shadow: 0 0 50px rgba(201,169,110,0.4);
+      margin-bottom: 8px;
+    }
+    .role {
+      text-align: center;
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: -0.2px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .company {
+      text-align: center;
+      font-size: 15px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 36px;
+    }
+    .preview {
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+      border: 1px solid rgba(201,169,110,0.18);
+      border-radius: 18px;
+      padding: 22px 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 30px 60px -10px rgba(0,0,0,0.5), 0 0 30px rgba(201,169,110,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .preview::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle at 70% 30%, rgba(201,169,110,0.18) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .preview-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      gap: 16px;
+    }
+    .preview-row:last-child { border-bottom: none; }
+    .preview-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .preview-value {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      text-align: right;
+    }
+    .preview-value a { color: var(--gold); text-decoration: none; }
+    .preview-value a:hover { text-decoration: underline; }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 20px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s, background 0.3s;
+      cursor: pointer;
+      border: none;
+      letter-spacing: -0.1px;
+    }
+    .btn-call {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      box-shadow: 0 8px 24px rgba(16,185,129,0.3);
+    }
+    .btn-call:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(16,185,129,0.45); }
+    .btn-wallet {
+      background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: white;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    .btn-wallet:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.32); }
+    .btn-vcard {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: white;
+      box-shadow: 0 8px 24px rgba(201,169,110,0.3);
+    }
+    .btn-vcard:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(201,169,110,0.45); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); transform: translateY(-2px); }
+    .qr-section {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .qr-title { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; }
+    .qr-frame { display: inline-block; background: white; padding: 12px; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+    .qr-frame img { display: block; width: 160px; height: 160px; }
+    .qr-hint { font-size: 12px; color: var(--muted); margin-top: 12px; }
+    footer { text-align: center; font-size: 12px; color: rgba(245,239,230,0.4); margin-top: 12px; line-height: 1.6; }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 480px) {
+      body { padding: 16px; }
+      .name { font-size: 38px; }
+      .role { font-size: 16px; }
+      .preview { padding: 18px; }
+      .qr-frame img { width: 140px; height: 140px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-layer">
+    <div class="bg-spotlight"></div>
+    <div class="bg-vignette"></div>
+  </div>
+
+  <main>
+    <div class="hello">Carte d'affaires</div>
+    <h1 class="name">Charles-Antoine Dubé.</h1>
+    <div class="role">Cofondateur</div>
+    <div class="company">LogicSupplies · Québec, QC</div>
+
+    <div class="preview">
+      <div class="preview-row">
+        <span class="preview-label">Téléphone</span>
+        <span class="preview-value"><a href="tel:+15814432006">+1 (581) 443-2006</a></span>
+      </div>
+      <div class="preview-row">
+        <span class="preview-label">Email</span>
+        <span class="preview-value"><a href="mailto:caddube2006@gmail.com?subject=LogicSupplies%20-%20Demande">caddube2006@gmail.com</a></span>
+      </div>
+      <div class="preview-row">
+        <span class="preview-label">Site web</span>
+        <span class="preview-value"><a href="https://logiccsupplies.ca">logiccsupplies.ca</a></span>
+      </div>
+      <div class="preview-row">
+        <span class="preview-label">Service</span>
+        <span class="preview-value">Apps de fidélité sur mesure</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-call" href="tel:+15814432006">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        Appeler maintenant
+      </a>
+      <a class="btn btn-wallet" href="/assets/carte/charles-antoine-dube.pkpass" download>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M2 11h20"/></svg>
+        Ajouter à Apple Wallet
+      </a>
+      <a class="btn btn-vcard" href="/assets/carte/charles-antoine-dube.vcf" download>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+        Enregistrer dans contacts
+      </a>
+      <a class="btn btn-secondary" href="https://logiccsupplies.ca/#contact">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Demander une démo gratuite
+      </a>
+    </div>
+
+    <div class="qr-section">
+      <div class="qr-title">Partager en personne</div>
+      <div class="qr-frame">
+        <img src="/assets/carte/qr-charles-antoine.png" alt="QR vers la carte de Charles-Antoine Dubé" width="160" height="160" />
+      </div>
+      <div class="qr-hint">Scanner pour accéder à cette page<br>logiccsupplies.ca/carte/charles-antoine</div>
+    </div>
+
+    <footer>
+      Apple Wallet pass signé avec certificat Apple PassKit · Team ID D8SXYV7QXP<br>
+      <a href="https://logiccsupplies.ca">← logiccsupplies.ca</a>
+    </footer>
+
+  </main>
+
+</body>
+</html>
