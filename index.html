@@ -1268,6 +1268,389 @@
       font-style: normal; font-weight: 600;
     }
 
+    /* === EXPLAINER VIDEO SECTION === */
+    .explainer-section {
+      background: linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);
+      padding: 140px 32px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .explainer-section::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(96,165,250,0.3), transparent);
+    }
+    .explainer-bg-glow {
+      position: absolute;
+      top: 30%; left: 50%; transform: translate(-50%, -50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse, rgba(96,165,250,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .explainer-inner {
+      max-width: 1100px; margin: 0 auto;
+      position: relative;
+    }
+    .explainer-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .explainer-stage {
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 0;
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+      box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5), 0 0 60px rgba(96,165,250,0.08);
+    }
+    .explainer-visual {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      max-height: 480px;
+      background: radial-gradient(circle at 50% 50%, rgba(96,165,250,0.08) 0%, transparent 60%);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    /* Cover (idle) state */
+    .explainer-cover {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 28px;
+      cursor: pointer;
+      transition: opacity 0.5s, transform 0.5s;
+      z-index: 5;
+    }
+    .explainer-cover.hidden {
+      opacity: 0; transform: scale(0.96);
+      pointer-events: none;
+    }
+    .explainer-big-play {
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      border: none;
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 20px 50px -10px rgba(59,130,246,0.5), 0 0 0 0 rgba(59,130,246,0.4);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
+      animation: explainer-pulse 2.4s ease-in-out infinite;
+    }
+    .explainer-big-play:hover {
+      transform: scale(1.06);
+      box-shadow: 0 24px 60px -10px rgba(59,130,246,0.7);
+    }
+    .explainer-big-play svg {
+      margin-left: 4px;
+    }
+    @keyframes explainer-pulse {
+      0%, 100% { box-shadow: 0 20px 50px -10px rgba(59,130,246,0.5), 0 0 0 0 rgba(59,130,246,0.45); }
+      50% { box-shadow: 0 20px 50px -10px rgba(59,130,246,0.5), 0 0 0 22px rgba(59,130,246,0); }
+    }
+    .explainer-cover-text {
+      text-align: center;
+      max-width: 460px;
+      padding: 0 24px;
+    }
+    .explainer-cover-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .explainer-cover-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-on-dark);
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .explainer-cover-meta {
+      font-size: 13px;
+      color: rgba(232,228,220,0.5);
+    }
+    /* Scenes container */
+    .explainer-scenes {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .explainer-scene {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 18px;
+      opacity: 0;
+      transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform: scale(0.96) translateY(8px);
+      padding: 32px;
+      pointer-events: none;
+    }
+    .explainer-scene.active {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    .explainer-scene-icon {
+      position: relative;
+      display: flex; align-items: center; justify-content: center; gap: 18px;
+      flex-wrap: wrap;
+      min-height: 130px;
+    }
+    .explainer-scene-label {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-on-dark);
+      letter-spacing: -0.3px;
+      text-align: center;
+    }
+    .explainer-scene-caption {
+      font-size: 16px;
+      color: rgba(232,228,220,0.65);
+      text-align: center;
+      max-width: 540px;
+      line-height: 1.5;
+    }
+    /* Scene-specific decorations */
+    .explainer-scan-line {
+      position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+      width: 110px; height: 2px;
+      background: linear-gradient(90deg, transparent, #60a5fa, transparent);
+      box-shadow: 0 0 12px rgba(96,165,250,0.8);
+      animation: explainer-scan 2s ease-in-out infinite;
+    }
+    @keyframes explainer-scan {
+      0%, 100% { top: 8px; }
+      50% { top: 76px; }
+    }
+    .explainer-phone-mini {
+      width: 88px; height: 130px;
+      border: 3px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1a1a2e, #0a0a1a);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .explainer-phone-screen {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .explainer-phone-app-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 20px rgba(59,130,246,0.4);
+    }
+    .explainer-phone-app-name {
+      font-size: 9px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+    }
+    .explainer-store-badges {
+      display: flex; gap: 12px;
+    }
+    .explainer-store-badge {
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      font-size: 12px;
+      color: rgba(232,228,220,0.85);
+      font-weight: 600;
+    }
+    .explainer-points-display {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .explainer-points-num {
+      font-family: var(--font-display);
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--accent-light);
+      line-height: 1;
+      letter-spacing: -2px;
+      text-shadow: 0 0 30px rgba(96,165,250,0.4);
+    }
+    .explainer-points-label {
+      font-size: 13px;
+      color: rgba(232,228,220,0.5);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 6px;
+    }
+    .explainer-wallet-card {
+      width: 130px; height: 80px;
+      background: linear-gradient(135deg, #1f2937, #0f172a);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .explainer-wallet-card-line {
+      width: 30px; height: 2px;
+      background: rgba(96,165,250,0.6);
+      border-radius: 1px;
+    }
+    .explainer-wallet-card-text {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 600;
+    }
+    .explainer-referral {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .explainer-avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .explainer-referral-arrow {
+      filter: drop-shadow(0 0 8px rgba(168,85,247,0.6));
+    }
+    .explainer-reward-burst {
+      animation: explainer-burst 1.8s ease-in-out infinite;
+      filter: drop-shadow(0 0 16px rgba(251,191,36,0.6));
+    }
+    @keyframes explainer-burst {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.18) rotate(12deg); }
+    }
+    .explainer-dashboard {
+      width: 280px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .explainer-dashboard-row {
+      display: flex; align-items: flex-end; gap: 6px;
+      height: 90px; margin-bottom: 12px;
+    }
+    .explainer-dashboard-bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      box-shadow: 0 0 10px currentColor;
+      animation: explainer-bar-grow 0.8s ease-out forwards;
+    }
+    @keyframes explainer-bar-grow {
+      from { transform: scaleY(0); transform-origin: bottom; }
+      to { transform: scaleY(1); transform-origin: bottom; }
+    }
+    .explainer-dashboard-stats {
+      display: flex; gap: 16px;
+      font-size: 13px;
+      color: rgba(232,228,220,0.7);
+    }
+    .explainer-dashboard-stat {
+      font-weight: 600;
+    }
+    .explainer-dashboard-stat span {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      margin-right: 4px;
+    }
+    .explainer-final-logo {
+      font-family: var(--font-display);
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--text-on-dark);
+      letter-spacing: -1.2px;
+      text-shadow: 0 0 30px rgba(96,165,250,0.3);
+    }
+    .explainer-final-tag {
+      font-size: 14px;
+      color: rgba(232,228,220,0.65);
+      font-weight: 600;
+      margin-top: 12px;
+      letter-spacing: 0.3px;
+    }
+    /* Controls bar */
+    .explainer-controls {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 28px;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .explainer-control-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(232,228,220,0.85);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .explainer-control-btn:hover {
+      background: rgba(96,165,250,0.15);
+      color: var(--accent-light);
+      transform: scale(1.06);
+    }
+    .explainer-progress {
+      flex: 1;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .explainer-progress-fill {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-light), var(--accent));
+      border-radius: 3px;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 12px rgba(96,165,250,0.5);
+    }
+    .explainer-progress-markers {
+      position: absolute; inset: 0;
+      pointer-events: none;
+    }
+    .explainer-marker {
+      position: absolute; top: 50%; transform: translate(-50%, -50%);
+      width: 4px; height: 4px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+    }
+    .explainer-time {
+      font-family: 'JetBrains Mono', 'Space Grotesk', monospace;
+      font-size: 12px;
+      color: rgba(232,228,220,0.55);
+      font-weight: 600;
+      flex-shrink: 0;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 768px) {
+      .explainer-section { padding: 80px 18px 60px; }
+      .explainer-stage { border-radius: 20px; }
+      .explainer-visual { aspect-ratio: 4 / 5; max-height: 580px; }
+      .explainer-cover { gap: 18px; }
+      .explainer-big-play { width: 72px; height: 72px; }
+      .explainer-cover-title { font-size: 18px; }
+      .explainer-scene-icon { min-height: 100px; }
+      .explainer-scene-label { font-size: 18px; }
+      .explainer-scene-caption { font-size: 14.5px; }
+      .explainer-points-num { font-size: 44px; }
+      .explainer-final-logo { font-size: 32px; }
+      .explainer-controls { padding: 14px 18px; gap: 12px; }
+      .explainer-control-btn { width: 36px; height: 36px; }
+      .explainer-time { font-size: 11px; }
+      .explainer-dashboard { width: 240px; }
+    }
+
     /* === GUARANTEE SECTION === */
     .guarantee-section {
       background: var(--dark-2);
@@ -2333,6 +2716,189 @@
     </div>
   </div>
 
+  <!-- EXPLAINER VIDEO — 60s voiceover -->
+  <section class="explainer-section" id="explainer">
+    <div class="explainer-bg-glow"></div>
+    <div class="explainer-inner">
+      <div class="explainer-header">
+        <div class="section-label reveal" style="display: inline-block;">60 secondes</div>
+        <h2 class="section-title reveal delay-1" style="margin-top: 16px;">Voir comment ça fonctionne <em>en 60 secondes</em></h2>
+        <p class="section-sub reveal delay-2" style="max-width: 580px; margin: 16px auto 0;">Audio en français. Démarrez la voix-off pour découvrir le parcours complet : du scan QR à la récompense, en passant par Apple Wallet et le tableau de bord admin.</p>
+      </div>
+
+      <div class="explainer-stage reveal delay-3">
+
+        <!-- Audio element (hidden, controlled by custom UI) -->
+        <audio id="explainer-audio" preload="auto">
+          <source src="/assets/explainer/voiceover.mp3" type="audio/mpeg">
+        </audio>
+
+        <!-- Animated visual stage -->
+        <div class="explainer-visual" id="explainer-visual">
+
+          <!-- Idle / cover state shown before play -->
+          <div class="explainer-cover" id="explainer-cover">
+            <button class="explainer-big-play" id="explainer-big-play" aria-label="Jouer la voix-off">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <div class="explainer-cover-text">
+              <div class="explainer-cover-eyebrow">Voix-off</div>
+              <div class="explainer-cover-title">Le parcours d'un client fidèle, en 60 secondes</div>
+              <div class="explainer-cover-meta">~56 secondes · français · son requis</div>
+            </div>
+          </div>
+
+          <!-- Scenes (shown during playback) -->
+          <div class="explainer-scenes" id="explainer-scenes">
+
+            <!-- Scene 1 — QR scan -->
+            <div class="explainer-scene" data-scene="0" data-start="0" data-end="12">
+              <div class="explainer-scene-icon">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                  <rect x="10" y="10" width="22" height="22" rx="3" stroke="#60a5fa" stroke-width="3"/>
+                  <rect x="48" y="10" width="22" height="22" rx="3" stroke="#60a5fa" stroke-width="3"/>
+                  <rect x="10" y="48" width="22" height="22" rx="3" stroke="#60a5fa" stroke-width="3"/>
+                  <rect x="14" y="14" width="14" height="14" rx="1" fill="#60a5fa"/>
+                  <rect x="52" y="14" width="14" height="14" rx="1" fill="#60a5fa"/>
+                  <rect x="14" y="52" width="14" height="14" rx="1" fill="#60a5fa"/>
+                  <rect x="48" y="48" width="6" height="6" fill="#60a5fa"/>
+                  <rect x="58" y="48" width="6" height="6" fill="#60a5fa"/>
+                  <rect x="68" y="48" width="2" height="6" fill="#60a5fa"/>
+                  <rect x="48" y="58" width="2" height="6" fill="#60a5fa"/>
+                  <rect x="54" y="58" width="6" height="2" fill="#60a5fa"/>
+                  <rect x="62" y="58" width="8" height="2" fill="#60a5fa"/>
+                  <rect x="48" y="64" width="6" height="6" fill="#60a5fa"/>
+                  <rect x="58" y="64" width="2" height="6" fill="#60a5fa"/>
+                  <rect x="64" y="64" width="6" height="6" fill="#60a5fa"/>
+                </svg>
+                <div class="explainer-scan-line"></div>
+              </div>
+              <div class="explainer-scene-label">Scan QR à la caisse</div>
+              <div class="explainer-scene-caption">Inscription en 30 secondes. Aucun téléchargement obligatoire.</div>
+            </div>
+
+            <!-- Scene 2 — Native app -->
+            <div class="explainer-scene" data-scene="1" data-start="12" data-end="26">
+              <div class="explainer-scene-icon">
+                <div class="explainer-phone-mini">
+                  <div class="explainer-phone-screen">
+                    <div class="explainer-phone-app-icon">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                    </div>
+                    <div class="explainer-phone-app-name">Votre Café</div>
+                  </div>
+                </div>
+                <div class="explainer-store-badges">
+                  <div class="explainer-store-badge">App Store</div>
+                  <div class="explainer-store-badge">Google Play</div>
+                </div>
+              </div>
+              <div class="explainer-scene-label">Vraie app native, sous votre nom</div>
+              <div class="explainer-scene-caption">Publiée sur l'App Store et Google Play avec votre logo, vos couleurs.</div>
+            </div>
+
+            <!-- Scene 3 — Points + Apple Wallet -->
+            <div class="explainer-scene" data-scene="2" data-start="26" data-end="38">
+              <div class="explainer-scene-icon">
+                <div class="explainer-points-display">
+                  <div class="explainer-points-num" id="explainer-points-num">847</div>
+                  <div class="explainer-points-label">points</div>
+                </div>
+                <div class="explainer-wallet-card">
+                  <div class="explainer-wallet-card-line"></div>
+                  <div class="explainer-wallet-card-text">Apple Wallet</div>
+                </div>
+              </div>
+              <div class="explainer-scene-label">Points + Apple Wallet</div>
+              <div class="explainer-scene-caption">Les points s'accumulent tout seuls. La carte est dans Apple Wallet, jamais oubliée.</div>
+            </div>
+
+            <!-- Scene 4 — Referral + reward -->
+            <div class="explainer-scene" data-scene="3" data-start="38" data-end="45">
+              <div class="explainer-scene-icon">
+                <div class="explainer-referral">
+                  <div class="explainer-avatar" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">A</div>
+                  <svg class="explainer-referral-arrow" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <div class="explainer-avatar" style="background: linear-gradient(135deg, #a855f7, #7c3aed);">M</div>
+                </div>
+                <div class="explainer-reward-burst">
+                  <svg width="44" height="44" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l2.39 7.36H22l-6.18 4.49L18.21 22 12 17.51 5.79 22l2.39-8.15L2 9.36h7.61L12 2z"/></svg>
+                </div>
+              </div>
+              <div class="explainer-scene-label">Parrainage + récompense</div>
+              <div class="explainer-scene-caption">Le client invite un ami : les deux gagnent des points. Récompense automatique.</div>
+            </div>
+
+            <!-- Scene 5 — Admin dashboard -->
+            <div class="explainer-scene" data-scene="4" data-start="45" data-end="53">
+              <div class="explainer-scene-icon">
+                <div class="explainer-dashboard">
+                  <div class="explainer-dashboard-row">
+                    <div class="explainer-dashboard-bar" style="height: 30%; background: #60a5fa;"></div>
+                    <div class="explainer-dashboard-bar" style="height: 55%; background: #60a5fa;"></div>
+                    <div class="explainer-dashboard-bar" style="height: 40%; background: #60a5fa;"></div>
+                    <div class="explainer-dashboard-bar" style="height: 75%; background: #60a5fa;"></div>
+                    <div class="explainer-dashboard-bar" style="height: 60%; background: #60a5fa;"></div>
+                    <div class="explainer-dashboard-bar" style="height: 90%; background: #a855f7;"></div>
+                    <div class="explainer-dashboard-bar" style="height: 100%; background: #a855f7;"></div>
+                  </div>
+                  <div class="explainer-dashboard-stats">
+                    <div class="explainer-dashboard-stat"><span style="color: #10b981;">+34%</span> visites</div>
+                    <div class="explainer-dashboard-stat"><span style="color: #f59e0b;">12</span> dormants</div>
+                  </div>
+                </div>
+              </div>
+              <div class="explainer-scene-label">Tableau de bord en temps réel</div>
+              <div class="explainer-scene-caption">Vous voyez qui revient, qui dort, et vous relancez en un clic.</div>
+            </div>
+
+            <!-- Scene 6 — CTA -->
+            <div class="explainer-scene" data-scene="5" data-start="53" data-end="60">
+              <div class="explainer-scene-icon">
+                <div class="explainer-final-logo">
+                  Logic<span style="color: #60a5fa;">Supplies</span>
+                </div>
+                <div class="explainer-final-tag">Démo gratuite à votre nom · 24 h</div>
+              </div>
+              <div class="explainer-scene-label">À votre tour</div>
+              <div class="explainer-scene-caption">Démo personnalisée à votre logo, sans engagement, sans carte de crédit.</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Custom controls -->
+        <div class="explainer-controls" id="explainer-controls">
+          <button class="explainer-control-btn" id="explainer-toggle" aria-label="Lecture / pause">
+            <svg class="explainer-icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="explainer-icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+          </button>
+          <div class="explainer-progress" id="explainer-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="explainer-progress-fill" id="explainer-progress-fill"></div>
+            <div class="explainer-progress-markers">
+              <span class="explainer-marker" style="left: 0%"></span>
+              <span class="explainer-marker" style="left: 21%"></span>
+              <span class="explainer-marker" style="left: 46%"></span>
+              <span class="explainer-marker" style="left: 67%"></span>
+              <span class="explainer-marker" style="left: 80%"></span>
+              <span class="explainer-marker" style="left: 94%"></span>
+            </div>
+          </div>
+          <div class="explainer-time" id="explainer-time">0:00 / 0:56</div>
+          <button class="explainer-control-btn explainer-replay-btn" id="explainer-replay" aria-label="Recommencer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><polyline points="3 4 3 12 11 12"/></svg>
+          </button>
+        </div>
+
+      </div>
+
+      <p class="reveal delay-4" style="text-align: center; font-size: 14px; color: rgba(232,228,220,0.5); margin-top: 36px;">
+        Préférez-vous voir une démo personnalisée à votre nom ? <a href="mailto:olivier@logiccsupplies.ca?subject=D%C3%A9mo%20gratuite%20-%20LogicSupplies" style="color: var(--accent-light); text-decoration: none; border-bottom: 1px solid rgba(96,165,250,0.4);">Demandez-la ici →</a>
+      </p>
+    </div>
+  </section>
+
   <!-- FEATURES — IMMERSIVE FULL-WIDTH -->
   <section class="features-section" id="fonctionnalites">
     <div class="features-line"></div>
@@ -2815,6 +3381,128 @@
   </footer>
 
   <script>
+    // =============================================
+    // EXPLAINER VIDEO — 60s voiceover with synced scenes
+    // =============================================
+    (function() {
+      const audio = document.getElementById('explainer-audio');
+      if (!audio) return;
+      const cover = document.getElementById('explainer-cover');
+      const bigPlay = document.getElementById('explainer-big-play');
+      const toggle = document.getElementById('explainer-toggle');
+      const replay = document.getElementById('explainer-replay');
+      const progress = document.getElementById('explainer-progress');
+      const progressFill = document.getElementById('explainer-progress-fill');
+      const timeEl = document.getElementById('explainer-time');
+      const scenes = document.querySelectorAll('.explainer-scene');
+      const iconPlay = toggle.querySelector('.explainer-icon-play');
+      const iconPause = toggle.querySelector('.explainer-icon-pause');
+      const pointsNum = document.getElementById('explainer-points-num');
+
+      let currentScene = -1;
+      let pointsAnimStarted = false;
+
+      function fmt(s) {
+        if (!isFinite(s)) return '0:00';
+        const m = Math.floor(s / 60);
+        const r = Math.floor(s % 60).toString().padStart(2, '0');
+        return m + ':' + r;
+      }
+
+      function updateScene(t) {
+        let idx = -1;
+        scenes.forEach((s, i) => {
+          const start = parseFloat(s.dataset.start);
+          const end = parseFloat(s.dataset.end);
+          if (t >= start && t < end) idx = i;
+        });
+        if (idx === scenes.length - 1 || (idx === -1 && t >= parseFloat(scenes[scenes.length-1].dataset.start))) {
+          idx = scenes.length - 1;
+        }
+        if (idx !== currentScene && idx >= 0) {
+          scenes.forEach(s => s.classList.remove('active'));
+          scenes[idx].classList.add('active');
+          currentScene = idx;
+          // Animate points counter on scene 3 entry
+          if (idx === 2 && !pointsAnimStarted) {
+            pointsAnimStarted = true;
+            animatePoints();
+          }
+        }
+      }
+
+      function animatePoints() {
+        let n = 0;
+        const target = 847;
+        const step = () => {
+          n += Math.max(1, Math.round((target - n) / 14));
+          if (n >= target) { pointsNum.textContent = target; return; }
+          pointsNum.textContent = n;
+          requestAnimationFrame(step);
+        };
+        step();
+      }
+
+      function play() {
+        cover.classList.add('hidden');
+        audio.play().catch(() => {});
+      }
+
+      bigPlay.addEventListener('click', play);
+      cover.addEventListener('click', play);
+
+      toggle.addEventListener('click', () => {
+        if (audio.paused) {
+          cover.classList.add('hidden');
+          audio.play().catch(() => {});
+        } else {
+          audio.pause();
+        }
+      });
+
+      replay.addEventListener('click', () => {
+        audio.currentTime = 0;
+        cover.classList.add('hidden');
+        pointsAnimStarted = false;
+        currentScene = -1;
+        scenes.forEach(s => s.classList.remove('active'));
+        audio.play().catch(() => {});
+      });
+
+      progress.addEventListener('click', (e) => {
+        const rect = progress.getBoundingClientRect();
+        const ratio = (e.clientX - rect.left) / rect.width;
+        if (audio.duration) {
+          audio.currentTime = ratio * audio.duration;
+          updateScene(audio.currentTime);
+        }
+      });
+
+      audio.addEventListener('play', () => {
+        iconPlay.style.display = 'none';
+        iconPause.style.display = '';
+      });
+      audio.addEventListener('pause', () => {
+        iconPlay.style.display = '';
+        iconPause.style.display = 'none';
+      });
+      audio.addEventListener('timeupdate', () => {
+        const t = audio.currentTime;
+        const d = audio.duration || 56;
+        const pct = (t / d) * 100;
+        progressFill.style.width = pct + '%';
+        progress.setAttribute('aria-valuenow', Math.round(pct));
+        timeEl.textContent = fmt(t) + ' / ' + fmt(d);
+        updateScene(t);
+      });
+      audio.addEventListener('ended', () => {
+        // Stay on last scene (CTA) and let user replay
+      });
+      audio.addEventListener('loadedmetadata', () => {
+        timeEl.textContent = '0:00 / ' + fmt(audio.duration);
+      });
+    })();
+
     // =============================================
     // WEBGL GRADIENT ANIMATION (Stripe-style)
     // =============================================
