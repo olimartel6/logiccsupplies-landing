@@ -1278,7 +1278,7 @@
       font-style: normal; font-weight: 600;
     }
 
-    /* === EXPLAINER VIDEO SECTION (CINEMATIC TYPOGRAPHY) === */
+    /* === EXPLAINER VIDEO SECTION === */
     .explainer-section {
       background: linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);
       padding: 140px 32px 100px;
@@ -1297,114 +1297,27 @@
       background: radial-gradient(ellipse, rgba(96,165,250,0.05) 0%, transparent 70%);
       pointer-events: none;
     }
-    .explainer-inner {
-      max-width: 1100px; margin: 0 auto;
-      position: relative;
-    }
-    .explainer-header {
-      text-align: center;
-      margin-bottom: 56px;
-    }
+    .explainer-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+    .explainer-header { text-align: center; margin-bottom: 56px; }
     .explainer-stage {
       background: #0a0a0f;
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 20px;
-      padding: 0;
       overflow: hidden;
       box-shadow: 0 40px 100px -20px rgba(0,0,0,0.7), 0 0 80px rgba(0,0,0,0.5);
     }
     .explainer-visual {
       position: relative;
       aspect-ratio: 16 / 9;
-      max-height: 560px;
       background: #050507;
-      display: flex; align-items: center; justify-content: center;
       overflow: hidden;
       isolation: isolate;
-      --scene-hue: 28;
-      transition: --scene-hue 1.6s cubic-bezier(0.6, 0, 0.4, 1);
     }
-    /* === CINEMATIC BACKGROUND === */
-    .kt-bg {
-      position: absolute; inset: 0;
-      pointer-events: none;
-      z-index: 0;
+    .explainer-video-el {
+      width: 100%; height: 100%;
+      display: block;
+      object-fit: cover;
     }
-    .kt-spotlight {
-      position: absolute;
-      width: 130%; height: 140%;
-      top: -20%; right: -40%;
-      background: radial-gradient(
-        ellipse 50% 60% at 30% 50%,
-        hsla(var(--scene-hue), 95%, 55%, 0.55) 0%,
-        hsla(var(--scene-hue), 90%, 50%, 0.35) 18%,
-        hsla(var(--scene-hue), 80%, 40%, 0.18) 40%,
-        transparent 65%
-      );
-      filter: blur(40px);
-      animation: kt-spot-breathe 8s ease-in-out infinite;
-      transition: background 1.6s cubic-bezier(0.6, 0, 0.4, 1);
-      mix-blend-mode: screen;
-    }
-    .kt-spotlight-secondary {
-      position: absolute;
-      width: 80%; height: 80%;
-      bottom: -20%; left: -10%;
-      background: radial-gradient(
-        circle at 50% 50%,
-        hsla(calc(var(--scene-hue) + 12), 80%, 45%, 0.22) 0%,
-        transparent 55%
-      );
-      filter: blur(60px);
-      animation: kt-spot-drift 14s ease-in-out infinite;
-      transition: background 1.6s cubic-bezier(0.6, 0, 0.4, 1);
-      mix-blend-mode: screen;
-    }
-    @keyframes kt-spot-breathe {
-      0%, 100% { transform: scale(1) translateX(0); opacity: 1; }
-      50% { transform: scale(1.06) translateX(-2%); opacity: 0.85; }
-    }
-    @keyframes kt-spot-drift {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(4%, -3%) scale(1.1); }
-    }
-    .kt-grain {
-      position: absolute; inset: 0;
-      background-image:
-        repeating-radial-gradient(circle at 23% 67%, rgba(255,255,255,0.012) 0, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px),
-        repeating-radial-gradient(circle at 71% 18%, rgba(255,255,255,0.008) 0, rgba(255,255,255,0.008) 1px, transparent 1px, transparent 4px),
-        repeating-radial-gradient(circle at 47% 83%, rgba(255,255,255,0.01) 0, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 5px);
-      mix-blend-mode: overlay;
-      animation: kt-grain-shift 0.4s steps(4) infinite;
-      opacity: 0.7;
-    }
-    @keyframes kt-grain-shift {
-      0% { transform: translate(0, 0); }
-      25% { transform: translate(-1px, 1px); }
-      50% { transform: translate(1px, -1px); }
-      75% { transform: translate(-1px, -1px); }
-      100% { transform: translate(1px, 1px); }
-    }
-    .kt-vignette {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 100% 80% at center, transparent 50%, rgba(0,0,0,0.65) 100%),
-        linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.4) 100%);
-      pointer-events: none;
-    }
-    .kt-flicker {
-      position: absolute; inset: 0;
-      background: hsla(var(--scene-hue), 80%, 50%, 0.04);
-      mix-blend-mode: screen;
-      animation: kt-flicker 0.18s steps(2) infinite;
-      transition: background 1.6s cubic-bezier(0.6, 0, 0.4, 1);
-      pointer-events: none;
-    }
-    @keyframes kt-flicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.92; }
-    }
-    /* === COVER (idle) === */
     .explainer-cover {
       position: absolute; inset: 0;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -1412,166 +1325,49 @@
       cursor: pointer;
       transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.7s ease;
       z-index: 5;
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.78) 100%);
       backdrop-filter: blur(2px);
     }
     .explainer-cover.hidden {
-      opacity: 0; transform: scale(1.12);
+      opacity: 0; transform: scale(1.1);
       pointer-events: none;
-      filter: blur(24px);
+      filter: blur(20px);
     }
     .explainer-big-play {
       width: 96px; height: 96px;
       border-radius: 50%;
-      background: linear-gradient(135deg, hsla(var(--scene-hue), 90%, 60%, 1), hsla(var(--scene-hue), 95%, 45%, 1));
+      background: linear-gradient(135deg, #f59e0b, #d97706);
       border: none;
       color: white;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
-      box-shadow: 0 20px 60px -8px hsla(var(--scene-hue), 90%, 50%, 0.6), 0 0 0 0 hsla(var(--scene-hue), 90%, 60%, 0.4);
+      box-shadow: 0 20px 60px -8px rgba(245,158,11,0.55), 0 0 0 0 rgba(245,158,11,0.4);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
-      animation: kt-pulse 2.4s ease-in-out infinite;
+      animation: explainer-pulse 2.4s ease-in-out infinite;
     }
     .explainer-big-play:hover {
       transform: scale(1.08);
-      box-shadow: 0 24px 70px -8px hsla(var(--scene-hue), 90%, 50%, 0.8);
+      box-shadow: 0 24px 70px -8px rgba(245,158,11,0.75);
     }
-    .explainer-big-play svg {
-      margin-left: 4px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    .explainer-big-play svg { margin-left: 4px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+    @keyframes explainer-pulse {
+      0%, 100% { box-shadow: 0 20px 60px -8px rgba(245,158,11,0.55), 0 0 0 0 rgba(245,158,11,0.45); }
+      50% { box-shadow: 0 20px 60px -8px rgba(245,158,11,0.55), 0 0 0 28px rgba(245,158,11,0); }
     }
-    @keyframes kt-pulse {
-      0%, 100% { box-shadow: 0 20px 60px -8px hsla(var(--scene-hue), 90%, 50%, 0.55), 0 0 0 0 hsla(var(--scene-hue), 90%, 60%, 0.45); }
-      50% { box-shadow: 0 20px 60px -8px hsla(var(--scene-hue), 90%, 50%, 0.55), 0 0 0 28px hsla(var(--scene-hue), 90%, 60%, 0); }
-    }
-    .explainer-cover-text {
-      text-align: center;
-      max-width: 460px;
-      padding: 0 24px;
-    }
+    .explainer-cover-text { text-align: center; max-width: 480px; padding: 0 24px; }
     .explainer-cover-eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: hsla(var(--scene-hue), 95%, 75%, 1);
-      text-transform: uppercase;
-      margin-bottom: 10px;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      color: #fbbf24; text-transform: uppercase; margin-bottom: 10px;
     }
     .explainer-cover-title {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 28px;
-      font-weight: 700;
-      font-style: italic;
+      font-size: 26px; font-weight: 600; font-style: italic;
       color: var(--text-on-dark);
-      letter-spacing: -0.5px;
-      line-height: 1.25;
+      letter-spacing: -0.4px; line-height: 1.25;
       margin-bottom: 8px;
     }
-    .explainer-cover-meta {
-      font-size: 13px;
-      color: rgba(232,228,220,0.5);
-      letter-spacing: 0.3px;
-    }
-    /* === SCENES — KINETIC TYPOGRAPHY === */
-    .explainer-scenes {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 2;
-    }
-    .explainer-scene {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0;
-      transition:
-        opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-        filter 1s ease;
-      transform: scale(1.05);
-      filter: blur(10px);
-      pointer-events: none;
-      padding: 0 6%;
-    }
-    .explainer-scene.active {
-      opacity: 1;
-      transform: scale(1);
-      filter: blur(0);
-    }
-    .explainer-scene.exiting {
-      transform: scale(0.95);
-      filter: blur(14px);
-      opacity: 0;
-    }
-    .kt-stack {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 18px;
-      max-width: 92%;
-      text-align: center;
-    }
-    .kt-line {
-      display: block;
-      color: var(--text-on-dark);
-      letter-spacing: -0.5px;
-      line-height: 1.05;
-      transform: translateY(24px);
-      opacity: 0;
-      transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.9s ease;
-      text-shadow: 0 0 50px hsla(var(--scene-hue), 90%, 60%, 0.35);
-    }
-    .explainer-scene.active .kt-line {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    .explainer-scene.active .kt-line:nth-child(1) { transition-delay: 0.2s; }
-    .explainer-scene.active .kt-line:nth-child(2) { transition-delay: 0.55s; }
-    .explainer-scene.active .kt-line:nth-child(3) { transition-delay: 0.85s; }
-    .kt-serif {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(36px, 5.6vw, 76px);
-      font-weight: 500;
-      color: hsla(var(--scene-hue), 60%, 88%, 1);
-      transition: color 1.6s cubic-bezier(0.6, 0, 0.4, 1);
-    }
-    .kt-italic {
-      font-style: italic;
-    }
-    .kt-sans {
-      font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
-      font-size: clamp(40px, 6.4vw, 88px);
-      font-weight: 800;
-      color: var(--text-on-dark);
-      letter-spacing: -1.4px;
-    }
-    .kt-bold {
-      font-weight: 800;
-    }
-    .kt-emphasis {
-      color: hsla(var(--scene-hue), 90%, 70%, 1);
-      transition: color 1.6s cubic-bezier(0.6, 0, 0.4, 1);
-    }
-    .kt-brand {
-      color: hsla(var(--scene-hue), 95%, 75%, 1);
-      transition: color 1.6s cubic-bezier(0.6, 0, 0.4, 1);
-    }
-    .kt-tag {
-      margin-top: 14px;
-      font-family: var(--font-display), system-ui, sans-serif;
-      font-size: clamp(11px, 1.2vw, 13px);
-      font-weight: 700;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: hsla(var(--scene-hue), 70%, 75%, 0.7);
-      padding: 8px 18px;
-      border: 1px solid hsla(var(--scene-hue), 60%, 65%, 0.25);
-      border-radius: 100px;
-      transform: translateY(24px);
-      opacity: 0;
-      transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.9s ease, color 1.6s ease, border-color 1.6s ease;
-    }
-    .explainer-scene.active .kt-tag {
-      transform: translateY(0);
-      opacity: 1;
-      transition-delay: 1s;
-    }
+    .explainer-cover-meta { font-size: 13px; color: rgba(232,228,220,0.5); letter-spacing: 0.3px; }
+
     /* Controls bar */
     .explainer-controls {
       display: flex; align-items: center; gap: 16px;
@@ -1592,14 +1388,14 @@
       flex-shrink: 0;
     }
     .explainer-control-btn:hover {
-      background: hsla(var(--scene-hue), 80%, 55%, 0.15);
-      color: hsla(var(--scene-hue), 90%, 75%, 1);
+      background: rgba(245,158,11,0.18);
+      color: #fbbf24;
       transform: scale(1.06);
     }
     .explainer-progress {
       flex: 1;
       height: 3px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.08);
       border-radius: 3px;
       position: relative;
       overflow: visible;
@@ -1608,15 +1404,12 @@
     .explainer-progress-fill {
       position: absolute; left: 0; top: 0; bottom: 0;
       width: 0%;
-      background: linear-gradient(90deg, hsla(var(--scene-hue), 90%, 70%, 1), hsla(var(--scene-hue), 95%, 55%, 1));
+      background: linear-gradient(90deg, #fbbf24, #d97706);
       border-radius: 3px;
-      transition: width 0.1s linear, background 1.6s cubic-bezier(0.6, 0, 0.4, 1);
-      box-shadow: 0 0 16px hsla(var(--scene-hue), 90%, 55%, 0.6);
+      transition: width 0.1s linear;
+      box-shadow: 0 0 14px rgba(251,191,36,0.6);
     }
-    .explainer-progress-markers {
-      position: absolute; inset: 0;
-      pointer-events: none;
-    }
+    .explainer-progress-markers { position: absolute; inset: 0; pointer-events: none; }
     .explainer-marker {
       position: absolute; top: 50%; transform: translate(-50%, -50%);
       width: 4px; height: 4px;
@@ -1635,14 +1428,9 @@
     @media (max-width: 768px) {
       .explainer-section { padding: 80px 18px 60px; }
       .explainer-stage { border-radius: 16px; }
-      .explainer-visual { aspect-ratio: 4 / 5; max-height: 580px; }
       .explainer-cover { gap: 18px; }
       .explainer-big-play { width: 76px; height: 76px; }
-      .explainer-cover-title { font-size: 22px; }
-      .kt-stack { gap: 12px; }
-      .kt-serif { font-size: clamp(28px, 8vw, 48px); }
-      .kt-sans { font-size: clamp(32px, 9vw, 56px); letter-spacing: -1px; }
-      .kt-tag { font-size: 10px; letter-spacing: 2px; padding: 7px 14px; }
+      .explainer-cover-title { font-size: 20px; }
       .explainer-controls { padding: 14px 18px; gap: 12px; }
       .explainer-control-btn { width: 36px; height: 36px; }
       .explainer-time { font-size: 10px; }
@@ -2725,88 +2513,23 @@
 
       <div class="explainer-stage reveal delay-3">
 
-        <!-- Audio element (hidden, controlled by custom UI) -->
-        <audio id="explainer-audio" preload="auto">
-          <source src="/assets/explainer/voiceover.mp3" type="audio/mpeg">
-        </audio>
+        <!-- Cinematic explainer video (rendered via Remotion, Yasin VFX style) -->
+        <div class="explainer-visual" id="explainer-visual">
 
-        <!-- Cinematic kinetic-typography stage (Yasin VFX style) -->
-        <div class="explainer-visual" id="explainer-visual" style="--scene-hue: 28;">
-
-          <!-- Cinematic background: spotlight + grain + vignette -->
-          <div class="kt-bg" aria-hidden="true">
-            <div class="kt-spotlight"></div>
-            <div class="kt-spotlight-secondary"></div>
-            <div class="kt-grain"></div>
-            <div class="kt-vignette"></div>
-            <div class="kt-flicker"></div>
-          </div>
+          <video id="explainer-video" class="explainer-video-el" preload="metadata" playsinline poster="" tabindex="-1">
+            <source src="/assets/explainer/explainer.mp4" type="video/mp4">
+          </video>
 
           <!-- Idle / cover state shown before play -->
           <div class="explainer-cover" id="explainer-cover">
-            <button class="explainer-big-play" id="explainer-big-play" aria-label="Jouer la voix-off">
+            <button class="explainer-big-play" id="explainer-big-play" aria-label="Jouer la vidéo">
               <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </button>
             <div class="explainer-cover-text">
-              <div class="explainer-cover-eyebrow">Voix-off</div>
+              <div class="explainer-cover-eyebrow">Vidéo</div>
               <div class="explainer-cover-title">Le parcours d'un client fidèle, en 60 secondes</div>
-              <div class="explainer-cover-meta">~65 secondes · français · son requis</div>
+              <div class="explainer-cover-meta">~65 secondes · voix-off française · son requis</div>
             </div>
-          </div>
-
-          <!-- Scenes — pure kinetic typography -->
-          <div class="explainer-scenes" id="explainer-scenes">
-
-            <!-- Scene 1 — Scan / 30 secondes (warm orange) -->
-            <div class="explainer-scene" data-scene="0" data-start="0" data-end="13" data-hue="28">
-              <div class="kt-stack">
-                <span class="kt-line kt-italic kt-serif">Trente secondes.</span>
-                <span class="kt-line kt-bold kt-sans">Sa carte est prête.</span>
-              </div>
-            </div>
-
-            <!-- Scene 2 — Native app sous votre nom (gold) -->
-            <div class="explainer-scene" data-scene="1" data-start="13" data-end="30" data-hue="42">
-              <div class="kt-stack">
-                <span class="kt-line kt-italic kt-serif">Une vraie app —</span>
-                <span class="kt-line kt-bold kt-sans">sous votre nom.</span>
-                <span class="kt-tag">App Store · Google Play</span>
-              </div>
-            </div>
-
-            <!-- Scene 3 — Points + Apple Wallet (cool blue) -->
-            <div class="explainer-scene" data-scene="2" data-start="30" data-end="44" data-hue="218">
-              <div class="kt-stack">
-                <span class="kt-line kt-italic kt-serif">Les points</span>
-                <span class="kt-line kt-bold kt-sans">s'accumulent tout seuls.</span>
-                <span class="kt-tag">Apple Wallet inclus</span>
-              </div>
-            </div>
-
-            <!-- Scene 4 — Parrainage / récompense (warm pink) -->
-            <div class="explainer-scene" data-scene="3" data-start="44" data-end="52" data-hue="350">
-              <div class="kt-stack">
-                <span class="kt-line kt-italic kt-serif">Parrainage. Récompense.</span>
-                <span class="kt-line kt-bold kt-sans kt-emphasis">Automatique.</span>
-              </div>
-            </div>
-
-            <!-- Scene 5 — Tableau de bord (cool teal) -->
-            <div class="explainer-scene" data-scene="4" data-start="52" data-end="60" data-hue="170">
-              <div class="kt-stack">
-                <span class="kt-line kt-italic kt-serif">Vous voyez tout —</span>
-                <span class="kt-line kt-bold kt-sans">en temps réel.</span>
-              </div>
-            </div>
-
-            <!-- Scene 6 — CTA final (brand blue) -->
-            <div class="explainer-scene" data-scene="5" data-start="60" data-end="67" data-hue="210">
-              <div class="kt-stack">
-                <span class="kt-line kt-italic kt-serif kt-brand">LogicSupplies.</span>
-                <span class="kt-line kt-bold kt-sans">Démo gratuite — 24 h.</span>
-              </div>
-            </div>
-
           </div>
 
         </div>
@@ -3325,12 +3048,11 @@
 
   <script>
     // =============================================
-    // EXPLAINER VIDEO — cinematic kinetic typography (Yasin VFX style)
+    // EXPLAINER VIDEO — Remotion-rendered MP4 with custom controls (Yasin VFX style)
     // =============================================
     (function() {
-      const audio = document.getElementById('explainer-audio');
-      if (!audio) return;
-      const visual = document.getElementById('explainer-visual');
+      const video = document.getElementById('explainer-video');
+      if (!video) return;
       const cover = document.getElementById('explainer-cover');
       const bigPlay = document.getElementById('explainer-big-play');
       const toggle = document.getElementById('explainer-toggle');
@@ -3338,11 +3060,8 @@
       const progress = document.getElementById('explainer-progress');
       const progressFill = document.getElementById('explainer-progress-fill');
       const timeEl = document.getElementById('explainer-time');
-      const scenes = document.querySelectorAll('.explainer-scene');
       const iconPlay = toggle.querySelector('.explainer-icon-play');
       const iconPause = toggle.querySelector('.explainer-icon-pause');
-
-      let currentScene = -1;
 
       function fmt(s) {
         if (!isFinite(s)) return '0:00';
@@ -3351,87 +3070,55 @@
         return m + ':' + r;
       }
 
-      function updateScene(t) {
-        let idx = -1;
-        scenes.forEach((s, i) => {
-          const start = parseFloat(s.dataset.start);
-          const end = parseFloat(s.dataset.end);
-          if (t >= start && t < end) idx = i;
-        });
-        if (idx === scenes.length - 1 || (idx === -1 && t >= parseFloat(scenes[scenes.length-1].dataset.start))) {
-          idx = scenes.length - 1;
-        }
-        if (idx !== currentScene && idx >= 0) {
-          scenes.forEach((s, i) => {
-            if (i === currentScene) {
-              s.classList.remove('active');
-              s.classList.add('exiting');
-              setTimeout(() => s.classList.remove('exiting'), 1100);
-            } else if (i !== idx) {
-              s.classList.remove('active', 'exiting');
-            }
-          });
-          scenes[idx].classList.remove('exiting');
-          scenes[idx].classList.add('active');
-          const hue = parseInt(scenes[idx].dataset.hue, 10);
-          if (!isNaN(hue)) visual.style.setProperty('--scene-hue', hue);
-          currentScene = idx;
-        }
-      }
-
       function play() {
         cover.classList.add('hidden');
-        audio.play().catch(() => {});
+        video.play().catch(() => {});
       }
 
       bigPlay.addEventListener('click', play);
       cover.addEventListener('click', play);
 
       toggle.addEventListener('click', () => {
-        if (audio.paused) {
+        if (video.paused) {
           cover.classList.add('hidden');
-          audio.play().catch(() => {});
+          video.play().catch(() => {});
         } else {
-          audio.pause();
+          video.pause();
         }
       });
 
       replay.addEventListener('click', () => {
-        audio.currentTime = 0;
+        video.currentTime = 0;
         cover.classList.add('hidden');
-        currentScene = -1;
-        scenes.forEach(s => s.classList.remove('active', 'exiting'));
-        audio.play().catch(() => {});
+        video.play().catch(() => {});
       });
 
       progress.addEventListener('click', (e) => {
         const rect = progress.getBoundingClientRect();
         const ratio = (e.clientX - rect.left) / rect.width;
-        if (audio.duration) {
-          audio.currentTime = ratio * audio.duration;
-          updateScene(audio.currentTime);
+        if (video.duration) {
+          video.currentTime = ratio * video.duration;
         }
       });
 
-      audio.addEventListener('play', () => {
+      video.addEventListener('play', () => {
         iconPlay.style.display = 'none';
         iconPause.style.display = '';
       });
-      audio.addEventListener('pause', () => {
+      video.addEventListener('pause', () => {
         iconPlay.style.display = '';
         iconPause.style.display = 'none';
       });
-      audio.addEventListener('timeupdate', () => {
-        const t = audio.currentTime;
-        const d = audio.duration || 65;
+      video.addEventListener('timeupdate', () => {
+        const t = video.currentTime;
+        const d = video.duration || 65;
         const pct = (t / d) * 100;
         progressFill.style.width = pct + '%';
         progress.setAttribute('aria-valuenow', Math.round(pct));
         timeEl.textContent = fmt(t) + ' / ' + fmt(d);
-        updateScene(t);
       });
-      audio.addEventListener('loadedmetadata', () => {
-        timeEl.textContent = '0:00 / ' + fmt(audio.duration);
+      video.addEventListener('loadedmetadata', () => {
+        timeEl.textContent = '0:00 / ' + fmt(video.duration);
       });
     })();
 
