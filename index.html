@@ -1317,46 +1317,172 @@
     .explainer-visual {
       position: relative;
       aspect-ratio: 16 / 9;
-      max-height: 480px;
-      background: radial-gradient(circle at 50% 50%, rgba(96,165,250,0.08) 0%, transparent 60%);
+      max-height: 540px;
+      background: #050510;
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
+      isolation: isolate;
+      /* Drives all scene-specific color shifting */
+      --scene-hue: 210;
+      transition: --scene-hue 1.5s ease;
     }
-    /* Cover (idle) state */
+    /* === DYNAMIC BACKGROUND LAYERS === */
+    .explainer-bg-layers {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .explainer-bg-mesh {
+      position: absolute; inset: -20%;
+      background:
+        radial-gradient(circle at 20% 30%, hsla(var(--scene-hue), 80%, 55%, 0.22) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, hsla(calc(var(--scene-hue) + 40), 75%, 55%, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, hsla(calc(var(--scene-hue) - 30), 80%, 50%, 0.12) 0%, transparent 60%);
+      animation: explainer-mesh-drift 18s ease-in-out infinite;
+      transition: background 1.5s ease;
+      filter: blur(20px);
+    }
+    @keyframes explainer-mesh-drift {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+      33% { transform: translate3d(2%, -3%, 0) rotate(8deg) scale(1.05); }
+      66% { transform: translate3d(-2%, 2%, 0) rotate(-6deg) scale(1.08); }
+    }
+    .explainer-bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.5;
+      transition: background 1.5s ease;
+      mix-blend-mode: screen;
+    }
+    .explainer-bg-orb-1 {
+      width: 320px; height: 320px;
+      top: -8%; left: -10%;
+      background: hsla(var(--scene-hue), 90%, 60%, 0.45);
+      animation: explainer-orb-1 14s ease-in-out infinite;
+    }
+    .explainer-bg-orb-2 {
+      width: 260px; height: 260px;
+      bottom: -10%; right: -6%;
+      background: hsla(calc(var(--scene-hue) + 50), 85%, 55%, 0.35);
+      animation: explainer-orb-2 17s ease-in-out infinite;
+    }
+    .explainer-bg-orb-3 {
+      width: 200px; height: 200px;
+      top: 30%; right: 10%;
+      background: hsla(calc(var(--scene-hue) - 25), 90%, 65%, 0.28);
+      animation: explainer-orb-3 12s ease-in-out infinite;
+    }
+    .explainer-bg-orb-4 {
+      width: 180px; height: 180px;
+      bottom: 20%; left: 15%;
+      background: hsla(calc(var(--scene-hue) + 80), 75%, 60%, 0.25);
+      animation: explainer-orb-4 19s ease-in-out infinite;
+    }
+    @keyframes explainer-orb-1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, 30px) scale(1.15); }
+    }
+    @keyframes explainer-orb-2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-50px, -40px) scale(1.2); }
+    }
+    @keyframes explainer-orb-3 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-30px, 60px) scale(0.85); }
+    }
+    @keyframes explainer-orb-4 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(50px, -30px) scale(1.1); }
+    }
+    .explainer-bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+      animation: explainer-grid-drift 20s linear infinite;
+    }
+    @keyframes explainer-grid-drift {
+      from { background-position: 0 0; }
+      to { background-position: 50px 50px; }
+    }
+    .explainer-bg-vignette {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.55) 100%),
+        linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.3) 100%);
+      pointer-events: none;
+    }
+    /* === FLOATING PARTICLES === */
+    .explainer-particles {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .explainer-particle {
+      position: absolute;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: hsla(var(--scene-hue), 90%, 75%, 0.7);
+      box-shadow: 0 0 8px hsla(var(--scene-hue), 90%, 70%, 0.6);
+      transition: background 1.5s ease, box-shadow 1.5s ease;
+      animation: explainer-float linear infinite;
+    }
+    @keyframes explainer-float {
+      from {
+        transform: translateY(120%) translateX(0);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      90% { opacity: 0.8; }
+      to {
+        transform: translateY(-120%) translateX(var(--drift, 20px));
+        opacity: 0;
+      }
+    }
+    /* === COVER (idle) === */
     .explainer-cover {
       position: absolute; inset: 0;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 28px;
       cursor: pointer;
-      transition: opacity 0.5s, transform 0.5s;
+      transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
       z-index: 5;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+      backdrop-filter: blur(2px);
     }
     .explainer-cover.hidden {
-      opacity: 0; transform: scale(0.96);
+      opacity: 0; transform: scale(1.1);
       pointer-events: none;
+      filter: blur(20px);
     }
     .explainer-big-play {
-      width: 88px; height: 88px;
+      width: 96px; height: 96px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent), var(--accent-dark));
       border: none;
       color: white;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
-      box-shadow: 0 20px 50px -10px rgba(59,130,246,0.5), 0 0 0 0 rgba(59,130,246,0.4);
+      box-shadow: 0 20px 60px -8px rgba(59,130,246,0.6), 0 0 0 0 rgba(59,130,246,0.4);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
       animation: explainer-pulse 2.4s ease-in-out infinite;
     }
     .explainer-big-play:hover {
-      transform: scale(1.06);
-      box-shadow: 0 24px 60px -10px rgba(59,130,246,0.7);
+      transform: scale(1.08) rotate(2deg);
+      box-shadow: 0 24px 70px -8px rgba(59,130,246,0.8);
     }
     .explainer-big-play svg {
       margin-left: 4px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
     @keyframes explainer-pulse {
-      0%, 100% { box-shadow: 0 20px 50px -10px rgba(59,130,246,0.5), 0 0 0 0 rgba(59,130,246,0.45); }
-      50% { box-shadow: 0 20px 50px -10px rgba(59,130,246,0.5), 0 0 0 22px rgba(59,130,246,0); }
+      0%, 100% { box-shadow: 0 20px 60px -8px rgba(59,130,246,0.55), 0 0 0 0 rgba(59,130,246,0.45); }
+      50% { box-shadow: 0 20px 60px -8px rgba(59,130,246,0.55), 0 0 0 28px rgba(59,130,246,0); }
     }
     .explainer-cover-text {
       text-align: center;
@@ -1384,204 +1510,558 @@
       font-size: 13px;
       color: rgba(232,228,220,0.5);
     }
-    /* Scenes container */
+    /* === SCENES CONTAINER === */
     .explainer-scenes {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
+      z-index: 2;
     }
     .explainer-scene {
       position: absolute; inset: 0;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 18px;
+      gap: 22px;
       opacity: 0;
-      transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-      transform: scale(0.96) translateY(8px);
+      transition:
+        opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+        transform 1.1s cubic-bezier(0.2, 0.8, 0.2, 1),
+        filter 0.9s ease;
+      transform: scale(1.08) translateY(0);
+      filter: blur(12px) brightness(0.6);
       padding: 32px;
       pointer-events: none;
     }
     .explainer-scene.active {
       opacity: 1;
       transform: scale(1) translateY(0);
+      filter: blur(0) brightness(1);
     }
-    .explainer-scene-icon {
+    /* When a scene is exiting (just became inactive), zoom out instead of in */
+    .explainer-scene.exiting {
+      transform: scale(0.92) translateY(-10px);
+      filter: blur(18px) brightness(0.4);
+    }
+    /* Scene stage holds the visual composition */
+    .explainer-scene-stage {
       position: relative;
-      display: flex; align-items: center; justify-content: center; gap: 18px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 28px;
       flex-wrap: wrap;
-      min-height: 130px;
+      min-height: 200px;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s, opacity 0.7s ease 0.15s;
+    }
+    .explainer-scene.active .explainer-scene-stage {
+      transform: translateY(0);
+      opacity: 1;
     }
     .explainer-scene-label {
       font-family: var(--font-display);
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 700;
       color: var(--text-on-dark);
-      letter-spacing: -0.3px;
+      letter-spacing: -0.4px;
       text-align: center;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s, opacity 0.7s ease 0.3s;
+      text-shadow: 0 0 40px hsla(var(--scene-hue), 80%, 60%, 0.4);
+    }
+    .explainer-scene.active .explainer-scene-label {
+      transform: translateY(0);
+      opacity: 1;
     }
     .explainer-scene-caption {
       font-size: 16px;
-      color: rgba(232,228,220,0.65);
+      color: rgba(232,228,220,0.7);
       text-align: center;
       max-width: 540px;
-      line-height: 1.5;
+      line-height: 1.55;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.45s, opacity 0.7s ease 0.45s;
     }
-    /* Scene-specific decorations */
-    .explainer-scan-line {
-      position: absolute; left: 50%; top: 0; transform: translateX(-50%);
-      width: 110px; height: 2px;
-      background: linear-gradient(90deg, transparent, #60a5fa, transparent);
-      box-shadow: 0 0 12px rgba(96,165,250,0.8);
-      animation: explainer-scan 2s ease-in-out infinite;
+    .explainer-scene.active .explainer-scene-caption {
+      transform: translateY(0);
+      opacity: 1;
     }
-    @keyframes explainer-scan {
-      0%, 100% { top: 8px; }
-      50% { top: 76px; }
-    }
-    .explainer-phone-mini {
-      width: 88px; height: 130px;
-      border: 3px solid rgba(255,255,255,0.2);
-      border-radius: 16px;
-      background: linear-gradient(135deg, #1a1a2e, #0a0a1a);
+
+    /* === SCENE 1 — QR composition === */
+    .qr-composition {
+      position: relative;
+      width: 160px; height: 160px;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
-    .explainer-phone-screen {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    .qr-grid {
+      position: absolute; inset: 16px;
+      background:
+        linear-gradient(90deg, hsla(var(--scene-hue), 80%, 65%, 0.9) 8%, transparent 8%) 0 0/22% 22%,
+        linear-gradient(90deg, transparent 16%, hsla(var(--scene-hue), 80%, 65%, 0.9) 16%, hsla(var(--scene-hue), 80%, 65%, 0.9) 38%, transparent 38%) 0 22%/100% 22%,
+        linear-gradient(90deg, transparent 36%, hsla(var(--scene-hue), 80%, 65%, 0.9) 36%, hsla(var(--scene-hue), 80%, 65%, 0.9) 58%, transparent 58%) 0 44%/100% 22%,
+        linear-gradient(90deg, hsla(var(--scene-hue), 80%, 65%, 0.9) 14%, transparent 14%, transparent 28%, hsla(var(--scene-hue), 80%, 65%, 0.9) 28%, hsla(var(--scene-hue), 80%, 65%, 0.9) 50%, transparent 50%) 0 66%/100% 22%,
+        linear-gradient(90deg, transparent 6%, hsla(var(--scene-hue), 80%, 65%, 0.9) 6%, hsla(var(--scene-hue), 80%, 65%, 0.9) 28%, transparent 28%, transparent 60%, hsla(var(--scene-hue), 80%, 65%, 0.9) 60%, hsla(var(--scene-hue), 80%, 65%, 0.9) 82%, transparent 82%) 0 88%/100% 22%;
+      background-repeat: no-repeat;
+      filter: drop-shadow(0 0 12px hsla(var(--scene-hue), 90%, 60%, 0.5));
     }
-    .explainer-phone-app-icon {
-      width: 48px; height: 48px;
+    .qr-corner {
+      position: absolute;
+      width: 24px; height: 24px;
+      border: 4px solid hsla(var(--scene-hue), 90%, 70%, 1);
+      filter: drop-shadow(0 0 8px hsla(var(--scene-hue), 90%, 60%, 0.8));
+    }
+    .qr-corner-tl { top: 0; left: 0; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
+    .qr-corner-tr { top: 0; right: 0; border-left: none; border-bottom: none; border-top-right-radius: 6px; }
+    .qr-corner-bl { bottom: 0; left: 0; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
+    .qr-scan-beam {
+      position: absolute; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, hsla(var(--scene-hue), 95%, 70%, 1), transparent);
+      box-shadow: 0 0 16px hsla(var(--scene-hue), 95%, 65%, 0.9), 0 0 30px hsla(var(--scene-hue), 95%, 65%, 0.6);
+      animation: qr-scan 2.4s ease-in-out infinite;
+    }
+    @keyframes qr-scan {
+      0%, 100% { top: 0; opacity: 0.4; }
+      45% { top: 100%; opacity: 1; }
+      50% { top: 100%; opacity: 0; }
+      55% { top: 0; opacity: 0; }
+      60% { opacity: 0.4; }
+    }
+    .qr-glow-ring {
+      position: absolute; inset: -16px;
+      border: 2px solid hsla(var(--scene-hue), 90%, 60%, 0.4);
       border-radius: 12px;
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      animation: qr-ring-pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes qr-ring-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; box-shadow: 0 0 0 0 hsla(var(--scene-hue), 90%, 60%, 0.4); }
+      50% { transform: scale(1.06); opacity: 1; box-shadow: 0 0 0 18px hsla(var(--scene-hue), 90%, 60%, 0); }
+    }
+    .qr-checkmark {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(16,185,129,0.15);
+      border: 2px solid rgba(16,185,129,0.6);
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 6px 20px rgba(59,130,246,0.4);
+      box-shadow: 0 0 30px rgba(16,185,129,0.5);
+      animation: qr-check-bob 2.4s ease-in-out infinite;
     }
-    .explainer-phone-app-name {
-      font-size: 9px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
+    @keyframes qr-check-bob {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.05); }
     }
-    .explainer-store-badges {
-      display: flex; gap: 12px;
+
+    /* === SCENE 2 — Phone 3D + orbit === */
+    .phone3d-orbit {
+      position: relative;
+      width: 280px; height: 280px;
+      display: flex; align-items: center; justify-content: center;
     }
-    .explainer-store-badge {
+    .phone3d {
+      position: relative;
+      width: 110px; height: 170px;
+      border: 4px solid rgba(255,255,255,0.14);
+      border-radius: 22px;
+      background: linear-gradient(140deg, #1a1a2e, #0a0a1a 60%, #050510);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 0 30px rgba(96,165,250,0.06);
+      animation: phone3d-float 4s ease-in-out infinite;
+      z-index: 2;
+    }
+    .phone3d::before {
+      content: ''; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+      width: 32px; height: 6px; background: rgba(0,0,0,0.6); border-radius: 4px;
+    }
+    .phone3d-screen {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .phone3d-app-icon {
+      width: 60px; height: 60px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, hsla(var(--scene-hue), 90%, 60%, 1), hsla(calc(var(--scene-hue) - 30), 90%, 50%, 1));
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px hsla(var(--scene-hue), 90%, 50%, 0.5);
+      transition: background 1.5s ease;
+    }
+    .phone3d-app-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.3px;
+    }
+    .phone3d-shine {
+      position: absolute; inset: 0;
+      border-radius: 18px;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+      animation: phone3d-shine 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes phone3d-float {
+      0%, 100% { transform: translateY(0) rotateY(-4deg); }
+      50% { transform: translateY(-12px) rotateY(4deg); }
+    }
+    @keyframes phone3d-shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .orbit-ring {
+      position: absolute; inset: 0;
+      border: 1px dashed hsla(var(--scene-hue), 70%, 60%, 0.3);
+      border-radius: 50%;
+      animation: orbit-rotate 18s linear infinite;
+    }
+    @keyframes orbit-rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .orbit-badge {
+      position: absolute;
       padding: 8px 14px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 8px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid hsla(var(--scene-hue), 70%, 65%, 0.4);
+      border-radius: 100px;
       font-size: 12px;
-      color: rgba(232,228,220,0.85);
+      font-weight: 700;
+      color: rgba(255,255,255,0.95);
+      display: flex; align-items: center; gap: 6px;
+      box-shadow: 0 8px 24px hsla(var(--scene-hue), 80%, 50%, 0.3);
+      backdrop-filter: blur(8px);
+      z-index: 3;
+    }
+    .orbit-badge-app-store {
+      top: 8px; left: -10px;
+      animation: orbit-badge-1 6s ease-in-out infinite;
+    }
+    .orbit-badge-play-store {
+      bottom: 16px; right: -16px;
+      animation: orbit-badge-2 6s ease-in-out infinite;
+    }
+    @keyframes orbit-badge-1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-6px, -10px); }
+    }
+    @keyframes orbit-badge-2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(8px, 8px); }
+    }
+
+    /* === SCENE 3 — Points + Wallet stack === */
+    .points-explosion {
+      position: relative;
+      width: 200px; height: 200px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .points-rings {
+      position: absolute; inset: 0;
+    }
+    .points-ring {
+      position: absolute; inset: 30%;
+      border: 2px solid hsla(var(--scene-hue), 90%, 65%, 0.5);
+      border-radius: 50%;
+      animation: points-ring-expand 2.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    }
+    .points-ring:nth-child(2) { animation-delay: 0.9s; }
+    .points-ring:nth-child(3) { animation-delay: 1.8s; }
+    @keyframes points-ring-expand {
+      0% { inset: 30%; opacity: 1; }
+      100% { inset: -10%; opacity: 0; }
+    }
+    .points-display {
+      position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      z-index: 2;
+    }
+    .points-num {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 800;
+      color: hsla(var(--scene-hue), 90%, 80%, 1);
+      line-height: 1;
+      letter-spacing: -2.5px;
+      text-shadow: 0 0 40px hsla(var(--scene-hue), 95%, 60%, 0.7);
+      transition: text-shadow 1.5s ease, color 1.5s ease;
+    }
+    .points-label {
+      font-size: 13px;
+      color: hsla(var(--scene-hue), 50%, 80%, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-top: 8px;
       font-weight: 600;
     }
-    .explainer-points-display {
-      display: flex; flex-direction: column; align-items: center;
+    .wallet-stack {
+      position: relative;
+      width: 180px; height: 110px;
     }
-    .explainer-points-num {
-      font-family: var(--font-display);
-      font-size: 56px;
-      font-weight: 800;
-      color: var(--accent-light);
-      line-height: 1;
-      letter-spacing: -2px;
-      text-shadow: 0 0 30px rgba(96,165,250,0.4);
-    }
-    .explainer-points-label {
-      font-size: 13px;
-      color: rgba(232,228,220,0.5);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-top: 6px;
-    }
-    .explainer-wallet-card {
-      width: 130px; height: 80px;
+    .wallet-card {
+      position: absolute;
+      width: 100%; height: 100%;
+      border-radius: 14px;
       background: linear-gradient(135deg, #1f2937, #0f172a);
       border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 10px;
-      padding: 10px 14px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.5);
     }
-    .explainer-wallet-card-line {
-      width: 30px; height: 2px;
-      background: rgba(96,165,250,0.6);
+    .wallet-card-back {
+      transform: translate(-12px, -12px) rotate(-6deg);
+      opacity: 0.5;
+      animation: wallet-card-back 4s ease-in-out infinite;
+    }
+    .wallet-card-mid {
+      transform: translate(-6px, -6px) rotate(-3deg);
+      opacity: 0.7;
+      animation: wallet-card-mid 4s ease-in-out infinite;
+    }
+    .wallet-card-front {
+      padding: 14px 18px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      animation: wallet-card-front 4s ease-in-out infinite;
+      background: linear-gradient(135deg, hsla(var(--scene-hue), 50%, 25%, 1), hsla(calc(var(--scene-hue) + 30), 60%, 15%, 1));
+      transition: background 1.5s ease;
+    }
+    @keyframes wallet-card-front {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(2px, -3px) rotate(0.5deg); }
+    }
+    @keyframes wallet-card-mid {
+      0%, 100% { transform: translate(-6px, -6px) rotate(-3deg); }
+      50% { transform: translate(-8px, -9px) rotate(-3.5deg); }
+    }
+    @keyframes wallet-card-back {
+      0%, 100% { transform: translate(-12px, -12px) rotate(-6deg); }
+      50% { transform: translate(-14px, -15px) rotate(-7deg); }
+    }
+    .wallet-card-row {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .wallet-card-line {
+      width: 26px; height: 2px;
+      background: hsla(var(--scene-hue), 90%, 70%, 0.8);
       border-radius: 1px;
     }
-    .explainer-wallet-card-text {
-      font-size: 11px;
-      color: rgba(255,255,255,0.7);
-      font-weight: 600;
+    .wallet-card-tag {
+      font-size: 11px; color: rgba(255,255,255,0.85);
+      font-weight: 700;
+      letter-spacing: 0.4px;
     }
-    .explainer-referral {
-      display: flex; align-items: center; gap: 14px;
+    .wallet-card-balance {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.95);
+      letter-spacing: -0.3px;
     }
-    .explainer-avatar {
-      width: 56px; height: 56px;
+
+    /* === SCENE 4 — Referral + reward === */
+    .referral-bond {
+      position: relative;
+      display: flex; align-items: center;
+      gap: 32px;
+      padding: 0 12px;
+    }
+    .referral-avatar {
+      width: 64px; height: 64px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       color: white;
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 22px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      font-size: 24px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 0 30px hsla(var(--scene-hue), 90%, 60%, 0.4);
+      animation: referral-pulse 2.6s ease-in-out infinite;
     }
-    .explainer-referral-arrow {
-      filter: drop-shadow(0 0 8px rgba(168,85,247,0.6));
+    .referral-avatar-1 {
+      background: linear-gradient(135deg, hsla(var(--scene-hue), 80%, 65%, 1), hsla(var(--scene-hue), 80%, 50%, 1));
+      animation-delay: 0s;
     }
-    .explainer-reward-burst {
-      animation: explainer-burst 1.8s ease-in-out infinite;
-      filter: drop-shadow(0 0 16px rgba(251,191,36,0.6));
+    .referral-avatar-2 {
+      background: linear-gradient(135deg, hsla(calc(var(--scene-hue) + 50), 80%, 65%, 1), hsla(calc(var(--scene-hue) + 50), 80%, 45%, 1));
+      animation-delay: 1.3s;
     }
-    @keyframes explainer-burst {
+    @keyframes referral-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    .referral-line {
+      width: 100px; height: 50px;
+      color: hsla(var(--scene-hue), 90%, 70%, 0.8);
+      filter: drop-shadow(0 0 8px hsla(var(--scene-hue), 90%, 60%, 0.6));
+      animation: referral-line-pulse 2.6s ease-in-out infinite;
+    }
+    @keyframes referral-line-pulse {
+      0%, 100% { stroke-dashoffset: 0; }
+      50% { stroke-dashoffset: 10; }
+    }
+    .confetti-burst {
+      position: relative;
+      width: 100px; height: 100px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .reward-star {
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 0 24px rgba(251,191,36,0.8));
+      animation: reward-star-spin 3s ease-in-out infinite;
+    }
+    @keyframes reward-star-spin {
       0%, 100% { transform: scale(1) rotate(0deg); }
-      50% { transform: scale(1.18) rotate(12deg); }
+      50% { transform: scale(1.2) rotate(15deg); }
     }
-    .explainer-dashboard {
-      width: 280px;
-      background: rgba(0,0,0,0.3);
+    .confetti {
+      position: absolute;
+      width: 8px; height: 8px;
+      background: hsla(calc(var(--scene-hue) + var(--cd, 0) * 360), 95%, 65%, 1);
+      border-radius: 1px;
+      animation: confetti-burst 1.6s ease-out infinite;
+      animation-delay: calc(var(--cd, 0) * 1s);
+      box-shadow: 0 0 6px currentColor;
+    }
+    @keyframes confetti-burst {
+      0% { transform: translate(0, 0) rotate(0deg) scale(0); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translate(calc(var(--cx) * 1px), calc(var(--cy) * 1px)) rotate(720deg) scale(1); opacity: 0; }
+    }
+
+    /* === SCENE 5 — Dashboard mock === */
+    .dash-mock {
+      width: 320px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 16px;
+      border-radius: 16px;
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 50px hsla(var(--scene-hue), 80%, 50%, 0.15);
     }
-    .explainer-dashboard-row {
-      display: flex; align-items: flex-end; gap: 6px;
-      height: 90px; margin-bottom: 12px;
+    .dash-mock-header {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .explainer-dashboard-bar {
-      flex: 1;
-      border-radius: 3px 3px 0 0;
-      box-shadow: 0 0 10px currentColor;
-      animation: explainer-bar-grow 0.8s ease-out forwards;
+    .dash-mock-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
     }
-    @keyframes explainer-bar-grow {
-      from { transform: scaleY(0); transform-origin: bottom; }
-      to { transform: scaleY(1); transform-origin: bottom; }
-    }
-    .explainer-dashboard-stats {
-      display: flex; gap: 16px;
-      font-size: 13px;
-      color: rgba(232,228,220,0.7);
-    }
-    .explainer-dashboard-stat {
+    .dash-mock-dot:nth-child(1) { background: #ef4444; }
+    .dash-mock-dot:nth-child(2) { background: #f59e0b; }
+    .dash-mock-dot:nth-child(3) { background: #10b981; }
+    .dash-mock-title {
+      margin-left: auto;
+      font-size: 12px;
+      color: rgba(232,228,220,0.6);
       font-weight: 600;
     }
-    .explainer-dashboard-stat span {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 800;
-      margin-right: 4px;
+    .dash-mock-row {
+      display: flex; align-items: flex-end; gap: 6px;
+      height: 100px; margin-bottom: 16px;
     }
-    .explainer-final-logo {
+    .dash-bar {
+      flex: 1;
+      height: var(--h);
+      background: hsla(var(--scene-hue), 80%, 55%, 0.85);
+      border-radius: 4px 4px 0 0;
+      box-shadow: 0 0 14px hsla(var(--scene-hue), 90%, 55%, 0.5);
+      transform-origin: bottom;
+      animation: dash-bar-wave 2.8s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.12s);
+      transition: background 1.5s ease, box-shadow 1.5s ease;
+    }
+    .dash-bar-hi {
+      background: hsla(calc(var(--scene-hue) + 40), 90%, 65%, 1);
+      box-shadow: 0 0 18px hsla(calc(var(--scene-hue) + 40), 95%, 60%, 0.7);
+    }
+    @keyframes dash-bar-wave {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(1.08); }
+    }
+    .dash-mock-stats {
+      display: flex; gap: 16px;
+      padding-top: 4px;
+    }
+    .dash-mock-stat {
+      flex: 1;
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 10px 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      border-left: 3px solid hsla(var(--scene-hue), 90%, 60%, 1);
+    }
+    .dash-mock-stat-warn {
+      border-left-color: #f59e0b;
+    }
+    .dash-mock-stat-num {
       font-family: var(--font-display);
-      font-size: 44px;
+      font-size: 20px;
+      font-weight: 800;
+      color: hsla(var(--scene-hue), 90%, 75%, 1);
+      transition: color 1.5s ease;
+    }
+    .dash-mock-stat-warn .dash-mock-stat-num { color: #fbbf24; }
+    .dash-mock-stat-lbl {
+      font-size: 11px;
+      color: rgba(232,228,220,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    /* === SCENE 6 — Final CTA === */
+    .cta-final {
+      position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 16px;
+    }
+    .cta-final-pulse {
+      position: absolute;
+      inset: -40px -80px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, hsla(var(--scene-hue), 90%, 60%, 0.25) 0%, transparent 65%);
+      animation: cta-final-pulse 3s ease-in-out infinite;
+    }
+    @keyframes cta-final-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+    .cta-final-logo {
+      position: relative;
+      font-family: var(--font-display);
+      font-size: 56px;
       font-weight: 800;
       color: var(--text-on-dark);
-      letter-spacing: -1.2px;
-      text-shadow: 0 0 30px rgba(96,165,250,0.3);
+      letter-spacing: -2px;
+      display: flex;
     }
-    .explainer-final-tag {
-      font-size: 14px;
-      color: rgba(232,228,220,0.65);
+    .cta-final-letter {
+      display: inline-block;
+      animation: cta-final-letter 2.4s ease-out infinite;
+      animation-delay: calc(var(--i, 0) * 0.06s);
+      text-shadow: 0 0 40px hsla(var(--scene-hue), 90%, 65%, 0.5);
+    }
+    .cta-final-letter:nth-child(1) { animation-delay: 0s; }
+    .cta-final-letter:nth-child(2) { animation-delay: 0.06s; }
+    .cta-final-letter:nth-child(3) { animation-delay: 0.12s; }
+    .cta-final-letter:nth-child(4) { animation-delay: 0.18s; }
+    .cta-final-letter:nth-child(5) { animation-delay: 0.24s; }
+    .cta-final-letter:nth-child(6) { animation-delay: 0.30s; }
+    .cta-final-letter:nth-child(7) { animation-delay: 0.36s; }
+    .cta-final-letter:nth-child(8) { animation-delay: 0.42s; }
+    .cta-final-letter:nth-child(9) { animation-delay: 0.48s; }
+    .cta-final-letter:nth-child(10) { animation-delay: 0.54s; }
+    .cta-final-letter:nth-child(11) { animation-delay: 0.60s; }
+    .cta-final-letter:nth-child(12) { animation-delay: 0.66s; }
+    .cta-final-letter:nth-child(13) { animation-delay: 0.72s; }
+    @keyframes cta-final-letter {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+    }
+    .cta-final-accent {
+      color: hsla(var(--scene-hue), 95%, 70%, 1);
+    }
+    .cta-final-tag {
+      font-size: 15px;
+      color: rgba(232,228,220,0.7);
       font-weight: 600;
-      margin-top: 12px;
       letter-spacing: 0.3px;
+      position: relative;
     }
     /* Controls bar */
     .explainer-controls {
@@ -1650,15 +2130,32 @@
       .explainer-cover { gap: 18px; }
       .explainer-big-play { width: 72px; height: 72px; }
       .explainer-cover-title { font-size: 18px; }
-      .explainer-scene-icon { min-height: 100px; }
-      .explainer-scene-label { font-size: 18px; }
-      .explainer-scene-caption { font-size: 14.5px; }
-      .explainer-points-num { font-size: 44px; }
-      .explainer-final-logo { font-size: 32px; }
+      .explainer-scene { padding: 24px 18px; gap: 16px; }
+      .explainer-scene-stage { min-height: 160px; gap: 16px; }
+      .explainer-scene-label { font-size: 19px; }
+      .explainer-scene-caption { font-size: 14px; }
+      .qr-composition { width: 130px; height: 130px; }
+      .qr-checkmark { width: 50px; height: 50px; }
+      .phone3d-orbit { width: 230px; height: 230px; }
+      .phone3d { width: 92px; height: 142px; }
+      .phone3d-app-icon { width: 50px; height: 50px; }
+      .points-explosion { width: 160px; height: 160px; }
+      .points-num { font-size: 48px; }
+      .wallet-stack { width: 150px; height: 92px; }
+      .wallet-card-balance { font-size: 18px; }
+      .referral-bond { gap: 16px; }
+      .referral-avatar { width: 52px; height: 52px; font-size: 20px; }
+      .referral-line { width: 70px; height: 36px; }
+      .confetti-burst { width: 80px; height: 80px; }
+      .reward-star svg { width: 44px; height: 44px; }
+      .dash-mock { width: 280px; padding: 14px; }
+      .dash-mock-row { height: 80px; }
+      .dash-mock-stat-num { font-size: 17px; }
+      .cta-final-logo { font-size: 38px; letter-spacing: -1px; }
+      .cta-final-tag { font-size: 13px; }
       .explainer-controls { padding: 14px 18px; gap: 12px; }
       .explainer-control-btn { width: 36px; height: 36px; }
       .explainer-time { font-size: 11px; }
-      .explainer-dashboard { width: 240px; }
     }
 
     /* === GUARANTEE SECTION === */
@@ -2744,7 +3241,21 @@
         </audio>
 
         <!-- Animated visual stage -->
-        <div class="explainer-visual" id="explainer-visual">
+        <div class="explainer-visual" id="explainer-visual" style="--scene-hue: 210;">
+
+          <!-- Dynamic animated background layers -->
+          <div class="explainer-bg-layers" aria-hidden="true">
+            <div class="explainer-bg-mesh"></div>
+            <div class="explainer-bg-orb explainer-bg-orb-1"></div>
+            <div class="explainer-bg-orb explainer-bg-orb-2"></div>
+            <div class="explainer-bg-orb explainer-bg-orb-3"></div>
+            <div class="explainer-bg-orb explainer-bg-orb-4"></div>
+            <div class="explainer-bg-grid"></div>
+            <div class="explainer-bg-vignette"></div>
+          </div>
+
+          <!-- Floating ambient particles (always on during playback) -->
+          <div class="explainer-particles" id="explainer-particles" aria-hidden="true"></div>
 
           <!-- Idle / cover state shown before play -->
           <div class="explainer-cover" id="explainer-cover">
@@ -2762,45 +3273,46 @@
           <div class="explainer-scenes" id="explainer-scenes">
 
             <!-- Scene 1 — QR scan -->
-            <div class="explainer-scene" data-scene="0" data-start="0" data-end="13">
-              <div class="explainer-scene-icon">
-                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                  <rect x="10" y="10" width="22" height="22" rx="3" stroke="#60a5fa" stroke-width="3"/>
-                  <rect x="48" y="10" width="22" height="22" rx="3" stroke="#60a5fa" stroke-width="3"/>
-                  <rect x="10" y="48" width="22" height="22" rx="3" stroke="#60a5fa" stroke-width="3"/>
-                  <rect x="14" y="14" width="14" height="14" rx="1" fill="#60a5fa"/>
-                  <rect x="52" y="14" width="14" height="14" rx="1" fill="#60a5fa"/>
-                  <rect x="14" y="52" width="14" height="14" rx="1" fill="#60a5fa"/>
-                  <rect x="48" y="48" width="6" height="6" fill="#60a5fa"/>
-                  <rect x="58" y="48" width="6" height="6" fill="#60a5fa"/>
-                  <rect x="68" y="48" width="2" height="6" fill="#60a5fa"/>
-                  <rect x="48" y="58" width="2" height="6" fill="#60a5fa"/>
-                  <rect x="54" y="58" width="6" height="2" fill="#60a5fa"/>
-                  <rect x="62" y="58" width="8" height="2" fill="#60a5fa"/>
-                  <rect x="48" y="64" width="6" height="6" fill="#60a5fa"/>
-                  <rect x="58" y="64" width="2" height="6" fill="#60a5fa"/>
-                  <rect x="64" y="64" width="6" height="6" fill="#60a5fa"/>
-                </svg>
-                <div class="explainer-scan-line"></div>
+            <div class="explainer-scene" data-scene="0" data-start="0" data-end="13" data-hue="210">
+              <div class="explainer-scene-stage">
+                <div class="qr-composition">
+                  <div class="qr-corner qr-corner-tl"></div>
+                  <div class="qr-corner qr-corner-tr"></div>
+                  <div class="qr-corner qr-corner-bl"></div>
+                  <div class="qr-grid"></div>
+                  <div class="qr-scan-beam"></div>
+                  <div class="qr-glow-ring"></div>
+                </div>
+                <div class="qr-checkmark">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
               </div>
               <div class="explainer-scene-label">Scan QR à la caisse</div>
               <div class="explainer-scene-caption">Inscription en 30 secondes. Aucun téléchargement obligatoire.</div>
             </div>
 
             <!-- Scene 2 — Native app -->
-            <div class="explainer-scene" data-scene="1" data-start="13" data-end="30">
-              <div class="explainer-scene-icon">
-                <div class="explainer-phone-mini">
-                  <div class="explainer-phone-screen">
-                    <div class="explainer-phone-app-icon">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            <div class="explainer-scene" data-scene="1" data-start="13" data-end="30" data-hue="38">
+              <div class="explainer-scene-stage">
+                <div class="phone3d-orbit">
+                  <div class="phone3d">
+                    <div class="phone3d-screen">
+                      <div class="phone3d-app-icon">
+                        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                      </div>
+                      <div class="phone3d-app-name">Votre Café</div>
                     </div>
-                    <div class="explainer-phone-app-name">Votre Café</div>
+                    <div class="phone3d-shine"></div>
                   </div>
-                </div>
-                <div class="explainer-store-badges">
-                  <div class="explainer-store-badge">App Store</div>
-                  <div class="explainer-store-badge">Google Play</div>
+                  <div class="orbit-badge orbit-badge-app-store">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                    App Store
+                  </div>
+                  <div class="orbit-badge orbit-badge-play-store">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 2.5l11 9.5L3 21.5z" fill="#34d399"/><path d="M14 12l4-3.5 3 1.7v3.6l-3 1.7L14 12z" fill="#fbbf24"/><path d="M3 2.5l11 9.5 4-3.5z" fill="#60a5fa"/><path d="M3 21.5l11-9.5 4 3.5z" fill="#f87171"/></svg>
+                    Google Play
+                  </div>
+                  <div class="orbit-ring"></div>
                 </div>
               </div>
               <div class="explainer-scene-label">Vraie app native, sous votre nom</div>
@@ -2808,15 +3320,29 @@
             </div>
 
             <!-- Scene 3 — Points + Apple Wallet -->
-            <div class="explainer-scene" data-scene="2" data-start="30" data-end="44">
-              <div class="explainer-scene-icon">
-                <div class="explainer-points-display">
-                  <div class="explainer-points-num" id="explainer-points-num">847</div>
-                  <div class="explainer-points-label">points</div>
+            <div class="explainer-scene" data-scene="2" data-start="30" data-end="44" data-hue="270">
+              <div class="explainer-scene-stage">
+                <div class="points-explosion">
+                  <div class="points-rings">
+                    <span class="points-ring"></span>
+                    <span class="points-ring"></span>
+                    <span class="points-ring"></span>
+                  </div>
+                  <div class="points-display">
+                    <div class="points-num" id="explainer-points-num">847</div>
+                    <div class="points-label">points</div>
+                  </div>
                 </div>
-                <div class="explainer-wallet-card">
-                  <div class="explainer-wallet-card-line"></div>
-                  <div class="explainer-wallet-card-text">Apple Wallet</div>
+                <div class="wallet-stack">
+                  <div class="wallet-card wallet-card-back"></div>
+                  <div class="wallet-card wallet-card-mid"></div>
+                  <div class="wallet-card wallet-card-front">
+                    <div class="wallet-card-row">
+                      <div class="wallet-card-line"></div>
+                      <span class="wallet-card-tag">Apple Wallet</span>
+                    </div>
+                    <div class="wallet-card-balance">847 pts</div>
+                  </div>
                 </div>
               </div>
               <div class="explainer-scene-label">Points + Apple Wallet</div>
@@ -2824,15 +3350,25 @@
             </div>
 
             <!-- Scene 4 — Referral + reward -->
-            <div class="explainer-scene" data-scene="3" data-start="44" data-end="52">
-              <div class="explainer-scene-icon">
-                <div class="explainer-referral">
-                  <div class="explainer-avatar" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">A</div>
-                  <svg class="explainer-referral-arrow" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <div class="explainer-avatar" style="background: linear-gradient(135deg, #a855f7, #7c3aed);">M</div>
+            <div class="explainer-scene" data-scene="3" data-start="44" data-end="52" data-hue="330">
+              <div class="explainer-scene-stage">
+                <div class="referral-bond">
+                  <div class="referral-avatar referral-avatar-1">A</div>
+                  <svg class="referral-line" viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M0 30 Q 50 0, 100 30 T 200 30" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="4 6"/></svg>
+                  <div class="referral-avatar referral-avatar-2">M</div>
                 </div>
-                <div class="explainer-reward-burst">
-                  <svg width="44" height="44" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l2.39 7.36H22l-6.18 4.49L18.21 22 12 17.51 5.79 22l2.39-8.15L2 9.36h7.61L12 2z"/></svg>
+                <div class="confetti-burst">
+                  <span class="confetti" style="--cd: 0; --cx: -40; --cy: -40;"></span>
+                  <span class="confetti" style="--cd: 0.05; --cx: 50; --cy: -30;"></span>
+                  <span class="confetti" style="--cd: 0.1; --cx: -60; --cy: 20;"></span>
+                  <span class="confetti" style="--cd: 0.15; --cx: 70; --cy: 10;"></span>
+                  <span class="confetti" style="--cd: 0.2; --cx: -25; --cy: 50;"></span>
+                  <span class="confetti" style="--cd: 0.25; --cx: 35; --cy: 55;"></span>
+                  <span class="confetti" style="--cd: 0.3; --cx: 0; --cy: -65;"></span>
+                  <span class="confetti" style="--cd: 0.35; --cx: -75; --cy: -10;"></span>
+                  <div class="reward-star">
+                    <svg width="56" height="56" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l2.39 7.36H22l-6.18 4.49L18.21 22 12 17.51 5.79 22l2.39-8.15L2 9.36h7.61L12 2z"/></svg>
+                  </div>
                 </div>
               </div>
               <div class="explainer-scene-label">Parrainage + récompense</div>
@@ -2840,21 +3376,27 @@
             </div>
 
             <!-- Scene 5 — Admin dashboard -->
-            <div class="explainer-scene" data-scene="4" data-start="52" data-end="60">
-              <div class="explainer-scene-icon">
-                <div class="explainer-dashboard">
-                  <div class="explainer-dashboard-row">
-                    <div class="explainer-dashboard-bar" style="height: 30%; background: #60a5fa;"></div>
-                    <div class="explainer-dashboard-bar" style="height: 55%; background: #60a5fa;"></div>
-                    <div class="explainer-dashboard-bar" style="height: 40%; background: #60a5fa;"></div>
-                    <div class="explainer-dashboard-bar" style="height: 75%; background: #60a5fa;"></div>
-                    <div class="explainer-dashboard-bar" style="height: 60%; background: #60a5fa;"></div>
-                    <div class="explainer-dashboard-bar" style="height: 90%; background: #a855f7;"></div>
-                    <div class="explainer-dashboard-bar" style="height: 100%; background: #a855f7;"></div>
+            <div class="explainer-scene" data-scene="4" data-start="52" data-end="60" data-hue="155">
+              <div class="explainer-scene-stage">
+                <div class="dash-mock">
+                  <div class="dash-mock-header">
+                    <span class="dash-mock-dot"></span>
+                    <span class="dash-mock-dot"></span>
+                    <span class="dash-mock-dot"></span>
+                    <span class="dash-mock-title">Tableau de bord</span>
                   </div>
-                  <div class="explainer-dashboard-stats">
-                    <div class="explainer-dashboard-stat"><span style="color: #10b981;">+34%</span> visites</div>
-                    <div class="explainer-dashboard-stat"><span style="color: #f59e0b;">12</span> dormants</div>
+                  <div class="dash-mock-row">
+                    <span class="dash-bar" style="--h: 30%; --i: 0;"></span>
+                    <span class="dash-bar" style="--h: 50%; --i: 1;"></span>
+                    <span class="dash-bar" style="--h: 38%; --i: 2;"></span>
+                    <span class="dash-bar" style="--h: 72%; --i: 3;"></span>
+                    <span class="dash-bar" style="--h: 58%; --i: 4;"></span>
+                    <span class="dash-bar dash-bar-hi" style="--h: 88%; --i: 5;"></span>
+                    <span class="dash-bar dash-bar-hi" style="--h: 100%; --i: 6;"></span>
+                  </div>
+                  <div class="dash-mock-stats">
+                    <div class="dash-mock-stat"><span class="dash-mock-stat-num">+34%</span><span class="dash-mock-stat-lbl">visites/mois</span></div>
+                    <div class="dash-mock-stat dash-mock-stat-warn"><span class="dash-mock-stat-num">12</span><span class="dash-mock-stat-lbl">dormants</span></div>
                   </div>
                 </div>
               </div>
@@ -2863,12 +3405,15 @@
             </div>
 
             <!-- Scene 6 — CTA -->
-            <div class="explainer-scene" data-scene="5" data-start="60" data-end="67">
-              <div class="explainer-scene-icon">
-                <div class="explainer-final-logo">
-                  Logic<span style="color: #60a5fa;">Supplies</span>
+            <div class="explainer-scene" data-scene="5" data-start="60" data-end="67" data-hue="210">
+              <div class="explainer-scene-stage">
+                <div class="cta-final">
+                  <div class="cta-final-pulse"></div>
+                  <div class="cta-final-logo">
+                    <span class="cta-final-letter">L</span><span class="cta-final-letter">o</span><span class="cta-final-letter">g</span><span class="cta-final-letter">i</span><span class="cta-final-letter">c</span><span class="cta-final-letter cta-final-accent">S</span><span class="cta-final-letter cta-final-accent">u</span><span class="cta-final-letter cta-final-accent">p</span><span class="cta-final-letter cta-final-accent">p</span><span class="cta-final-letter cta-final-accent">l</span><span class="cta-final-letter cta-final-accent">i</span><span class="cta-final-letter cta-final-accent">e</span><span class="cta-final-letter cta-final-accent">s</span>
+                  </div>
+                  <div class="cta-final-tag">Démo gratuite à votre nom · 24 h</div>
                 </div>
-                <div class="explainer-final-tag">Démo gratuite à votre nom · 24 h</div>
               </div>
               <div class="explainer-scene-label">À votre tour</div>
               <div class="explainer-scene-caption">Démo personnalisée à votre logo, sans engagement, sans carte de crédit.</div>
@@ -3392,11 +3937,12 @@
 
   <script>
     // =============================================
-    // EXPLAINER VIDEO — 60s voiceover with synced scenes
+    // EXPLAINER VIDEO — voiceover with synced scenes + dynamic background hue
     // =============================================
     (function() {
       const audio = document.getElementById('explainer-audio');
       if (!audio) return;
+      const visual = document.getElementById('explainer-visual');
       const cover = document.getElementById('explainer-cover');
       const bigPlay = document.getElementById('explainer-big-play');
       const toggle = document.getElementById('explainer-toggle');
@@ -3408,15 +3954,35 @@
       const iconPlay = toggle.querySelector('.explainer-icon-play');
       const iconPause = toggle.querySelector('.explainer-icon-pause');
       const pointsNum = document.getElementById('explainer-points-num');
+      const particlesLayer = document.getElementById('explainer-particles');
 
       let currentScene = -1;
       let pointsAnimStarted = false;
+      let particlesSpawned = false;
 
       function fmt(s) {
         if (!isFinite(s)) return '0:00';
         const m = Math.floor(s / 60);
         const r = Math.floor(s % 60).toString().padStart(2, '0');
         return m + ':' + r;
+      }
+
+      function spawnParticles() {
+        if (particlesSpawned) return;
+        particlesSpawned = true;
+        const N = 26;
+        for (let i = 0; i < N; i++) {
+          const p = document.createElement('span');
+          p.className = 'explainer-particle';
+          p.style.left = (Math.random() * 100) + '%';
+          p.style.animationDuration = (8 + Math.random() * 9) + 's';
+          p.style.animationDelay = (Math.random() * 12) + 's';
+          p.style.setProperty('--drift', ((Math.random() - 0.5) * 80) + 'px');
+          const size = 1.5 + Math.random() * 3;
+          p.style.width = size + 'px';
+          p.style.height = size + 'px';
+          particlesLayer.appendChild(p);
+        }
       }
 
       function updateScene(t) {
@@ -3430,10 +3996,23 @@
           idx = scenes.length - 1;
         }
         if (idx !== currentScene && idx >= 0) {
-          scenes.forEach(s => s.classList.remove('active'));
+          // Mark previously active scene as exiting (for cinematic out-transition)
+          scenes.forEach((s, i) => {
+            if (i === currentScene) {
+              s.classList.remove('active');
+              s.classList.add('exiting');
+              setTimeout(() => s.classList.remove('exiting'), 900);
+            } else if (i !== idx) {
+              s.classList.remove('active', 'exiting');
+            }
+          });
+          scenes[idx].classList.remove('exiting');
           scenes[idx].classList.add('active');
+          // Update background hue (drives all colored elements)
+          const hue = parseInt(scenes[idx].dataset.hue, 10);
+          if (!isNaN(hue)) visual.style.setProperty('--scene-hue', hue);
           currentScene = idx;
-          // Animate points counter on scene 3 entry
+          // Trigger points counter on scene 3 (idx 2)
           if (idx === 2 && !pointsAnimStarted) {
             pointsAnimStarted = true;
             animatePoints();
@@ -3445,7 +4024,7 @@
         let n = 0;
         const target = 847;
         const step = () => {
-          n += Math.max(1, Math.round((target - n) / 14));
+          n += Math.max(1, Math.round((target - n) / 12));
           if (n >= target) { pointsNum.textContent = target; return; }
           pointsNum.textContent = n;
           requestAnimationFrame(step);
@@ -3455,6 +4034,7 @@
 
       function play() {
         cover.classList.add('hidden');
+        spawnParticles();
         audio.play().catch(() => {});
       }
 
@@ -3464,6 +4044,7 @@
       toggle.addEventListener('click', () => {
         if (audio.paused) {
           cover.classList.add('hidden');
+          spawnParticles();
           audio.play().catch(() => {});
         } else {
           audio.pause();
@@ -3475,7 +4056,8 @@
         cover.classList.add('hidden');
         pointsAnimStarted = false;
         currentScene = -1;
-        scenes.forEach(s => s.classList.remove('active'));
+        scenes.forEach(s => s.classList.remove('active', 'exiting'));
+        spawnParticles();
         audio.play().catch(() => {});
       });
 
@@ -3498,15 +4080,12 @@
       });
       audio.addEventListener('timeupdate', () => {
         const t = audio.currentTime;
-        const d = audio.duration || 56;
+        const d = audio.duration || 65;
         const pct = (t / d) * 100;
         progressFill.style.width = pct + '%';
         progress.setAttribute('aria-valuenow', Math.round(pct));
         timeEl.textContent = fmt(t) + ' / ' + fmt(d);
         updateScene(t);
-      });
-      audio.addEventListener('ended', () => {
-        // Stay on last scene (CTA) and let user replay
       });
       audio.addEventListener('loadedmetadata', () => {
         timeEl.textContent = '0:00 / ' + fmt(audio.duration);
