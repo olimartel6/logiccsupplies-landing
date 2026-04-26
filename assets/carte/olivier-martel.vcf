@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Olivier Martel
+N:Martel;Olivier;;;
+ORG:LogicSupplies
+TITLE:Fondateur
+EMAIL;TYPE=WORK,INTERNET:olivier@logiccsupplies.ca
+URL:https://logiccsupplies.ca
+URL;TYPE=GitHub:https://github.com/olimartel6
+NOTE:Studio québécois qui crée des applications de fidélité personnalisées pour les commerces locaux. Démo gratuite à votre nom en moins de 24 heures.
+ADR;TYPE=WORK:;;;Québec;QC;;Canada
+CATEGORIES:Business
+END:VCARD
