@@ -374,9 +374,19 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       background: rgba(5,5,16,0.4); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
       border-bottom: 1px solid rgba(59,130,246,0.06);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.4s ease,
+                  background 0.4s ease,
+                  border-color 0.4s ease;
+      transform: translateY(0);
+      opacity: 1;
     }
     nav.scrolled { background: rgba(5,5,16,0.95); border-bottom-color: rgba(59,130,246,0.12); }
+    nav.nav-hidden {
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
+    }
     .nav-inner {
       max-width: 1200px; margin: 0 auto; padding: 18px 32px;
       display: flex; align-items: center; justify-content: space-between;
@@ -3910,11 +3920,36 @@
     })();
 
     // =============================================
-    // NAV SCROLL
+    // NAV SCROLL — fade out when scrolling down, reappear scrolling up
     // =============================================
-    window.addEventListener('scroll', () => {
-      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
-    });
+    (function() {
+      const nav = document.getElementById('nav');
+      let lastY = window.scrollY;
+      let ticking = false;
+      const HIDE_THRESHOLD = 140; // px scrolled before hiding kicks in
+      const SCROLL_DELTA = 6;     // ignore micro-movements
+
+      function update() {
+        const y = window.scrollY;
+        const dy = y - lastY;
+        nav.classList.toggle('scrolled', y > 40);
+        if (Math.abs(dy) > SCROLL_DELTA) {
+          if (dy > 0 && y > HIDE_THRESHOLD) {
+            // scrolling down past threshold → hide
+            nav.classList.add('nav-hidden');
+          } else if (dy < 0) {
+            // scrolling up → show
+            nav.classList.remove('nav-hidden');
+          }
+          lastY = y;
+        }
+        if (y < 40) nav.classList.remove('nav-hidden'); // always show at top
+        ticking = false;
+      }
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+    })();
 
     // =============================================
     // PARALLAX BLOBS
