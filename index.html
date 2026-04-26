@@ -181,6 +181,38 @@
               "@type": "Answer",
               "text": "Oui. C'est précisément ce que LogicSupplies offre — une application native iOS et Android publiée sur l'App Store et Google Play, sans aucune ligne de code à écrire et sans embaucher un développeur. Vous fournissez votre logo, vos couleurs et la liste de vos récompenses. Notre studio s'occupe du développement, des certificats Apple, des soumissions aux deux stores, et des mises à jour annuelles obligatoires. Délai : 7 à 14 jours du brief au lancement."
             }
+          },
+          {
+            "@type": "Question",
+            "name": "Y a-t-il un engagement long terme avec LogicSupplies?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Non. L'abonnement LogicSupplies est mensuel et résiliable en tout temps avec 30 jours d'avis. Aucun engagement de 12 ou 24 mois, aucun frais d'annulation, aucun frais d'installation. Vous payez le mois que vous utilisez. Une garantie satisfait ou remboursé de 30 jours s'applique aussi sur le premier mois."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "À qui appartiennent les données clients collectées par l'app?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Les données clients vous appartiennent à 100%. LogicSupplies agit comme dépositaire technique seulement. Vous pouvez exporter votre base complète en CSV en tout temps depuis votre tableau de bord admin. Si LogicSupplies ferme un jour, vous obtenez automatiquement un export complet 60 jours avant la fin du service. Aucune donnée n'est jamais vendue, partagée avec des tiers, ou utilisée pour entraîner des modèles d'IA."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Mes données sont-elles stockées au Canada?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Toutes les données collectées via les apps LogicSupplies sont stockées sur Supabase en région nord-américaine, conformément à la Loi 25 du Québec. Chiffrement AES-256 au repos, TLS 1.3 en transit. Les détails complets sont disponibles sur logiccsupplies.ca/security."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "L'app sera-t-elle publiée sous le nom de mon commerce ou celui de LogicSupplies?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sous le nom de votre commerce. L'app porte votre nom dans l'App Store et Google Play, votre logo comme icône, vos couleurs comme thème. Vos clients téléchargent l'app de votre commerce, pas une app générique LogicSupplies. Le bundle ID inclut aussi votre nom (ex: com.logicsupplies.votre-commerce)."
+            }
           }
         ]
       }
@@ -1234,6 +1266,160 @@
     .proof-quote-author {
       font-size: 15px; color: var(--accent-light); margin-top: 20px;
       font-style: normal; font-weight: 600;
+    }
+
+    /* === GUARANTEE SECTION === */
+    .guarantee-section {
+      background: var(--dark-2);
+      padding: 140px 32px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .guarantee-bg-glow {
+      position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .guarantee-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .guarantee-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px;
+      padding: 32px 28px;
+      backdrop-filter: blur(14px);
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s, background 0.3s;
+      position: relative;
+    }
+    .guarantee-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(96,165,250,0.3);
+      background: linear-gradient(135deg, rgba(96,165,250,0.06), rgba(255,255,255,0.025));
+    }
+    .guarantee-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 22px;
+    }
+    .guarantee-card h3 {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 700;
+      color: var(--text-on-dark);
+      letter-spacing: -0.2px;
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+    .guarantee-card p {
+      font-size: 14.5px;
+      color: rgba(232,228,220,0.6);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* === FAQ SECTION === */
+    .faq-section {
+      background: var(--dark);
+      padding: 120px 32px 140px;
+      position: relative;
+    }
+    .faq-section::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(96,165,250,0.25), transparent);
+    }
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      background: linear-gradient(135deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012));
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      transition: border-color 0.3s, background 0.3s;
+      overflow: hidden;
+    }
+    .faq-item:hover {
+      border-color: rgba(96,165,250,0.25);
+    }
+    .faq-item[open] {
+      border-color: rgba(96,165,250,0.35);
+      background: linear-gradient(135deg, rgba(96,165,250,0.05), rgba(255,255,255,0.02));
+    }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 22px 26px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px;
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 600;
+      color: var(--text-on-dark);
+      letter-spacing: -0.1px;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-item summary span {
+      flex: 1;
+    }
+    .faq-chevron {
+      flex-shrink: 0;
+      color: rgba(232,228,220,0.5);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.3s;
+    }
+    .faq-item[open] .faq-chevron {
+      transform: rotate(180deg);
+      color: var(--accent-light);
+    }
+    .faq-item summary:hover {
+      color: var(--accent-light);
+    }
+    .faq-body {
+      padding: 4px 26px 26px;
+      animation: faq-fade 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .faq-body p {
+      font-size: 15px;
+      color: rgba(232,228,220,0.7);
+      line-height: 1.75;
+      margin: 0;
+    }
+    .faq-body a {
+      color: var(--accent-light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(96,165,250,0.3);
+      transition: border-color 0.2s;
+    }
+    .faq-body a:hover {
+      border-color: var(--accent-light);
+    }
+    @keyframes faq-fade {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .guarantee-section { padding: 80px 20px 60px; }
+      .guarantee-grid { grid-template-columns: 1fr; gap: 14px; }
+      .guarantee-card { padding: 24px 22px; }
+      .guarantee-card h3 { font-size: 17px; }
+      .faq-section { padding: 70px 20px 90px; }
+      .faq-item summary { padding: 18px 20px; font-size: 15px; gap: 14px; }
+      .faq-body { padding: 4px 20px 22px; }
+      .faq-body p { font-size: 14.5px; }
     }
 
     /* === CTA SECTION — FULL VIEWPORT === */
@@ -2407,6 +2593,186 @@
       <p class="reveal delay-4" style="text-align: center; font-size: 13px; color: rgba(232,228,220,0.4); margin-top: 28px;">
         Curieux de la stack ? <a href="/about.html" style="color: var(--accent-light); text-decoration: none; border-bottom: 1px solid rgba(96,165,250,0.3);">À propos</a> · <a href="/security.html" style="color: var(--accent-light); text-decoration: none; border-bottom: 1px solid rgba(96,165,250,0.3);">Sécurité &amp; confidentialité</a> · <a href="https://github.com/olimartel6" target="_blank" style="color: var(--accent-light); text-decoration: none; border-bottom: 1px solid rgba(96,165,250,0.3);">Code public sur GitHub</a>
       </p>
+    </div>
+  </section>
+
+  <!-- GUARANTEE — Sans risque -->
+  <section class="guarantee-section">
+    <div class="guarantee-bg-glow"></div>
+    <div class="section-inner" style="max-width: 1200px; margin: 0 auto; position: relative;">
+      <div style="text-align: center; margin-bottom: 56px;">
+        <div class="section-label reveal" style="display: inline-block;">Aucun risque</div>
+        <h2 class="section-title reveal delay-1" style="margin-top: 16px;">Vous n'avez <em>rien à perdre</em></h2>
+        <p class="section-sub reveal delay-2" style="max-width: 620px; margin: 16px auto 0;">Notre objectif : que votre app paye votre abonnement en quelques semaines. Si ce n'est pas le cas, vous repartez avec vos données et zéro engagement.</p>
+      </div>
+
+      <div class="guarantee-grid">
+        <!-- 30-day money-back -->
+        <div class="guarantee-card reveal delay-2">
+          <div class="guarantee-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="14" stroke="#10b981" stroke-width="2" fill="rgba(16,185,129,0.08)"/>
+              <path d="M11 16l3.5 3.5L22 12" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Garantie 30 jours satisfait ou remboursé</h3>
+          <p>Si dans les 30 premiers jours vous changez d'idée, on vous rembourse intégralement. Aucune question, aucune justification.</p>
+        </div>
+
+        <!-- No commitment -->
+        <div class="guarantee-card reveal delay-3">
+          <div class="guarantee-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect x="6" y="10" width="20" height="14" rx="3" stroke="#3b82f6" stroke-width="2" fill="rgba(59,130,246,0.06)"/>
+              <path d="M11 10V7a5 5 0 0110 0v3" stroke="#3b82f6" stroke-width="2"/>
+              <path d="M16 16v3" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Aucun engagement long terme</h3>
+          <p>Mensuel sans contrat. Annulation possible en tout temps avec 30 jours d'avis. Pas de pénalité, pas de frais cachés, pas de "vous êtes pris pour 12 mois".</p>
+        </div>
+
+        <!-- Data ownership -->
+        <div class="guarantee-card reveal delay-4">
+          <div class="guarantee-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M16 4l-11 5v7c0 6 4.5 11 11 12 6.5-1 11-6 11-12V9l-11-5z" stroke="#a855f7" stroke-width="2" fill="rgba(168,85,247,0.06)"/>
+              <path d="M11 16l4 4 7-7" stroke="#a855f7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Vos données vous appartiennent</h3>
+          <p>Export CSV complet de votre base clients en tout temps. Si on ferme un jour, vous récupérez tout 60 jours avant la fin du service. Données stockées au Canada, jamais revendues.</p>
+        </div>
+
+        <!-- Free demo -->
+        <div class="guarantee-card reveal delay-2">
+          <div class="guarantee-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="14" stroke="#f59e0b" stroke-width="2" fill="rgba(245,158,11,0.06)"/>
+              <text x="16" y="21" text-anchor="middle" fill="#f59e0b" font-family="system-ui, sans-serif" font-weight="700" font-size="11">0$</text>
+            </svg>
+          </div>
+          <h3>Démo gratuite avant tout</h3>
+          <p>App à votre logo et vos couleurs livrée en moins de 24 h. Aucune carte de crédit demandée. Vous testez avant de décider.</p>
+        </div>
+
+        <!-- No setup fees -->
+        <div class="guarantee-card reveal delay-3">
+          <div class="guarantee-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M6 12h20M6 20h20" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+              <path d="M5 8l22 16" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Aucun frais d'installation</h3>
+          <p>Zéro frais d'installation. Zéro frais de configuration. Zéro frais de "personnalisation" surprise. Le prix qu'on annonce est le prix final.</p>
+        </div>
+
+        <!-- We do everything -->
+        <div class="guarantee-card reveal delay-4">
+          <div class="guarantee-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="11" r="4" stroke="#06b6d4" stroke-width="2" fill="rgba(6,182,212,0.08)"/>
+              <path d="M6 26c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="#06b6d4" stroke-width="2" fill="rgba(6,182,212,0.06)"/>
+            </svg>
+          </div>
+          <h3>On s'occupe de tout</h3>
+          <p>Inscription Apple Developer, Google Play, certificats, screenshots, soumission, mises à jour. Vous n'avez besoin d'aucune compétence technique.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ — Trust questions -->
+  <section class="faq-section" id="faq">
+    <div class="section-inner" style="max-width: 880px; margin: 0 auto;">
+      <div style="text-align: center; margin-bottom: 56px;">
+        <div class="section-label reveal" style="display: inline-block;">Questions légitimes</div>
+        <h2 class="section-title reveal delay-1" style="margin-top: 16px;">Pourquoi nous faire <em>confiance ?</em></h2>
+        <p class="section-sub reveal delay-2" style="max-width: 620px; margin: 16px auto 0;">Les vraies questions que les commerçants nous posent avant de signer. Réponses directes, sans détour.</p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item reveal delay-2">
+          <summary>
+            <span>Vous existez depuis quand ? Je vois que le domaine est récent.</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Le domaine logiccsupplies.ca est récent — c'est vrai. Le studio fonctionne depuis plus longtemps via des projets antérieurs et plus de 130 démos déployées dans la région de Québec. Le code de plusieurs de nos outils est <a href="https://github.com/olimartel6" target="_blank">public sur GitHub</a> avec un historique commit visible. Notre Apple Developer Team ID (D8SXYV7QXP) est aussi vérifiable — c'est un compte payant nécessitant une pièce d'identité validée par Apple.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal delay-2">
+          <summary>
+            <span>Et si vous fermez ? Mon programme de fidélité disparaît avec ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Vous récupérez automatiquement un export CSV complet de toute votre base clients <strong>60 jours avant</strong> la fin du service, peu importe la raison. C'est écrit dans nos conditions et c'est techniquement automatisé. En tout temps pendant l'abonnement, vous pouvez aussi exporter votre base depuis le tableau de bord admin — c'est un bouton, pas un processus de support.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal delay-3">
+          <summary>
+            <span>Mes données clients vous appartiennent ou m'appartiennent ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Elles vous appartiennent à 100 %. On agit comme dépositaire technique, pas comme propriétaire. On ne vend jamais, ne loue jamais, ne partage jamais avec qui que ce soit. On ne les utilise pas non plus pour entraîner des modèles d'IA. Tout est détaillé sur notre <a href="/security.html">page Sécurité</a>, conforme à la Loi 25 du Québec.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal delay-3">
+          <summary>
+            <span>Pas d'engagement vraiment ? Pas de petits caractères ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Pas d'engagement long terme. C'est mensuel, résiliable en tout temps avec 30 jours d'avis pour qu'on puisse migrer vos données proprement. Pas de frais d'annulation. Pas de "minimum 12 mois". Pas de "tarif spécial pour 24 mois" qui se renouvelle automatiquement. Vous payez le mois que vous utilisez. Stop.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal delay-4">
+          <summary>
+            <span>Pourquoi vous ne mettez pas vos prix sur le site ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Parce que le prix dépend de votre situation : nombre de succursales, volume de clients, fonctionnalités voulues (SMS Twilio, multi-locations, intégration POS). Mettre un prix générique serait soit trop élevé pour les petits commerces, soit pas viable pour les plus gros. On préfère vous donner un prix juste après une discussion de 10 minutes plutôt que d'afficher un prix générique qui n'est jamais le bon.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal delay-4">
+          <summary>
+            <span>Vous publiez l'app sous quel nom dans l'App Store ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Sous le nom de votre commerce. Vos clients téléchargent "Café Saint-Henri" ou "Salon Marie", pas "LogicSupplies". L'icône est votre logo. Le bundle ID inclut votre nom. Vous pouvez vérifier sur l'App Store ou Google Play à tout moment — c'est votre app, votre marque.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal delay-2">
+          <summary>
+            <span>Je peux parler à un humain avant de payer ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Oui, écrivez à <a href="mailto:olivier@logiccsupplies.ca">olivier@logiccsupplies.ca</a>. On répond personnellement (pas un bot, pas un commercial extérieur) sous 24 h. La démo gratuite avec votre logo + couleurs vous est livrée avant qu'on parle de prix — vous voyez le produit avant tout engagement, même verbal.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal delay-3">
+          <summary>
+            <span>Et si l'app a un bug ou un problème ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Support direct par courriel, réponse même journée pour les problèmes critiques (caisse bloquée, scan QR qui plante). Mises à jour livrées sans frais : nouveaux features, corrections, compatibilité avec les nouvelles versions iOS/Android — c'est inclus dans l'abonnement, pas en supplément.</p>
+          </div>
+        </details>
+      </div>
     </div>
   </section>
 
