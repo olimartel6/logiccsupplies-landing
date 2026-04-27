@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur de ROI — Programme de fidélité pour votre commerce | LogicSupplies</title>
+  <meta name="description" content="Calculateur interactif : estimez le ROI annuel d'un programme de fidélité numérique pour votre commerce québécois. Basé sur des données réelles de 130+ déploiements.">
+  <meta name="keywords" content="calculateur ROI fidélité, estimer ROI programme fidélité, calculatrice fidélité Québec, ROI app fidélité commerce">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://logiccsupplies.ca/calculateur-roi/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://logiccsupplies.ca/calculateur-roi/">
+  <meta property="og:title" content="Calculateur de ROI — Programme de fidélité">
+  <meta property="og:description" content="Estimez en 60 secondes l'impact annuel d'un programme de fidélité sur votre commerce.">
+  <meta property="og:locale" content="fr_CA">
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gold: #C9A96E;
+      --gold-dark: #B08D4F;
+      --bg: #FAFAF8;
+      --card: #ffffff;
+      --ink: #1a1a1f;
+      --muted: #66635c;
+      --line: rgba(0,0,0,0.08);
+      --green: #10b981;
+      --green-light: #d1fae5;
+      --blue: #3b82f6;
+      --blue-light: #dbeafe;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 32px 16px 80px;
+      line-height: 1.5;
+    }
+
+    .head {
+      max-width: 720px; margin: 0 auto 32px;
+      text-align: center;
+    }
+    .head .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      color: var(--gold-dark); text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .head h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 40px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .head p { font-size: 16px; color: var(--muted); max-width: 540px; margin: 0 auto; }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
+      border: 1px solid var(--line);
+    }
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 18px;
+      letter-spacing: -0.3px;
+    }
+
+    .input-group { margin-bottom: 18px; }
+    .input-group:last-child { margin-bottom: 0; }
+    .input-label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex; justify-content: space-between;
+      align-items: baseline;
+    }
+    .input-value {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold-dark);
+    }
+    .input-help {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--line);
+      border-radius: 3px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(176,141,79,0.3);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px; height: 22px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(176,141,79,0.3);
+    }
+
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      background: white;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .results-card {
+      background: linear-gradient(135deg, #1a1a1f, #2a2a30);
+      color: white;
+      border: none;
+      box-shadow: 0 30px 60px -10px rgba(0,0,0,0.4), 0 0 30px rgba(201,169,110,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .results-card::before {
+      content: '';
+      position: absolute;
+      top: -40%; right: -40%;
+      width: 80%; height: 80%;
+      background: radial-gradient(circle at center, rgba(201,169,110,0.18) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .results-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 26px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      position: relative;
+    }
+    .results-card .subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      position: relative;
+    }
+    .result-cell {
+      padding: 16px 14px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .result-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .result-value {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 26px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -1px;
+      font-variant-numeric: tabular-nums;
+    }
+    .result-value.gold { color: var(--gold); }
+    .result-value.green { color: #34d399; }
+    .result-detail {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+    }
+
+    .roi-headline {
+      grid-column: 1 / -1;
+      padding: 24px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(201,169,110,0.18), rgba(176,141,79,0.08));
+      border-radius: 12px;
+      border: 1px solid rgba(201,169,110,0.25);
+      margin-top: 4px;
+    }
+    .roi-headline-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+    .roi-headline-value {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 38px;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: -1px;
+      text-shadow: 0 0 30px rgba(201,169,110,0.4);
+    }
+    .roi-headline-detail {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 6px;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: white;
+      text-align: center;
+      border: none;
+    }
+    .cta-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .cta-card p { color: rgba(255,255,255,0.85); margin-bottom: 18px; font-size: 14px; }
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 28px;
+      background: white;
+      color: var(--gold-dark);
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: 14px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,0.25); }
+
+    .disclaimer {
+      max-width: 720px;
+      margin: 24px auto 0;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    nav.top-nav {
+      max-width: 720px;
+      margin: 0 auto 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav.top-nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    nav.top-nav a:hover { color: var(--gold-dark); }
+    nav.top-nav .logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      font-weight: 500;
+    }
+    nav.top-nav .logo span { color: var(--gold-dark); }
+
+    @media (max-width: 480px) {
+      body { padding: 20px 14px 60px; }
+      .head h1 { font-size: 30px; }
+      .card { padding: 22px; }
+      .result-value { font-size: 22px; }
+      .roi-headline-value { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a class="logo" href="/">Logic<span>Supplies</span>.</a>
+    <a href="/blog/">← Blog</a>
+  </nav>
+
+  <div class="head">
+    <div class="eyebrow">Calculateur</div>
+    <h1>Estimez votre ROI annuel.</h1>
+    <p>Combien votre commerce gagnerait avec un programme de fidélité numérique. Calculs basés sur des données réelles de 130+ déploiements LogicSupplies.</p>
+  </div>
+
+  <main>
+
+    <div class="card">
+      <h2>📊 Votre commerce</h2>
+
+      <div class="input-group">
+        <label class="input-label">Type de commerce
+          <span class="input-value" id="industryLabel">Café</span>
+        </label>
+        <select id="industry">
+          <option value="cafe" data-mult="1.0">Café / boulangerie / pâtisserie</option>
+          <option value="restaurant" data-mult="0.95">Restaurant / bistro casual</option>
+          <option value="salon" data-mult="1.1">Salon coiffure / barbier / esthétique</option>
+          <option value="spa" data-mult="1.15">Spa / massothérapie / wellness</option>
+          <option value="boutique" data-mult="0.85">Boutique mode / concept</option>
+          <option value="boucherie" data-mult="0.9">Boucherie / fleuriste / spécialité</option>
+          <option value="toilettage" data-mult="1.05">Toilettage animalier</option>
+          <option value="gym" data-mult="0.95">Gym / studio fitness</option>
+        </select>
+        <div class="input-help">L'industrie influence le multiplicateur de fréquence du programme.</div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Clients réguliers
+          <span class="input-value"><span id="customersValue">200</span></span>
+        </label>
+        <input type="range" id="customers" min="20" max="2000" value="200" step="10">
+        <div class="input-help">Nombre de clients qui reviennent au moins une fois/mois.</div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Panier moyen
+          <span class="input-value"><span id="basketValue">12</span> $</span>
+        </label>
+        <input type="range" id="basket" min="5" max="500" value="12" step="1">
+        <div class="input-help">Montant moyen dépensé par visite.</div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Visites par client / mois
+          <span class="input-value" id="freqValue">8.0</span>
+        </label>
+        <input type="range" id="freq" min="0.5" max="20" value="8" step="0.5">
+        <div class="input-help">Fréquence typique de votre client régulier moyen.</div>
+      </div>
+
+    </div>
+
+    <div class="card results-card">
+      <h2>Résultat estimé</h2>
+      <div class="subtitle">Projection annuelle, scénario médian (80 % d'adoption + 30 % de hausse de fréquence)</div>
+
+      <div class="results-grid">
+
+        <div class="result-cell">
+          <div class="result-label">Revenus actuels</div>
+          <div class="result-value" id="currentRevenue">28 800 $</div>
+          <div class="result-detail">Segment fidèle, base annuelle</div>
+        </div>
+
+        <div class="result-cell">
+          <div class="result-label">Revenus avec programme</div>
+          <div class="result-value gold" id="newRevenue">38 016 $</div>
+          <div class="result-detail">Hausse de fréquence + panier</div>
+        </div>
+
+        <div class="result-cell">
+          <div class="result-label">Gain brut annuel</div>
+          <div class="result-value green" id="grossGain">+ 9 216 $</div>
+          <div class="result-detail">Avant coûts</div>
+        </div>
+
+        <div class="result-cell">
+          <div class="result-label">Coûts programme</div>
+          <div class="result-value" id="programCost">- 3 000 $</div>
+          <div class="result-detail">Plateforme + récompenses</div>
+        </div>
+
+        <div class="roi-headline">
+          <div class="roi-headline-label">Profit net annuel</div>
+          <div class="roi-headline-value" id="netProfit">+ 6 216 $</div>
+          <div class="roi-headline-detail" id="roiMultiple">Soit un ROI de 2.1x sur l'investissement</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card cta-card">
+      <h3>Voir ce que ça donnerait à votre branding</h3>
+      <p>Démo gratuite à votre nom, livrée en 24 h. Sans engagement, sans carte de crédit demandée.</p>
+      <a class="cta-btn" href="/#contact">Demander une démo gratuite</a>
+    </div>
+
+  </main>
+
+  <p class="disclaimer">
+    Calculs basés sur les données agrégées de 130+ déploiements LogicSupplies entre 2024 et 2026.<br>
+    Les résultats réels varient selon la qualité de configuration du programme, la communication de lancement, et le contexte spécifique de votre commerce.<br>
+    Voir nos <a href="/blog/statistiques-programmes-fidelite-quebec-2026.html" style="color:var(--gold-dark)">statistiques détaillées</a> et la <a href="/blog/playbook-30-jours-lancer-programme-fidelite.html" style="color:var(--gold-dark)">méthodologie</a>.
+  </p>
+
+  <script>
+  const customers = document.getElementById('customers');
+  const basket = document.getElementById('basket');
+  const freq = document.getElementById('freq');
+  const industry = document.getElementById('industry');
+
+  function fmt(n) {
+    return Math.round(n).toLocaleString('fr-CA').replace(/,/g, ' ');
+  }
+
+  function calc() {
+    const c = parseFloat(customers.value);
+    const b = parseFloat(basket.value);
+    const f = parseFloat(freq.value);
+    const ind = industry.options[industry.selectedIndex];
+    const mult = parseFloat(ind.dataset.mult);
+    const indLabel = ind.text;
+
+    document.getElementById('customersValue').textContent = fmt(c);
+    document.getElementById('basketValue').textContent = fmt(b);
+    document.getElementById('freqValue').textContent = f.toFixed(1);
+    document.getElementById('industryLabel').textContent = indLabel.split(' /')[0];
+
+    // Current annual revenue
+    const currentRev = c * b * f * 12;
+
+    // Adoption rate (80% of regular customers)
+    const adoption = 0.8;
+    const activeCustomers = c * adoption;
+
+    // Frequency uplift (typically +25-35%, varies by industry)
+    const freqUplift = 0.30 * mult;
+    const newFreq = f * (1 + freqUplift);
+
+    // Basket uplift (typically +12% from "almost at next tier" effect)
+    const basketUplift = 0.12 * mult;
+    const newBasket = b * (1 + basketUplift);
+
+    // New revenue: active customers × new basket × new freq × 12 + non-adopters at current rate
+    const newRev = (activeCustomers * newBasket * newFreq * 12) + ((c - activeCustomers) * b * f * 12);
+    const grossGain = newRev - currentRev;
+
+    // Program cost: ~150-300 CAD/mo + ~1.5% of revenue in rewards
+    const monthlyCost = c < 100 ? 150 : c < 500 ? 200 : c < 1500 ? 300 : 450;
+    const rewardCost = newRev * 0.015;
+    const totalCost = (monthlyCost * 12) + rewardCost;
+
+    const netProfit = grossGain - totalCost;
+    const roi = totalCost > 0 ? (netProfit / totalCost + 1) : 0;
+
+    document.getElementById('currentRevenue').textContent = fmt(currentRev) + ' $';
+    document.getElementById('newRevenue').textContent = fmt(newRev) + ' $';
+    document.getElementById('grossGain').textContent = (grossGain >= 0 ? '+ ' : '- ') + fmt(Math.abs(grossGain)) + ' $';
+    document.getElementById('programCost').textContent = '- ' + fmt(totalCost) + ' $';
+    document.getElementById('netProfit').textContent = (netProfit >= 0 ? '+ ' : '- ') + fmt(Math.abs(netProfit)) + ' $';
+    document.getElementById('roiMultiple').textContent = 'Soit un ROI de ' + roi.toFixed(1) + 'x sur l\'investissement';
+  }
+
+  customers.addEventListener('input', calc);
+  basket.addEventListener('input', calc);
+  freq.addEventListener('input', calc);
+  industry.addEventListener('change', calc);
+  calc();
+  </script>
+
+</body>
+</html>
