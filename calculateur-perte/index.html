@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combien votre programme de fidélité actuel vous fait perdre par mois? | Calculateur LogicSupplies</title>
+  <meta name="description" content="Calculateur en 60 secondes pour estimer combien votre commerce québécois laisse sur la table avec sa solution de fidélité actuelle. Basé sur des données réelles.">
+  <meta name="keywords" content="calculateur perte fidélité, manque à gagner programme fidélité, estimer perte loyalty, calculatrice fidélité Québec, perte revenu commerce">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://logiccsupplies.ca/calculateur-perte/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://logiccsupplies.ca/calculateur-perte/">
+  <meta property="og:title" content="Combien votre programme de fidélité actuel vous fait perdre par mois?">
+  <meta property="og:description" content="Calculateur en 60 secondes pour estimer combien votre commerce québécois laisse sur la table avec sa solution de fidélité actuelle.">
+  <meta property="og:locale" content="fr_CA">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Combien votre programme de fidélité actuel vous fait perdre par mois?">
+  <meta name="twitter:description" content="Calculateur en 60 secondes pour estimer combien votre commerce québécois laisse sur la table avec sa solution de fidélité actuelle.">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calculateur de perte mensuelle de revenus de fidélité",
+    "url": "https://logiccsupplies.ca/calculateur-perte/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Calculateur en 60 secondes pour estimer combien votre commerce québécois laisse sur la table avec sa solution de fidélité actuelle.",
+    "inLanguage": "fr-CA",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "CAD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "LogicSupplies",
+      "url": "https://logiccsupplies.ca/"
+    }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gold: #C9A96E;
+      --gold-dark: #B08D4F;
+      --gold-soft: rgba(201,169,110,0.12);
+      --bg: #FAFAF8;
+      --card: #ffffff;
+      --ink: #1a1a1f;
+      --muted: #66635c;
+      --line: rgba(0,0,0,0.08);
+      --green: #10b981;
+      --green-light: #d1fae5;
+      --red: #dc2626;
+      --red-light: #fee2e2;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 24px 16px 80px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav.top-nav {
+      max-width: 720px;
+      margin: 0 auto 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav.top-nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    nav.top-nav a:hover { color: var(--gold-dark); }
+    nav.top-nav .logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      font-weight: 500;
+    }
+    nav.top-nav .logo span { color: var(--gold-dark); }
+
+    .head {
+      max-width: 720px; margin: 0 auto 28px;
+      text-align: center;
+    }
+    .head .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      color: var(--gold-dark); text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .head h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 38px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .head p { font-size: 15px; color: var(--muted); max-width: 540px; margin: 0 auto; }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      max-width: 720px;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background: var(--line);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .progress-text {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      min-width: 38px;
+      text-align: right;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
+      border: 1px solid var(--line);
+    }
+
+    .step {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .step.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .question-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 22px;
+    }
+
+    /* Radio cards */
+    .radio-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .radio-cards.single { grid-template-columns: 1fr; }
+    .radio-card {
+      padding: 18px 16px;
+      background: var(--bg);
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.18s ease;
+      font-family: inherit;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+      position: relative;
+    }
+    .radio-card:hover {
+      border-color: var(--gold);
+      background: white;
+      transform: translateY(-1px);
+    }
+    .radio-card.selected {
+      border-color: var(--gold-dark);
+      background: var(--gold-soft);
+      box-shadow: 0 6px 20px rgba(201,169,110,0.18);
+    }
+    .radio-card .ic {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--gold-dark);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    /* Slider */
+    .slider-wrap { margin: 12px 0 18px; }
+    .slider-value {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      text-align: center;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+      font-variant-numeric: tabular-nums;
+    }
+    .slider-value .unit {
+      font-size: 18px;
+      color: var(--muted);
+      margin-left: 4px;
+      font-weight: 500;
+    }
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--line);
+      border-radius: 3px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(176,141,79,0.35);
+      border: 3px solid white;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 26px; height: 26px;
+      border: 3px solid white;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(176,141,79,0.35);
+    }
+    .slider-bounds {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    /* Currency input */
+    .currency-input {
+      position: relative;
+      max-width: 280px;
+      margin: 0 auto 16px;
+    }
+    .currency-input input {
+      width: 100%;
+      padding: 18px 18px 18px 44px;
+      font-family: 'Space Grotesk', monospace;
+      font-size: 30px;
+      font-weight: 700;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      background: white;
+      color: var(--ink);
+      text-align: center;
+      letter-spacing: -0.5px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .currency-input input:focus {
+      border-color: var(--gold);
+    }
+    .currency-input::before {
+      content: '$';
+      position: absolute;
+      left: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Space Grotesk', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--muted);
+      pointer-events: none;
+    }
+    .input-help {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* Navigation buttons */
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+      gap: 12px;
+    }
+    .btn {
+      padding: 14px 26px;
+      border-radius: 100px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.18s ease;
+      letter-spacing: 0.2px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: white;
+      box-shadow: 0 8px 20px rgba(176,141,79,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(176,141,79,0.4); }
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      padding: 14px 18px;
+    }
+    .btn-ghost:hover { color: var(--ink); }
+    .btn-secondary {
+      background: white;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    .btn-secondary:hover { border-color: var(--gold); }
+
+    /* Result */
+    .result-card {
+      background: linear-gradient(135deg, #1a1a1f, #2a2a30);
+      color: white;
+      border: none;
+      box-shadow: 0 30px 60px -10px rgba(0,0,0,0.4), 0 0 30px rgba(201,169,110,0.08);
+      position: relative;
+      overflow: hidden;
+      padding: 36px 32px;
+    }
+    .result-card::before {
+      content: '';
+      position: absolute;
+      top: -40%; right: -40%;
+      width: 80%; height: 80%;
+      background: radial-gradient(circle at center, rgba(201,169,110,0.18) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .result-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .result-headline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 64px;
+      font-weight: 500;
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 4px;
+      text-shadow: 0 0 40px rgba(201,169,110,0.4);
+      font-variant-numeric: tabular-nums;
+      position: relative;
+    }
+    .result-headline .per {
+      font-size: 26px;
+      color: rgba(201,169,110,0.7);
+      margin-left: 4px;
+      font-style: italic;
+    }
+    .result-subtitle {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 28px;
+      max-width: 540px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    /* Bars */
+    .bars {
+      position: relative;
+      margin-bottom: 26px;
+      display: grid;
+      gap: 14px;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .bar-row-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 12px;
+    }
+    .bar-row-label {
+      color: rgba(255,255,255,0.7);
+      font-weight: 600;
+    }
+    .bar-row-value {
+      font-family: 'Space Grotesk', monospace;
+      font-weight: 700;
+      color: white;
+      font-variant-numeric: tabular-nums;
+    }
+    .bar-row.gap .bar-row-value { color: var(--gold); }
+    .bar-track {
+      height: 14px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 7px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 7px;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .bar-fill.current { background: linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0.6)); }
+    .bar-fill.optimal { background: linear-gradient(90deg, var(--gold), var(--gold-dark)); }
+    .bar-fill.gap { background: repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 6px, var(--gold-dark) 6px, var(--gold-dark) 12px); }
+
+    /* Breakdown card */
+    .breakdown {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 22px;
+      position: relative;
+    }
+    .breakdown-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .breakdown-formula {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+    .breakdown-formula strong {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* Insights */
+    .insights {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 26px;
+      position: relative;
+      display: grid;
+      gap: 10px;
+    }
+    .insights li {
+      padding: 12px 14px 12px 38px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      border-left: 3px solid var(--gold);
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.5;
+      position: relative;
+    }
+    .insights li::before {
+      content: '';
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(201,169,110,0.6);
+    }
+
+    /* CTAs */
+    .cta-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      position: relative;
+    }
+    .cta-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: white;
+      padding: 16px 24px;
+      border-radius: 100px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 15px;
+      text-decoration: none;
+      box-shadow: 0 14px 30px rgba(201,169,110,0.35);
+      transition: transform 0.2s;
+    }
+    .cta-primary:hover { transform: translateY(-2px); }
+    .cta-secondary {
+      background: rgba(255,255,255,0.06);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 100px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: background 0.2s;
+    }
+    .cta-secondary:hover { background: rgba(255,255,255,0.1); }
+
+    /* Share row */
+    .share-card {
+      margin-top: 16px;
+      padding: 22px 24px;
+    }
+    .share-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+      letter-spacing: 0.2px;
+    }
+    .share-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .share-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .share-btn {
+      padding: 12px 8px;
+      border-radius: 12px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.18s;
+    }
+    .share-btn:hover {
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+    .share-btn.copied {
+      background: var(--green-light);
+      color: #065f46;
+      border-color: var(--green);
+    }
+
+    /* Email capture */
+    .email-card {
+      margin-top: 16px;
+      padding: 24px;
+    }
+    .email-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+    .email-card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .email-form {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .email-form input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      background: white;
+      color: var(--ink);
+      outline: none;
+    }
+    .email-form input:focus {
+      border-color: var(--gold);
+    }
+    .email-form button {
+      padding: 12px 22px;
+      background: var(--ink);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .email-form button:hover { background: #000; }
+    .email-skip {
+      margin-top: 10px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: underline;
+      font-family: inherit;
+    }
+    .email-skip:hover { color: var(--ink); }
+
+    .disclaimer {
+      max-width: 720px;
+      margin: 28px auto 0;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 540px) {
+      body { padding: 18px 12px 60px; }
+      .head h1 { font-size: 28px; }
+      .card { padding: 22px 20px; }
+      .question-title { font-size: 22px; }
+      .radio-cards { grid-template-columns: 1fr; }
+      .slider-value { font-size: 32px; }
+      .result-card { padding: 28px 22px; }
+      .result-headline { font-size: 48px; }
+      .result-headline .per { font-size: 20px; }
+      .share-row { grid-template-columns: repeat(2, 1fr); }
+      .nav-row .btn { padding: 12px 18px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a class="logo" href="/">Logic<span>Supplies</span>.</a>
+    <a href="/blog/">&larr; Blog</a>
+  </nav>
+
+  <div class="head">
+    <div class="eyebrow">Calculateur &middot; 60 secondes</div>
+    <h1>Combien votre fidélité actuelle vous coûte chaque mois.</h1>
+    <p>Six questions rapides pour estimer le manque à gagner mensuel de votre commerce, comparé à un programme de fidélité optimisé.</p>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-text" id="progressText">1 / 6</div>
+  </div>
+
+  <main>
+
+    <!-- Quiz container -->
+    <div class="card" id="quizCard">
+
+      <!-- Step 1: business type -->
+      <div class="step active" data-step="1">
+        <div class="question-label">Question 1</div>
+        <h2 class="question-title">Quel type de commerce avez-vous?</h2>
+        <div class="radio-cards" data-q="businessType">
+          <button class="radio-card" data-value="cafe" data-label="café / boulangerie">
+            <span class="ic">a</span>Café / Boulangerie / Pâtisserie
+          </button>
+          <button class="radio-card" data-value="restaurant" data-label="restaurant">
+            <span class="ic">b</span>Restaurant
+          </button>
+          <button class="radio-card" data-value="salon" data-label="salon">
+            <span class="ic">c</span>Salon de coiffure / Barbier
+          </button>
+          <button class="radio-card" data-value="spa" data-label="spa">
+            <span class="ic">d</span>Spa / Esthétique / Massothérapie
+          </button>
+          <button class="radio-card" data-value="gym" data-label="studio">
+            <span class="ic">e</span>Gym / Studio yoga / Crossfit
+          </button>
+          <button class="radio-card" data-value="autre" data-label="commerce">
+            <span class="ic">f</span>Autre commerce de proximité
+          </button>
+        </div>
+        <div class="nav-row">
+          <span></span>
+          <button class="btn btn-primary" data-next disabled>Suivant &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 2: weekly customers -->
+      <div class="step" data-step="2">
+        <div class="question-label">Question 2</div>
+        <h2 class="question-title">Combien de clients réguliers viennent par semaine en moyenne?</h2>
+        <div class="slider-wrap">
+          <div class="slider-value"><span id="customersValue">150</span></div>
+          <input type="range" id="customersSlider" min="0" max="1000" value="150" step="10">
+          <div class="slider-bounds"><span>0</span><span>1000+</span></div>
+        </div>
+        <div class="input-help">Estimation grossière, incluant les clients occasionnels qui reviennent.</div>
+        <div class="nav-row">
+          <button class="btn btn-ghost" data-back>&larr; Précédent</button>
+          <button class="btn btn-primary" data-next>Suivant &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 3: avg basket -->
+      <div class="step" data-step="3">
+        <div class="question-label">Question 3</div>
+        <h2 class="question-title">Quel est le panier moyen par visite?</h2>
+        <div class="currency-input">
+          <input type="number" id="basketInput" placeholder="35" min="1" max="2000" step="1" inputmode="numeric">
+        </div>
+        <div class="input-help">Montant moyen dépensé par un client à chaque visite.</div>
+        <div class="nav-row">
+          <button class="btn btn-ghost" data-back>&larr; Précédent</button>
+          <button class="btn btn-primary" data-next disabled>Suivant &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 4: current solution -->
+      <div class="step" data-step="4">
+        <div class="question-label">Question 4</div>
+        <h2 class="question-title">Quelle solution de fidélité utilisez-vous actuellement?</h2>
+        <div class="radio-cards single" data-q="solution">
+          <button class="radio-card" data-value="none">
+            <span class="ic">1</span>Aucune (pas de programme)
+          </button>
+          <button class="radio-card" data-value="paper">
+            <span class="ic">2</span>Carte poinçon en papier
+          </button>
+          <button class="radio-card" data-value="generic">
+            <span class="ic">3</span>Solution numérique générique (DataCandy, Stamp Me, Square Loyalty, etc.)
+          </button>
+          <button class="radio-card" data-value="custom">
+            <span class="ic">4</span>Solution custom / app maison
+          </button>
+          <button class="radio-card" data-value="native">
+            <span class="ic">5</span>Une app native sous le nom de mon commerce
+          </button>
+        </div>
+        <div class="nav-row">
+          <button class="btn btn-ghost" data-back>&larr; Précédent</button>
+          <button class="btn btn-primary" data-next disabled>Suivant &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 5: enrollment % -->
+      <div class="step" data-step="5">
+        <div class="question-label">Question 5</div>
+        <h2 class="question-title">Quelle proportion de vos clients sont enregistrés dans votre programme?</h2>
+        <div class="slider-wrap">
+          <div class="slider-value"><span id="enrolledValue">25</span><span class="unit">%</span></div>
+          <input type="range" id="enrolledSlider" min="0" max="100" value="25" step="1">
+          <div class="slider-bounds"><span>0 %</span><span>100 %</span></div>
+        </div>
+        <div class="input-help">Estimation grossière. Si vous ne savez pas exactement, mettez votre meilleure intuition.</div>
+        <div class="nav-row">
+          <button class="btn btn-ghost" data-back>&larr; Précédent</button>
+          <button class="btn btn-primary" data-next>Suivant &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 6: tenure -->
+      <div class="step" data-step="6">
+        <div class="question-label">Question 6</div>
+        <h2 class="question-title">Depuis combien de temps avez-vous cette solution?</h2>
+        <div class="radio-cards single" data-q="tenure">
+          <button class="radio-card" data-value="6">Moins de 6 mois</button>
+          <button class="radio-card" data-value="18">6 mois &ndash; 2 ans</button>
+          <button class="radio-card" data-value="42">2 &ndash; 5 ans</button>
+          <button class="radio-card" data-value="72">Plus de 5 ans</button>
+        </div>
+        <div class="nav-row">
+          <button class="btn btn-ghost" data-back>&larr; Précédent</button>
+          <button class="btn btn-primary" data-next disabled>Voir le résultat &rarr;</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RESULT -->
+    <div id="resultWrap" class="hidden">
+
+      <div class="card result-card">
+        <div class="result-eyebrow">Manque à gagner estimé</div>
+        <div class="result-headline"><span id="lossNumber">0</span> $<span class="per">/mois</span></div>
+        <div class="result-subtitle" id="resultSubtitle"></div>
+
+        <div class="bars">
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Revenus annuels actuels</span>
+              <span class="bar-row-value" id="currentAnnualLabel">0 $</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill current" id="barCurrent"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Revenus avec Loggic optimisé</span>
+              <span class="bar-row-value" id="loggicAnnualLabel">0 $</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill optimal" id="barOptimal"></div></div>
+          </div>
+          <div class="bar-row gap">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Manque à gagner annuel</span>
+              <span class="bar-row-value" id="annualGapLabel">0 $</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill gap" id="barGap"></div></div>
+          </div>
+        </div>
+
+        <div class="breakdown">
+          <div class="breakdown-label">Votre base de revenus</div>
+          <div class="breakdown-formula" id="breakdownText"></div>
+        </div>
+
+        <ul class="insights" id="insightsList"></ul>
+
+        <div class="cta-row">
+          <a class="cta-primary" href="https://logiccsupplies.ca/#demo">Demander une démo gratuite à mon nom</a>
+          <a class="cta-secondary" href="https://logiccsupplies.ca/blog/">Comprendre comment Loggic fait ce calcul</a>
+        </div>
+      </div>
+
+      <div class="card share-card">
+        <div class="share-title">Partager ce calculateur</div>
+        <div class="share-sub">Aidez d'autres commerçants québécois à découvrir leur manque à gagner.</div>
+        <div class="share-row">
+          <a class="share-btn" id="shareFb" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="share-btn" id="shareMessenger" href="#" target="_blank" rel="noopener">Messenger</a>
+          <a class="share-btn" id="shareWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <button class="share-btn" id="shareCopy" type="button">Copier le lien</button>
+        </div>
+      </div>
+
+      <div class="card email-card" id="emailCard">
+        <h3>Recevoir le rapport détaillé personnalisé par courriel</h3>
+        <p>On vous envoie une analyse PDF avec toutes les hypothèses, les pistes d'optimisation prioritaires pour votre type de commerce, et un exemple de mécaniques avancées.</p>
+        <form class="email-form" id="emailForm">
+          <input type="email" id="emailInput" placeholder="vous@votrecommerce.ca" required>
+          <button type="submit">Envoyer</button>
+        </form>
+        <button class="email-skip" id="emailSkip" type="button">Plus tard &rarr;</button>
+      </div>
+
+      <div class="card" style="margin-top:16px; text-align:center; padding:22px;">
+        <button class="btn btn-secondary" id="restartBtn" type="button">Recommencer le calcul</button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <p class="disclaimer">
+    Calculs basés sur les multiplicateurs agrégés observés dans 130+ déploiements LogicSupplies entre 2024 et 2026.<br>
+    Les résultats réels varient selon la configuration, la communication de lancement, et le contexte spécifique de votre commerce.<br>
+    Voir nos <a href="/blog/statistiques-programmes-fidelite-quebec-2026.html" style="color:var(--gold-dark)">statistiques détaillées</a> et notre <a href="/blog/playbook-30-jours-lancer-programme-fidelite.html" style="color:var(--gold-dark)">méthodologie</a>.
+  </p>
+
+  <script>
+  (function() {
+    'use strict';
+
+    // ---------- State ----------
+    const state = {
+      step: 1,
+      maxStep: 6,
+      answers: {
+        businessType: null,
+        businessLabel: null,
+        weeklyCustomers: 150,
+        avgBasket: null,
+        solution: null,
+        enrolledPct: 25,
+        tenureMonths: null
+      },
+      stepHistory: [1] // for back nav with skipped steps
+    };
+
+    // ---------- Multipliers ----------
+    const SOLUTION_LIFT = {
+      none:    0.00,
+      paper:   0.04,
+      generic: 0.11,
+      custom:  0.16,
+      native:  0.22
+    };
+    const LOGGIC_LIFT = 0.22;
+    const LOGGIC_ENROLLMENT_TARGET = 0.65;
+
+    const BUSINESS_LABELS = {
+      cafe: 'café',
+      restaurant: 'restaurant',
+      salon: 'salon',
+      spa: 'spa',
+      gym: 'studio',
+      autre: 'commerce'
+    };
+
+    const INSIGHTS = {
+      none: [
+        "Vous n'avez aucune mécanique de retour automatique &mdash; vos clients reviennent au gré du hasard.",
+        "Une base de clients récurrents génère typiquement 60 à 70 % du chiffre d'affaires d'un commerce de proximité; sans programme, vous laissez à votre concurrent le soin de leur rappeler d'exister.",
+        "Le levier le plus rapide : capturer les coordonnées (courriel ou téléphone) à chaque transaction et déclencher un rappel automatique 14 jours après la dernière visite."
+      ],
+      paper: [
+        "La carte poinçon perd environ 40 % d'inscriptions parce qu'elle se perd, s'oublie au fond du portefeuille, ou ne notifie jamais le client.",
+        "Aucune donnée client n'est récoltée &mdash; vous ne pouvez ni segmenter, ni envoyer de messages d'anniversaire, ni relancer les clients dormants.",
+        "Le passage au numérique avec votre marque triple typiquement le taux d'enrôlement et active la mécanique de notifications push gratuites."
+      ],
+      generic: [
+        "Les solutions génériques plafonnent à 25-35 % d'enrôlement parce qu'elles ne sont pas à VOTRE nom &mdash; les clients hésitent à télécharger une app qui ne ressemble pas à votre commerce.",
+        "Vous payez des frais récurrents pour une expérience qui renforce la marque du fournisseur, pas la vôtre.",
+        "Une app native avec votre identité génère typiquement 2 à 3 fois plus d'inscriptions et active des mécaniques avancées (tiers, parrainage, anniversaire) souvent absentes du générique."
+      ],
+      custom: [
+        "Une app custom sans expertise loyalty manque souvent les mécaniques qui marchent vraiment : tiers, anniversaire automatique, parrainage, relance des dormants par notification ciblée.",
+        "Le coût de maintenance et d'évolution d'une app maison est typiquement 3 à 5 fois supérieur à une plateforme spécialisée.",
+        "La marge restante se joue dans la couche stratégie : configuration des récompenses, scénarios automatisés, et A/B test des notifications."
+      ],
+      native: [
+        "Vous avez déjà la bonne approche &mdash; la marge restante est probablement dans les mécaniques avancées (SMS pour les dormants, parrainage automatique, tiers VIP).",
+        "Un programme natif sous-exploité performe typiquement à 50-60 % de son potentiel; les leviers à 12 mois sont la segmentation et l'automatisation.",
+        "Audit gratuit : on regarde vos taux d'ouverture, votre fréquence de visite par segment, et on identifie les 3 mécaniques qui débloqueront le plus de revenu."
+      ]
+    };
+
+    // ---------- DOM ----------
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+    const progressFill = $('#progressFill');
+    const progressText = $('#progressText');
+    const quizCard = $('#quizCard');
+    const resultWrap = $('#resultWrap');
+
+    // ---------- Analytics (privacy-friendly) ----------
+    const startTime = Date.now();
+    const stepStartTimes = { 1: startTime };
+    function trackStep(step, action) {
+      const elapsed = Math.round((Date.now() - startTime) / 1000);
+      console.log('[calculateur-perte]', action, 'step=' + step, 'elapsed=' + elapsed + 's', state.answers);
+    }
+
+    // ---------- Step navigation ----------
+    function showStep(step) {
+      $$('.step').forEach(s => s.classList.remove('active'));
+      const target = document.querySelector('.step[data-step="' + step + '"]');
+      if (target) target.classList.add('active');
+      state.step = step;
+      progressFill.style.width = (step / state.maxStep * 100) + '%';
+      progressText.textContent = step + ' / ' + state.maxStep;
+      stepStartTimes[step] = Date.now();
+      trackStep(step, 'view');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextStep() {
+      let next = state.step + 1;
+      // Skip steps 5 and 6 if solution is "none"
+      if (state.answers.solution === 'none' && (next === 5 || next === 6)) {
+        // From step 4, jump straight to result
+        showResult();
+        return;
+      }
+      if (next > state.maxStep) {
+        showResult();
+        return;
+      }
+      state.stepHistory.push(next);
+      trackStep(state.step, 'next');
+      showStep(next);
+      // Re-validate next button on entered step
+      validateCurrentStep();
+    }
+
+    function prevStep() {
+      // Pop current and go to previous in history
+      if (state.stepHistory.length > 1) {
+        state.stepHistory.pop();
+        const prev = state.stepHistory[state.stepHistory.length - 1];
+        showStep(prev);
+        validateCurrentStep();
+      }
+    }
+
+    function validateCurrentStep() {
+      const stepEl = document.querySelector('.step[data-step="' + state.step + '"]');
+      if (!stepEl) return;
+      const nextBtn = stepEl.querySelector('[data-next]');
+      if (!nextBtn) return;
+      let valid = false;
+      switch (state.step) {
+        case 1: valid = !!state.answers.businessType; break;
+        case 2: valid = state.answers.weeklyCustomers >= 0; break;
+        case 3: valid = state.answers.avgBasket && state.answers.avgBasket > 0; break;
+        case 4: valid = !!state.answers.solution; break;
+        case 5: valid = state.answers.enrolledPct >= 0; break;
+        case 6: valid = !!state.answers.tenureMonths; break;
+      }
+      nextBtn.disabled = !valid;
+    }
+
+    // ---------- Bind navigation ----------
+    $$('[data-next]').forEach(btn => btn.addEventListener('click', nextStep));
+    $$('[data-back]').forEach(btn => btn.addEventListener('click', prevStep));
+
+    // ---------- Q1: business type ----------
+    document.querySelectorAll('[data-q="businessType"] .radio-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('[data-q="businessType"] .radio-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        state.answers.businessType = card.dataset.value;
+        state.answers.businessLabel = card.dataset.label;
+        validateCurrentStep();
+      });
+    });
+
+    // ---------- Q2: weekly customers slider ----------
+    const customersSlider = $('#customersSlider');
+    const customersValue = $('#customersValue');
+    customersSlider.addEventListener('input', () => {
+      const v = parseInt(customersSlider.value, 10);
+      state.answers.weeklyCustomers = v;
+      customersValue.textContent = v.toLocaleString('fr-CA').replace(/,/g, ' ') + (v >= 1000 ? '+' : '');
+      validateCurrentStep();
+    });
+
+    // ---------- Q3: basket input ----------
+    const basketInput = $('#basketInput');
+    basketInput.addEventListener('input', () => {
+      const v = parseFloat(basketInput.value);
+      state.answers.avgBasket = isNaN(v) ? null : v;
+      validateCurrentStep();
+    });
+
+    // ---------- Q4: solution ----------
+    document.querySelectorAll('[data-q="solution"] .radio-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('[data-q="solution"] .radio-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        state.answers.solution = card.dataset.value;
+        validateCurrentStep();
+      });
+    });
+
+    // ---------- Q5: enrollment % ----------
+    const enrolledSlider = $('#enrolledSlider');
+    const enrolledValue = $('#enrolledValue');
+    enrolledSlider.addEventListener('input', () => {
+      state.answers.enrolledPct = parseInt(enrolledSlider.value, 10);
+      enrolledValue.textContent = state.answers.enrolledPct;
+      validateCurrentStep();
+    });
+
+    // ---------- Q6: tenure ----------
+    document.querySelectorAll('[data-q="tenure"] .radio-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('[data-q="tenure"] .radio-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        state.answers.tenureMonths = parseInt(card.dataset.value, 10);
+        validateCurrentStep();
+      });
+    });
+
+    // ---------- Calculation ----------
+    function calculate() {
+      const a = state.answers;
+      const weeklyCustomers = a.weeklyCustomers;
+      const avgBasket = a.avgBasket;
+      const solution = a.solution;
+      const enrolledPct = solution === 'none' ? 0 : (a.enrolledPct / 100);
+
+      const annualRevenueBaseline = weeklyCustomers * avgBasket * 52;
+      const liftCoeff = SOLUTION_LIFT[solution] || 0;
+      const effectiveEnrolled = solution === 'none' ? 0 : Math.max(enrolledPct, 0.1);
+      const currentLift = liftCoeff * effectiveEnrolled;
+      const currentRevenue = annualRevenueBaseline * (1 + currentLift);
+      const loggicRevenue = annualRevenueBaseline * (1 + LOGGIC_LIFT * LOGGIC_ENROLLMENT_TARGET);
+      const annualLoss = Math.max(loggicRevenue - currentRevenue, 0);
+      const monthlyLoss = annualLoss / 12;
+
+      return {
+        annualRevenueBaseline,
+        currentRevenue,
+        loggicRevenue,
+        annualLoss,
+        monthlyLoss
+      };
+    }
+
+    function fmt(n) {
+      return Math.round(n).toLocaleString('fr-CA').replace(/,/g, ' ');
+    }
+
+    // ---------- Show result ----------
+    function showResult() {
+      trackStep(state.step, 'complete');
+      const r = calculate();
+      quizCard.classList.add('hidden');
+      $('#progressWrap').classList.add('hidden');
+      resultWrap.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Animate big number
+      animateNumber($('#lossNumber'), 0, r.monthlyLoss, 1500);
+
+      // Subtitle
+      const businessLabel = BUSINESS_LABELS[state.answers.businessType] || 'commerce';
+      $('#resultSubtitle').textContent =
+        "C'est ce que votre " + businessLabel + " laisse sur la table chaque mois avec votre solution actuelle, par rapport à un programme de fidélité optimisé.";
+
+      // Annual labels
+      $('#currentAnnualLabel').textContent = fmt(r.currentRevenue) + ' $';
+      $('#loggicAnnualLabel').textContent = fmt(r.loggicRevenue) + ' $';
+      $('#annualGapLabel').textContent = '+ ' + fmt(r.annualLoss) + ' $/an';
+
+      // Bar widths (relative to loggic = 100%)
+      const max = Math.max(r.loggicRevenue, 1);
+      const currentPct = (r.currentRevenue / max) * 100;
+      const optimalPct = 100;
+      const gapPct = (r.annualLoss / max) * 100;
+
+      // Trigger bar animation after a tick
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          $('#barCurrent').style.width = currentPct + '%';
+          $('#barOptimal').style.width = optimalPct + '%';
+          $('#barGap').style.width = Math.max(gapPct, 4) + '%';
+        }, 100);
+      });
+
+      // Breakdown
+      $('#breakdownText').innerHTML =
+        '<strong>' + fmt(state.answers.weeklyCustomers) + '</strong> clients/sem &times; ' +
+        '<strong>' + fmt(state.answers.avgBasket) + ' $</strong> &times; ' +
+        '52 sem = <strong>' + fmt(r.annualRevenueBaseline) + ' $/an</strong> de chiffre d\'affaires base';
+
+      // Insights
+      const ul = $('#insightsList');
+      ul.innerHTML = '';
+      const insights = INSIGHTS[state.answers.solution] || INSIGHTS.none;
+      insights.forEach(text => {
+        const li = document.createElement('li');
+        li.innerHTML = text;
+        ul.appendChild(li);
+      });
+
+      // Share links
+      setupShare(r.monthlyLoss);
+      // Email
+      setupEmail(r);
+    }
+
+    function animateNumber(el, from, to, duration) {
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        // ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = from + (to - from) * eased;
+        el.textContent = fmt(value);
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = fmt(to);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // ---------- Share ----------
+    function setupShare(monthlyLoss) {
+      const url = 'https://logiccsupplies.ca/calculateur-perte/';
+      const lossStr = fmt(monthlyLoss);
+      const message = "Mon commerce laisse " + lossStr + " $/mois sur la table avec son programme de fidélité actuel, selon ce calculateur. À vérifier le tien : " + url;
+
+      $('#shareFb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url) + '&quote=' + encodeURIComponent(message);
+      $('#shareMessenger').href = 'fb-messenger://share?link=' + encodeURIComponent(url);
+      $('#shareWa').href = 'https://wa.me/?text=' + encodeURIComponent(message);
+
+      const copyBtn = $('#shareCopy');
+      copyBtn.addEventListener('click', () => {
+        const ta = document.createElement('textarea');
+        ta.value = message;
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(message);
+          } else {
+            document.execCommand('copy');
+          }
+          copyBtn.classList.add('copied');
+          copyBtn.textContent = 'Copié !';
+          setTimeout(() => {
+            copyBtn.classList.remove('copied');
+            copyBtn.textContent = 'Copier le lien';
+          }, 2200);
+        } catch (e) {
+          alert('Impossible de copier. URL : ' + url);
+        }
+        document.body.removeChild(ta);
+      });
+    }
+
+    // ---------- Email ----------
+    function setupEmail(r) {
+      $('#emailForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = $('#emailInput').value.trim();
+        if (!email) return;
+        const businessLabel = BUSINESS_LABELS[state.answers.businessType] || 'commerce';
+        const subject = 'Rapport perte fidélité - ' + businessLabel;
+        const body =
+          'Bonjour,\n\n' +
+          'Voici les chiffres de mon calcul :\n' +
+          '- Type de commerce : ' + businessLabel + '\n' +
+          '- Clients/semaine : ' + fmt(state.answers.weeklyCustomers) + '\n' +
+          '- Panier moyen : ' + fmt(state.answers.avgBasket) + ' $\n' +
+          '- Solution actuelle : ' + (state.answers.solution || 'n/a') + '\n' +
+          '- Enrôlement : ' + state.answers.enrolledPct + ' %\n' +
+          '- Ancienneté : ' + (state.answers.tenureMonths || 'n/a') + ' mois\n\n' +
+          '- Revenus actuels estimés : ' + fmt(r.currentRevenue) + ' $/an\n' +
+          '- Revenus optimisés : ' + fmt(r.loggicRevenue) + ' $/an\n' +
+          '- Manque à gagner : ' + fmt(r.annualLoss) + ' $/an (' + fmt(r.monthlyLoss) + ' $/mois)\n\n' +
+          'Mon courriel : ' + email + '\n\n' +
+          'J\'aimerais recevoir le rapport détaillé. Merci !';
+        const mailto = 'mailto:olivier@logiccsupplies.ca?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.location.href = mailto;
+        $('#emailCard').innerHTML = '<h3>Merci !</h3><p>Votre courriel s\'est ouvert. Envoyez-le, on revient vers vous sous 24 h ouvrables.</p>';
+      });
+
+      $('#emailSkip').addEventListener('click', () => {
+        $('#emailCard').classList.add('hidden');
+      });
+    }
+
+    // ---------- Restart ----------
+    $('#restartBtn').addEventListener('click', () => {
+      window.location.reload();
+    });
+
+    // ---------- Init ----------
+    showStep(1);
+  })();
+  </script>
+
+</body>
+</html>
