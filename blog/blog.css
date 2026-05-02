@@ -334,3 +334,68 @@ body {
   color: var(--text-light);
   line-height: 1.55;
 }
+
+/* ───── Calculator banner (lead-gen) ───── */
+.calc-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 32px 0 36px;
+  padding: 22px 26px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a2540 100%);
+  border-radius: 16px;
+  text-decoration: none;
+  color: #ffffff;
+  border: 1px solid rgba(201, 169, 110, 0.25);
+  box-shadow: 0 8px 24px -8px rgba(26, 26, 46, 0.35), 0 2px 6px -2px rgba(26, 26, 46, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.calc-banner:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201, 169, 110, 0.55);
+  box-shadow: 0 14px 30px -10px rgba(26, 26, 46, 0.45), 0 4px 8px -2px rgba(26, 26, 46, 0.22);
+}
+.calc-banner__copy { flex: 1; min-width: 0; }
+.calc-banner__eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: #C9A96E;
+  margin-bottom: 6px;
+}
+.calc-banner__title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.calc-banner__btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #C9A96E 0%, #B08D4F 100%);
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 10px;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+@media (max-width: 640px) {
+  .calc-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 16px;
+  }
+  .calc-banner__title { font-size: 16px; }
+  .calc-banner__btn { width: 100%; justify-content: center; }
+}
