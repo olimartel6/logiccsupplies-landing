@@ -38,17 +38,53 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebSite",
+        "@id": "https://logiccsupplies.ca/#website",
+        "url": "https://logiccsupplies.ca",
+        "name": "LogicSupplies",
+        "alternateName": "Loggic",
+        "description": "Studio québécois qui crée des applications de fidélité sur mesure pour commerces locaux.",
+        "publisher": { "@id": "https://logiccsupplies.ca/#organization" },
+        "inLanguage": "fr-CA"
+      },
+      {
         "@type": "Organization",
         "@id": "https://logiccsupplies.ca/#organization",
         "name": "LogicSupplies",
         "alternateName": "Loggic",
         "url": "https://logiccsupplies.ca",
-        "logo": "https://logiccsupplies.ca/favicon-192x192.png",
-        "description": "Studio québécois qui crée des applications de fidélité sur mesure pour commerces locaux.",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://logiccsupplies.ca/favicon-192x192.png",
+          "width": 192,
+          "height": 192
+        },
+        "image": "https://logiccsupplies.ca/apple-touch-icon.png",
+        "description": "Studio québécois qui crée des applications de fidélité sur mesure pour commerces locaux. App native iOS + Android publiée sous le nom du commerce, livrée en 7 à 14 jours.",
+        "foundingDate": "2026-03",
         "founder": { "@type": "Person", "name": "Olivier Martel" },
         "email": "olivier@logiccsupplies.ca",
-        "sameAs": ["https://github.com/olimartel6"],
-        "areaServed": { "@type": "City", "name": "Québec, QC" }
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "olivier@logiccsupplies.ca",
+          "availableLanguage": ["French", "English"],
+          "areaServed": "CA-QC"
+        },
+        "sameAs": [
+          "https://github.com/olimartel6",
+          "https://ca.trustpilot.com/review/logiccsupplies.ca"
+        ],
+        "areaServed": [
+          { "@type": "City", "name": "Québec" },
+          { "@type": "AdministrativeArea", "name": "Capitale-Nationale, QC" }
+        ],
+        "knowsAbout": [
+          "Programmes de fidélité numérique",
+          "Applications mobiles natives iOS et Android",
+          "Apple Wallet PassKit",
+          "Marketing pour commerces locaux Québec"
+        ]
       },
       {
         "@type": "LocalBusiness",
@@ -100,11 +136,39 @@
         "@type": "SoftwareApplication",
         "@id": "https://logiccsupplies.ca/#software",
         "name": "LogicSupplies Loyalty Platform",
-        "description": "Plateforme SaaS pour créer une application de fidélité personnalisée pour un commerce local au Québec.",
+        "description": "Plateforme SaaS pour créer une application de fidélité personnalisée pour un commerce local au Québec. Livrée en 7 à 14 jours, publiée sous le nom du commerce sur l'App Store et Google Play, avec Apple Wallet, programme de points, parrainage automatique, tableau de bord admin.",
         "applicationCategory": "BusinessApplication",
-        "operatingSystem": "iOS, Android, Web",
-        "offers": { "@type": "Offer", "availability": "https://schema.org/InStock", "category": "subscription" },
-        "provider": { "@id": "https://logiccsupplies.ca/#organization" }
+        "applicationSubCategory": "LoyaltyProgram",
+        "operatingSystem": "iOS 14.0+, Android 8.0+, Web",
+        "url": "https://logiccsupplies.ca",
+        "image": "https://logiccsupplies.ca/apple-touch-icon.png",
+        "screenshot": "https://logiccsupplies.ca/apple-touch-icon.png",
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "category": "subscription",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "priceCurrency": "CAD",
+            "description": "Tarif sur demande, dépend de la taille du commerce et du niveau de personnalisation."
+          },
+          "url": "https://logiccsupplies.ca",
+          "areaServed": { "@type": "Country", "name": "Canada" }
+        },
+        "provider": { "@id": "https://logiccsupplies.ca/#organization" },
+        "inLanguage": ["fr-CA", "en-CA"]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://logiccsupplies.ca/#breadcrumbs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://logiccsupplies.ca/"
+          }
+        ]
       },
       {
         "@type": "FAQPage",
