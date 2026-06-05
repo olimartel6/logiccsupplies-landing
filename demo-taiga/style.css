@@ -1173,3 +1173,173 @@ section{will-change:opacity;}
   .beer-title{font-size:1.8rem;}
   .tracel-title{font-size:1.7rem;}
 }
+
+/* =============================================================
+   Polish overrides — vertical rhythm, alignment, spacing consistency
+   Applied last to enforce consistency without touching the rest.
+   ============================================================= */
+
+/* Standardized section vertical rhythm */
+.about,
+.beer,
+.tracel,
+.gallery,
+.points,
+.reviews,
+.faq,
+.contact{
+  padding:clamp(80px, 11vw, 140px) 0;
+}
+
+/* Tighter rhythm on mobile, override the per-section mobile rules */
+@media (max-width: 768px){
+  .about,
+  .beer,
+  .tracel,
+  .gallery,
+  .points,
+  .reviews,
+  .faq,
+  .contact{
+    padding:72px 0;
+  }
+}
+@media (max-width: 480px){
+  .about,
+  .beer,
+  .tracel,
+  .gallery,
+  .points,
+  .reviews,
+  .faq,
+  .contact{
+    padding:60px 0;
+  }
+}
+
+/* Section heads — consistent rhythm and predictable spacing */
+.section-head{
+  margin:0 auto clamp(40px, 5.5vw, 64px);
+  max-width:780px;
+  text-align:center;
+}
+.section-head .eyebrow{margin-bottom:14px;}
+.section-head h2{margin-bottom:18px;}
+.section-head .section-sub{
+  max-width:680px;
+  margin-left:auto;margin-right:auto;
+}
+
+/* Eyebrow consistency — small but readable */
+.eyebrow{
+  font-size:.7rem;
+  letter-spacing:.32em;
+  margin:0 0 14px;
+}
+
+/* Hero status badge — keep clear of the nav and never crash into text */
+.hero-status{
+  top:max(96px, calc(env(safe-area-inset-top) + 88px));
+  font-size:.62rem;letter-spacing:.16em;
+  padding:8px 14px;
+}
+@media (max-width: 980px){
+  .hero-status{
+    top:max(78px, calc(env(safe-area-inset-top) + 72px));
+    left:20px;right:20px;
+    font-size:.56rem;letter-spacing:.14em;
+    padding:7px 12px;
+  }
+}
+
+/* Hero — give the sub a calmer line length on desktop */
+.hero-sub{max-width:560px;}
+
+/* About — eyebrow ties cleanly to h2 */
+.about-text .eyebrow{margin-bottom:18px;}
+.about-text h2{margin-bottom:4px;}
+.about-text .lead{margin:26px 0 18px;}
+.about-text p:not(.lead):not(.eyebrow){margin:0 0 14px;}
+.about-text p:not(.lead):not(.eyebrow):last-of-type{margin-bottom:0;}
+
+/* Tracel — align eyebrow/title rhythm with other sections */
+.tracel-content .eyebrow{margin-bottom:18px;}
+.tracel-title{margin:0 0 26px;}
+.tracel-lead{margin:0 0 clamp(40px, 5vw, 56px);}
+.tracel-features{margin:0 0 clamp(36px, 4.5vw, 52px);}
+
+/* Beer card alignment + rhythm */
+.beer-badge{margin-bottom:20px;}
+.beer-title{margin:0 0 12px;}
+.beer-style{margin:0 0 28px;}
+.beer-notes{margin:0 0 32px;}
+
+/* Points grid — keep consistent min-height across breakpoints */
+.pt{min-height:190px;}
+@media (max-width: 768px){
+  .pt{min-height:0;}
+}
+
+/* Resto card + service note rhythm */
+.pts-resto{margin-top:clamp(48px, 6vw, 72px);}
+.svc-note{margin-top:clamp(40px, 5vw, 56px);}
+
+/* Reviews — consistent card height */
+.r-card{
+  display:flex;flex-direction:column;
+  height:100%;
+}
+.r-card p{flex:1;}
+.r-grid{align-items:stretch;}
+
+/* FAQ — eliminate odd inline padding on mobile */
+@media (max-width: 768px){
+  .faq-list{padding:0;}
+}
+
+/* Contact — vertical rhythm */
+.c-info h2{margin-bottom:18px;}
+.c-lead{margin-bottom:32px;}
+.c-hours{margin-top:clamp(36px, 4.5vw, 52px);}
+
+/* Footer — comfortable padding, no awkward gap */
+.footer{padding:clamp(40px, 4vw, 56px) 0;}
+
+/* Buttons — guarantee tap target on mobile */
+@media (max-width: 768px){
+  .btn{min-height:48px;}
+}
+
+/* Marquee — slightly leaner on mobile */
+@media (max-width: 480px){
+  .marquee{padding:14px 0;}
+}
+
+/* Hero — softer scaling on tall desktop, comfortable on smaller laptops */
+@media (min-width: 981px){
+  .hero{min-height:720px;}
+  .hero-content{max-width:780px;}
+}
+
+/* Prevent body scroll lock from sticky CTA from overlapping footer on tiny phones */
+@media (max-width: 768px){
+  .footer{padding-bottom:calc(clamp(40px, 4vw, 56px) + 8px);}
+}
+
+/* Remove residual horizontal scroll potential on tracel-features cards */
+.tracel-feat{min-width:0;}
+.tracel-feat h3{word-wrap:break-word;}
+
+/* Gallery — keep grid tidy when items reflow */
+@media (max-width: 880px){
+  .masonry{grid-auto-rows:180px;}
+}
+
+/* Contact rows — consistent line and tighter rhythm */
+.c-row{padding:18px 0;}
+.c-row:last-of-type{border-bottom:1px solid var(--line);}
+
+/* Brand text alignment in footer */
+.footer .f-brand-text .brand-mark{font-size:1.4rem;}
+.footer .f-brand-text .brand-sub{font-size:.6rem;}
+
