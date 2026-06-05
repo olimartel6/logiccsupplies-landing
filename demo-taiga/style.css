@@ -1343,3 +1343,297 @@ section{will-change:opacity;}
 .footer .f-brand-text .brand-mark{font-size:1.4rem;}
 .footer .f-brand-text .brand-sub{font-size:.6rem;}
 
+/* =============================================================
+   CINEMATIC LAYER — awwwards-tier polish
+   - Page-load curtain
+   - Scroll progress bar
+   - Mask reveals (clip-path) for headings + images
+   - Grain overlay on hero
+   - Magnetic + 3D tilt
+   - Refined custom cursor (dot + ring)
+   - Word/char split + stagger
+   - Marquee hover decel
+   - Background sweep
+   - Section separators
+   ============================================================= */
+
+/* Disable browser smooth scroll — we hijack it with custom lerp */
+html{scroll-behavior:auto;}
+
+/* When smooth-scroll is active, lock the document scroll surface to the wrapper transform.
+   We set body height in JS to match scrollHeight so native scroll has the right range,
+   while the wrapper is fixed and transformed for the smooth effect. */
+html.has-smooth-scroll{overflow-x:hidden;}
+html.has-smooth-scroll body{
+  overflow-x:hidden;
+  margin:0;
+}
+html.has-smooth-scroll #smooth-content{
+  position:fixed;top:0;left:0;width:100%;
+  will-change:transform;
+  z-index:1;
+}
+
+/* ---------- Page-load curtain ---------- */
+.curtain{
+  position:fixed;inset:0;z-index:9998;
+  background:#06100c;
+  transform-origin:top center;
+  pointer-events:none;
+  animation:curtainOut 1.1s cubic-bezier(.77,0,.18,1) .2s forwards;
+}
+.curtain::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, rgba(196,148,60,.08) 0%, transparent 70%);
+}
+@keyframes curtainOut{
+  0%{transform:scaleY(1);}
+  100%{transform:scaleY(0);}
+}
+
+/* ---------- Scroll progress bar ---------- */
+.scroll-progress{
+  position:fixed;top:0;left:0;height:2px;width:0%;
+  background:linear-gradient(90deg, var(--accent), var(--accent-bright));
+  z-index:9997;
+  pointer-events:none;
+  box-shadow:0 0 12px rgba(196,148,60,.55);
+  transition:width 60ms linear;
+}
+
+/* ---------- Hero grain overlay (subtle) ---------- */
+.hero::after{
+  content:'';position:absolute;inset:0;z-index:2;
+  pointer-events:none;
+  opacity:.06;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 0.85  0 0 0 0 0.4  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode:overlay;
+}
+
+/* ---------- Hero refined entrance: background scale-down ---------- */
+.hero-bg{
+  animation:heroBgIn 2.2s cubic-bezier(.22,.7,.2,1) both, kenburns 30s 2.2s ease-in-out infinite alternate;
+}
+@keyframes heroBgIn{
+  0%{transform:scale(1.18);opacity:0;filter:brightness(.3) contrast(1.12) saturate(.9);}
+  100%{transform:scale(1.08);opacity:1;filter:brightness(.55) contrast(1.12) saturate(.9);}
+}
+
+/* ---------- Char-split for text reveals ---------- */
+.split-word{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.05em;}
+.split-char{
+  display:inline-block;
+  transform:translateY(105%);
+  opacity:0;
+  transition:transform 900ms cubic-bezier(.22,.7,.2,1), opacity 700ms ease;
+  will-change:transform;
+}
+.split-in .split-char{transform:translateY(0);opacity:1;}
+
+/* ---------- Eyebrow underline draw on scroll-in ---------- */
+.eyebrow{position:relative;display:inline-block;padding-bottom:6px;}
+.eyebrow::after{
+  content:'';position:absolute;left:0;bottom:0;
+  width:0;height:1px;background:var(--accent);
+  transition:width 800ms cubic-bezier(.22,.7,.2,1) 200ms;
+}
+.reveal.in .eyebrow::after,
+.section-head.in .eyebrow::after,
+.eyebrow.draw::after{width:36px;}
+
+/* ---------- Image clip-path letterbox reveal ---------- */
+.clip-reveal{
+  clip-path:inset(40% 0 40% 0);
+  transition:clip-path 1.5s cubic-bezier(.77,0,.18,1);
+  will-change:clip-path;
+}
+.clip-reveal.in{clip-path:inset(0 0 0 0);}
+
+/* ---------- Heading mask reveal (block) ---------- */
+.mask-reveal{
+  position:relative;overflow:hidden;
+}
+.mask-reveal > .mask-inner{
+  display:inline-block;
+  transform:translateY(105%) rotate(2deg);
+  opacity:0;
+  transition:transform 1.1s cubic-bezier(.22,.7,.2,1), opacity 700ms ease;
+  will-change:transform;
+}
+.mask-reveal.in > .mask-inner,
+.in .mask-reveal > .mask-inner{transform:translateY(0) rotate(0);opacity:1;}
+
+/* ---------- Refined cursor: dot + ring ---------- */
+.cursor-dot{
+  width:6px;height:6px;
+  background:var(--accent-bright);
+  mix-blend-mode:normal;
+  opacity:.9;
+  transition:opacity 200ms ease, transform 200ms cubic-bezier(.22,.7,.2,1);
+}
+.cursor-ring{
+  position:fixed;top:0;left:0;
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid rgba(196,148,60,.55);
+  pointer-events:none;z-index:9998;
+  opacity:.7;
+  transition:width 320ms cubic-bezier(.22,.7,.2,1),
+             height 320ms cubic-bezier(.22,.7,.2,1),
+             border-color 250ms ease,
+             opacity 250ms ease,
+             background 250ms ease;
+}
+.cursor-ring.cursor-grow{
+  width:62px;height:62px;
+  border-color:rgba(224,178,90,.85);
+  background:rgba(196,148,60,.06);
+}
+.cursor-ring.cursor-hide,.cursor-dot.cursor-hide{opacity:0;}
+@media(hover:none),(max-width:980px){.cursor-ring{display:none;}}
+
+/* ---------- 3D tilt prep ---------- */
+.tilt{
+  transform-style:preserve-3d;
+  transition:transform 380ms cubic-bezier(.22,.7,.2,1);
+  will-change:transform;
+}
+.tilt-inner{
+  transform:translateZ(0);
+  transition:transform 380ms cubic-bezier(.22,.7,.2,1);
+}
+
+/* ---------- Beer can: idle float + halo ---------- */
+.beer-card-img{
+  perspective:1200px;
+  transform-style:preserve-3d;
+}
+.beer-card-img img{
+  transition:transform 1.2s cubic-bezier(.22,.7,.2,1), filter .5s ease;
+  animation:beerFloat 7s ease-in-out infinite;
+}
+@keyframes beerFloat{
+  0%,100%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-10px) scale(1.005);}
+}
+.beer-card-img::before{
+  content:'';position:absolute;inset:-10% -10% -10% -10%;
+  background:radial-gradient(ellipse at center, rgba(196,148,60,.18) 0%, transparent 60%);
+  opacity:0;transition:opacity 600ms ease;
+  pointer-events:none;z-index:0;
+}
+.beer-card-img:hover::before{opacity:1;}
+.beer-card-img img{position:relative;z-index:1;}
+
+/* When beer section is "in", combine animation with reveal scale */
+.beer .beer-card-img img{transform:scale(1.04);}
+.beer.in .beer-card-img img{transform:scale(1);}
+
+/* ---------- Magnetic button click ripple ---------- */
+.btn,.nav-cta{position:relative;overflow:hidden;}
+.ripple{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.35);
+  transform:scale(0);
+  pointer-events:none;
+  animation:rippleOut 700ms cubic-bezier(.22,.7,.2,1) forwards;
+}
+.btn-primary .ripple{background:rgba(255,255,255,.4);}
+.btn-ghost .ripple{background:rgba(255,255,255,.18);}
+@keyframes rippleOut{
+  to{transform:scale(4);opacity:0;}
+}
+
+/* ---------- Link underline draw on hover ---------- */
+.section-sub a,.svc-note a,.f-credit a{
+  position:relative;border-bottom:none !important;
+}
+.section-sub a::after,.svc-note a::after,.f-credit a::after{
+  content:'';position:absolute;left:0;bottom:-2px;
+  width:100%;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:right center;
+  transition:transform 450ms cubic-bezier(.22,.7,.2,1);
+}
+.section-sub a:hover::after,.svc-note a:hover::after,.f-credit a:hover::after{
+  transform:scaleX(1);transform-origin:left center;
+}
+
+/* ---------- Stagger cards ---------- */
+.tracel-feat,.pt,.r-card,.m-item{
+  opacity:0;
+  transform:translateY(34px);
+  transition:opacity 800ms cubic-bezier(.22,.7,.2,1), transform 800ms cubic-bezier(.22,.7,.2,1), border-color .35s ease, background .35s ease, box-shadow .4s ease;
+}
+.tracel-feat.stagger-in,.pt.stagger-in,.r-card.stagger-in,.m-item.stagger-in{
+  opacity:1;transform:translateY(0);
+}
+
+/* Maintain hover on cards once revealed */
+.pt:hover{transform:translateY(0);}
+.tracel-feat:hover{transform:translateY(-6px);}
+.r-card:hover{transform:translateY(-6px);}
+
+/* ---------- Marquee — slight blur on edges for cinema feel ---------- */
+.marquee{
+  -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image:linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+
+/* ---------- Section separators (thin amber hairlines) ---------- */
+section + section,
+.marquee + section{
+  position:relative;
+}
+
+/* ---------- Refined section heading spacing ---------- */
+h1,h2{line-height:1.04;}
+.hero-title{line-height:1.0;}
+.section-head h2{line-height:1.06;}
+
+/* ---------- Gallery: refined hover ---------- */
+.m-item img{will-change:transform,filter;}
+.m-item::before{
+  content:'';position:absolute;inset:0;z-index:2;
+  background:linear-gradient(180deg, transparent 50%, rgba(196,148,60,.0) 100%);
+  opacity:0;transition:opacity 400ms ease;
+  pointer-events:none;
+}
+.m-item:hover::before{opacity:1;}
+
+/* ---------- Reveal-on-scroll bg sweep (very gentle) ---------- */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% var(--bg-sweep, 0%), rgba(95,122,77,.06) 0%, transparent 50%);
+  transition:opacity 500ms ease;
+}
+
+/* ---------- Reduce motion fallbacks ---------- */
+@media(prefers-reduced-motion:reduce){
+  .curtain{animation:none;display:none;}
+  .scroll-progress{display:none;}
+  .split-char{transform:none;opacity:1;transition:none;}
+  .clip-reveal{clip-path:inset(0 0 0 0);transition:none;}
+  .mask-reveal > .mask-inner{transform:none;opacity:1;transition:none;}
+  .tracel-feat,.pt,.r-card,.m-item{opacity:1;transform:none;transition:border-color .35s, background .35s;}
+  .cursor-ring,.cursor-dot{display:none;}
+  .beer-card-img img{animation:none;}
+  .hero-bg{animation:none;}
+  html.has-smooth-scroll,html.has-smooth-scroll body{overflow:auto;height:auto;}
+  html.has-smooth-scroll #smooth-content{position:static;transform:none !important;}
+}
+
+/* ---------- Refined sharper typography hits ---------- */
+.hero-title{letter-spacing:-.03em;}
+.beer-title{letter-spacing:-.035em;}
+.tracel-title{letter-spacing:-.028em;}
+
+/* ---------- Crisper section-sub on dark ---------- */
+.section-sub{font-weight:300;}
+
+/* Ensure cursor doesn't break body */
+html.has-smooth-scroll body{padding-bottom:0;}
+
+/* Mobile sticky CTA above smooth-scroll content */
+.mcta{z-index:9990;}
+.nav{z-index:9991;}
+.curtain{z-index:9999;}
+
