@@ -46,6 +46,10 @@
   <span class="hero-dot" aria-hidden="true"></span>
   <span class="hero-dot" aria-hidden="true"></span>
   <span class="hero-dot" aria-hidden="true"></span>
+  <span class="hero-status" id="heroStatus" aria-live="polite">
+    <span class="hero-status-dot"></span>
+    <span class="hero-status-label">Saison ouverte — Avril à novembre</span>
+  </span>
   <div class="hero-content">
     <p class="hero-eyebrow">Service mobile · Région de Québec</p>
     <h1 class="hero-title">L'esthétique automobile,<br><em>à votre porte.</em></h1>
@@ -158,6 +162,117 @@
   </div>
 </section>
 
+<!-- CONFIGURATOR -->
+<section id="estimate" class="configurator">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Estimateur</p>
+      <h2>Estime ton forfait <em>en 30 secondes.</em></h2>
+      <p class="section-sub">Trois choix rapides — type de véhicule, forfait, options. Tu obtiens une fourchette de prix immédiate et tu peux réserver directement avec ton choix préenregistré. Aucun engagement, aucun courriel à laisser.</p>
+    </div>
+
+    <div class="cfg reveal">
+      <div class="cfg-progress" aria-hidden="true">
+        <span class="cfg-bar"></span>
+        <ul class="cfg-steps">
+          <li class="cfg-step active" data-step="1"><span>01</span> Véhicule</li>
+          <li class="cfg-step" data-step="2"><span>02</span> Forfait</li>
+          <li class="cfg-step" data-step="3"><span>03</span> Options</li>
+          <li class="cfg-step" data-step="4"><span>04</span> Résultat</li>
+        </ul>
+      </div>
+
+      <div class="cfg-stage">
+        <!-- STEP 1 -->
+        <div class="cfg-pane active" data-pane="1">
+          <h3 class="cfg-title">Quel type de véhicule&nbsp;?</h3>
+          <div class="cfg-options" data-group="vehicle">
+            <button type="button" class="cfg-opt" data-value="berline" data-base="60">
+              <span class="cfg-opt-label">Berline</span>
+              <span class="cfg-opt-sub">Compacte, intermédiaire, familiale</span>
+            </button>
+            <button type="button" class="cfg-opt" data-value="suv" data-base="80">
+              <span class="cfg-opt-label">SUV / VUS</span>
+              <span class="cfg-opt-sub">Crossover, multisegment, fourgonnette</span>
+            </button>
+            <button type="button" class="cfg-opt" data-value="camion" data-base="95">
+              <span class="cfg-opt-label">Camion</span>
+              <span class="cfg-opt-sub">Pickup, cabine double, plateau</span>
+            </button>
+            <button type="button" class="cfg-opt" data-value="sport" data-base="70">
+              <span class="cfg-opt-label">Sport</span>
+              <span class="cfg-opt-sub">Coupé, exotique, sportive compacte</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="cfg-pane" data-pane="2">
+          <h3 class="cfg-title">Quel forfait&nbsp;?</h3>
+          <div class="cfg-options" data-group="package">
+            <button type="button" class="cfg-opt" data-value="exterieur" data-mult="1" data-label="Extérieur seul">
+              <span class="cfg-opt-label">Extérieur seul</span>
+              <span class="cfg-opt-sub">Pré-lavage, contact deux seaux, séchage, jantes, pneus.</span>
+            </button>
+            <button type="button" class="cfg-opt" data-value="interieur" data-mult="1.2" data-label="Intérieur seul">
+              <span class="cfg-opt-label">Intérieur seul</span>
+              <span class="cfg-opt-sub">Aspiration, shampoing tapis &amp; sièges, vapeur, vitres.</span>
+            </button>
+            <button type="button" class="cfg-opt" data-value="complet" data-mult="2.1" data-label="Forfait complet">
+              <span class="cfg-opt-label">Complet</span>
+              <span class="cfg-opt-sub">Extérieur premium + intérieur complet + vitres.</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="cfg-pane" data-pane="3">
+          <h3 class="cfg-title">Veux-tu ajouter des options&nbsp;?</h3>
+          <p class="cfg-help">Choisis-en autant que tu veux — ou aucune.</p>
+          <div class="cfg-options cfg-options-addons" data-group="addons">
+            <button type="button" class="cfg-opt cfg-opt-addon" data-value="decontam" data-price="70" data-label="Décontamination ferreuse">
+              <span class="cfg-opt-label">Décontamination ferreuse</span>
+              <span class="cfg-opt-sub">+70&nbsp;$ · enlève les particules métalliques.</span>
+            </button>
+            <button type="button" class="cfg-opt cfg-opt-addon" data-value="scellant" data-price="120" data-label="Scellant hydrophobe">
+              <span class="cfg-opt-label">Scellant hydrophobe</span>
+              <span class="cfg-opt-sub">+120&nbsp;$ · protection longue durée.</span>
+            </button>
+            <button type="button" class="cfg-opt cfg-opt-addon" data-value="cuir" data-price="80" data-label="Traitement de cuir">
+              <span class="cfg-opt-label">Traitement de cuir</span>
+              <span class="cfg-opt-sub">+80&nbsp;$ · nettoyage, hydratation, protection.</span>
+            </button>
+            <button type="button" class="cfg-opt cfg-opt-addon" data-value="vapeur" data-price="80" data-label="Décontamination vapeur">
+              <span class="cfg-opt-label">Décontamination vapeur</span>
+              <span class="cfg-opt-sub">+80&nbsp;$ · zones sensibles sans chimique agressif.</span>
+            </button>
+          </div>
+          <div class="cfg-actions">
+            <button type="button" class="btn btn-primary cfg-next" data-go="4">Voir mon estimation</button>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="cfg-pane" data-pane="4">
+          <p class="cfg-result-eyebrow">Votre estimation</p>
+          <p class="cfg-result-amount">À partir de <span id="cfgPrice">0</span>&nbsp;$</p>
+          <p class="cfg-result-note">Tarifs indicatifs — confirmés sur place selon l'état du véhicule. Aucun surprise.</p>
+          <ul class="cfg-summary" id="cfgSummary"></ul>
+          <div class="cfg-actions">
+            <a id="cfgBookLink" href="https://calendly.com/lavagedoyon" target="_blank" rel="noopener" class="btn btn-primary">Réserver ce forfait</a>
+            <button type="button" class="btn btn-ghost cfg-restart">Recommencer</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cfg-nav">
+        <button type="button" class="cfg-back" id="cfgBack" disabled>&larr; Retour</button>
+        <span class="cfg-counter"><span id="cfgStepLabel">1</span> / 4</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section id="gallery" class="gallery">
   <div class="container">
@@ -180,6 +295,36 @@
       <div class="m-item reveal"><img src="assets/fb-728453753239944.jpg" alt="Ford Edge noir vue avant, peinture lustrée" loading="lazy"></div>
       <div class="m-item reveal"><img src="assets/fb-746148508137135.jpg" alt="BMW X5 M verte, détail latéral" loading="lazy"></div>
       <div class="m-item reveal"><img src="assets/fb-757430893675563.jpg" alt="Équipe Lavage Doyon en intervention sur Porsche 911" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section id="transformation" class="transformation">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Avant / Après</p>
+      <h2>Le travail parle <em>de lui-même.</em></h2>
+      <p class="section-sub">Glissez la poignée pour comparer un fini standard à une finition signée Lavage&nbsp;Doyon — peinture décontaminée, scellant hydrophobe, jantes et plastiques traités.</p>
+    </div>
+
+    <div class="ba reveal" role="img" aria-label="Comparaison avant et après finition Lavage Doyon">
+      <div class="ba-frame">
+        <img class="ba-img ba-after" src="assets/fb-735261132559206.jpg" alt="Détail Lavage Doyon — finition complète" loading="lazy">
+        <div class="ba-clip">
+          <div class="ba-clip-inner">
+            <img class="ba-img ba-before" src="assets/fb-728453753239944.jpg" alt="Standard — avant finition" loading="lazy">
+          </div>
+        </div>
+        <span class="ba-tag ba-tag-before">Standard</span>
+        <span class="ba-tag ba-tag-after">Détail Lavage Doyon</span>
+        <div class="ba-handle" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0" aria-label="Position du comparateur avant/après">
+          <span class="ba-handle-line"></span>
+          <span class="ba-handle-knob">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M8 5l-6 7 6 7zm8 0l6 7-6 7z"/></svg>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -209,6 +354,62 @@
         <p>«&nbsp;Pris en charge d'A à Z, sans avoir à déplacer l'auto. Alexandre est passionné, méticuleux, et le résultat parle de lui-même.&nbsp;»</p>
         <span class="r-author">— Client, Saint-Augustin</span>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Tout ce qu'il faut savoir, <em>avant de réserver.</em></h2>
+      <p class="section-sub">Les questions qu'on reçoit le plus souvent — réponses claires, sans détour.</p>
+    </div>
+
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q">As-tu besoin d'eau ou d'électricité chez moi&nbsp;?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a"><p>Oui, accès à un robinet extérieur et une prise standard (110V) suffisent. Si t'as pas accès, on peut t'aider à trouver une solution.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q">Combien de temps ça prend&nbsp;?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a"><p>Entre 1h30 (lavage extérieur seul) et 4h30 (intérieur + extérieur complet avec scellant). On confirme le délai exact à la prise de rendez-vous.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q">Travaillez-vous l'hiver&nbsp;?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a"><p>Notre saison va d'avril à novembre. Pendant l'hiver, on prépare le matériel et on planifie la saison suivante — réservez à l'avance pour les meilleurs créneaux du printemps.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q">Et si je n'ai pas d'entrée privée&nbsp;?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a"><p>Pas de problème. On peut travailler dans la rue (avec l'autorisation municipale) ou dans un stationnement de commerce. Dis-nous ton contexte au moment de la réservation.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q">Les tarifs affichés sont-ils définitifs&nbsp;?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a"><p>Ils sont indicatifs et confirmés sur place après l'état du véhicule. Aucun surprise — si une option n'est pas applicable, le prix est ajusté à la baisse. On présente un devis avant de commencer.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q">Acceptez-vous le paiement par carte&nbsp;?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-a"><p>Oui, on accepte Visa, Mastercard, paiement Interac et argent comptant.</p></div>
+      </details>
     </div>
   </div>
 </section>
@@ -275,6 +476,18 @@
     <p class="f-credit">Site conçu par <a href="https://logiccsupplies.ca" target="_blank" rel="noopener">Loggic</a>.</p>
   </div>
 </footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="mcta" id="mcta" aria-hidden="true">
+  <a href="tel:+14184557450" class="mcta-btn mcta-call">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.2-3.7-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.4-1.2-.6-2.4-.6-3.6 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.4c0-.6-.4-1-1-1z"/></svg>
+    <span>Appeler</span>
+  </a>
+  <a href="https://calendly.com/lavagedoyon" target="_blank" rel="noopener" class="mcta-btn mcta-book">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg>
+    <span>Réserver</span>
+  </a>
+</div>
 
 <script src="script.js"></script>
 </body>

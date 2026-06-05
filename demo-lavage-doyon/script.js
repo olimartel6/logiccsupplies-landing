@@ -240,4 +240,290 @@
       if (img) img.style.transformOrigin = x + '% ' + y + '%';
     });
   });
+
+  /* ----------------------------------------------------------------
+     Seasonal status badge (Avril → Novembre = ouvert)
+  ---------------------------------------------------------------- */
+  (function () {
+    var status = document.getElementById('heroStatus');
+    if (!status) return;
+    var label = status.querySelector('.hero-status-label');
+    var month = new Date().getMonth(); // 0=Jan
+    var openSeason = month >= 3 && month <= 10; // Avr (3) → Nov (10)
+    if (openSeason) {
+      status.classList.remove('closed');
+      label.textContent = 'Saison ouverte — Avril à novembre';
+    } else {
+      status.classList.add('closed');
+      label.textContent = 'Fermé pour l’hiver — Réservez votre session du printemps';
+    }
+  })();
+
+  /* ----------------------------------------------------------------
+     Before / After slider
+  ---------------------------------------------------------------- */
+  (function () {
+    var frames = document.querySelectorAll('.ba-frame');
+    frames.forEach(function (frame) {
+      var clip = frame.querySelector('.ba-clip');
+      var inner = frame.querySelector('.ba-clip-inner');
+      var handle = frame.querySelector('.ba-handle');
+      var ba = frame.closest('.ba');
+      if (!clip || !handle) return;
+
+      var current = 50;
+
+      function syncSize() {
+        var w = frame.getBoundingClientRect().width;
+        if (inner) inner.style.setProperty('--ba-frame-w', w + 'px');
+      }
+      syncSize();
+      window.addEventListener('resize', syncSize);
+
+      function setPos(pct, instant) {
+        pct = Math.max(0, Math.min(100, pct));
+        current = pct;
+        if (instant) clip.style.transition = 'none';
+        clip.style.width = pct + '%';
+        handle.style.left = pct + '%';
+        handle.setAttribute('aria-valuenow', Math.round(pct));
+        if (instant) {
+          requestAnimationFrame(function () { clip.style.transition = ''; });
+        }
+      }
+      setPos(50, true);
+
+      function pctFromEvent(e) {
+        var rect = frame.getBoundingClientRect();
+        var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        return (x / rect.width) * 100;
+      }
+
+      var dragging = false;
+      function start(e) {
+        dragging = true;
+        if (ba) ba.classList.add('dragging');
+        setPos(pctFromEvent(e), true);
+        e.preventDefault();
+      }
+      function move(e) {
+        if (!dragging) return;
+        setPos(pctFromEvent(e), true);
+      }
+      function end() {
+        if (!dragging) return;
+        dragging = false;
+        if (ba) ba.classList.remove('dragging');
+      }
+
+      frame.addEventListener('mousedown', start);
+      window.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', end);
+      frame.addEventListener('touchstart', start, { passive: false });
+      window.addEventListener('touchmove', move, { passive: true });
+      window.addEventListener('touchend', end);
+
+      // Keyboard support on the handle
+      handle.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') { setPos(current - 4); e.preventDefault(); }
+        else if (e.key === 'ArrowRight') { setPos(current + 4); e.preventDefault(); }
+        else if (e.key === 'Home') { setPos(0); e.preventDefault(); }
+        else if (e.key === 'End') { setPos(100); e.preventDefault(); }
+      });
+
+      // Click on frame jumps slider
+      frame.addEventListener('click', function (e) {
+        if (e.target.closest('.ba-handle')) return;
+        setPos(pctFromEvent(e));
+      });
+    });
+  })();
+
+  /* ----------------------------------------------------------------
+     Service configurator (3-step state machine)
+  ---------------------------------------------------------------- */
+  (function () {
+    var cfg = document.querySelector('.cfg');
+    if (!cfg) return;
+
+    var state = {
+      step: 1,
+      vehicle: null,        // { value, base, label }
+      pkg: null,            // { value, mult, label }
+      addons: []            // [{ value, price, label }]
+    };
+
+    var progress = cfg.querySelector('.cfg-progress');
+    var panes = cfg.querySelectorAll('.cfg-pane');
+    var steps = cfg.querySelectorAll('.cfg-step');
+    var backBtn = cfg.querySelector('#cfgBack');
+    var stepLabel = cfg.querySelector('#cfgStepLabel');
+    var priceEl = cfg.querySelector('#cfgPrice');
+    var summaryEl = cfg.querySelector('#cfgSummary');
+    var bookLink = cfg.querySelector('#cfgBookLink');
+    var nextBtn = cfg.querySelector('.cfg-next');
+    var restartBtn = cfg.querySelector('.cfg-restart');
+
+    var vehicleLabels = {
+      berline: 'Berline',
+      suv: 'SUV / VUS',
+      camion: 'Camion',
+      sport: 'Sport'
+    };
+
+    function goStep(n) {
+      state.step = n;
+      panes.forEach(function (p) {
+        p.classList.toggle('active', p.dataset.pane === String(n));
+      });
+      steps.forEach(function (s) {
+        var sn = parseInt(s.dataset.step, 10);
+        s.classList.toggle('active', sn === n);
+        s.classList.toggle('done', sn < n);
+      });
+      if (progress) progress.setAttribute('data-step', n);
+      if (stepLabel) stepLabel.textContent = n;
+      if (backBtn) backBtn.disabled = n === 1;
+
+      if (n === 4) recompute();
+    }
+
+    function computePrice() {
+      if (!state.vehicle || !state.pkg) return 0;
+      var base = parseFloat(state.vehicle.base);
+      var mult = parseFloat(state.pkg.mult);
+      var total = base * mult;
+      state.addons.forEach(function (a) { total += parseFloat(a.price); });
+      return Math.round(total);
+    }
+
+    function recompute() {
+      var price = computePrice();
+      if (priceEl) {
+        var start = parseInt(priceEl.textContent, 10) || 0;
+        var diff = price - start;
+        var t0 = performance.now();
+        var dur = 700;
+        function tick(now) {
+          var t = Math.min(1, (now - t0) / dur);
+          var eased = 1 - Math.pow(1 - t, 3);
+          priceEl.textContent = Math.round(start + diff * eased);
+          if (t < 1) requestAnimationFrame(tick);
+          else priceEl.textContent = price;
+        }
+        requestAnimationFrame(tick);
+      }
+
+      if (summaryEl) {
+        var rows = [];
+        if (state.vehicle) rows.push('<li><span>Véhicule</span><strong>' + escapeHtml(state.vehicle.label) + '</strong></li>');
+        if (state.pkg) rows.push('<li><span>Forfait</span><strong>' + escapeHtml(state.pkg.label) + '</strong></li>');
+        if (state.addons.length) {
+          rows.push('<li><span>Options</span><strong>' + state.addons.map(function (a) { return escapeHtml(a.label); }).join(', ') + '</strong></li>');
+        } else {
+          rows.push('<li><span>Options</span><strong>Aucune</strong></li>');
+        }
+        summaryEl.innerHTML = rows.join('');
+      }
+
+      if (bookLink) {
+        var note = buildCalendlyNote(price);
+        var base = 'https://calendly.com/lavagedoyon';
+        // Try Calendly URL params (a1, prefill_custom_question_a1). Calendly ignores unknown params silently.
+        var url = base + '?utm_source=demo&utm_medium=configurator'
+          + '&a1=' + encodeURIComponent(note)
+          + '&prefill_custom_question_a1=' + encodeURIComponent(note);
+        bookLink.setAttribute('href', url);
+      }
+    }
+
+    function buildCalendlyNote(price) {
+      var parts = [];
+      if (state.vehicle) parts.push('Véhicule : ' + state.vehicle.label);
+      if (state.pkg) parts.push('Forfait : ' + state.pkg.label);
+      if (state.addons.length) parts.push('Options : ' + state.addons.map(function (a) { return a.label; }).join(', '));
+      else parts.push('Options : aucune');
+      parts.push('Estimation : à partir de ' + price + ' $');
+      return parts.join(' | ');
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    // Step 1 — vehicle
+    cfg.querySelectorAll('[data-group="vehicle"] .cfg-opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        cfg.querySelectorAll('[data-group="vehicle"] .cfg-opt').forEach(function (b) { b.classList.remove('selected'); });
+        btn.classList.add('selected');
+        state.vehicle = {
+          value: btn.dataset.value,
+          base: btn.dataset.base,
+          label: vehicleLabels[btn.dataset.value] || btn.dataset.value
+        };
+        setTimeout(function () { goStep(2); }, 220);
+      });
+    });
+
+    // Step 2 — package
+    cfg.querySelectorAll('[data-group="package"] .cfg-opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        cfg.querySelectorAll('[data-group="package"] .cfg-opt').forEach(function (b) { b.classList.remove('selected'); });
+        btn.classList.add('selected');
+        state.pkg = {
+          value: btn.dataset.value,
+          mult: btn.dataset.mult,
+          label: btn.dataset.label
+        };
+        setTimeout(function () { goStep(3); }, 220);
+      });
+    });
+
+    // Step 3 — addons (multi-select)
+    cfg.querySelectorAll('[data-group="addons"] .cfg-opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var val = btn.dataset.value;
+        var existing = state.addons.findIndex(function (a) { return a.value === val; });
+        if (existing >= 0) {
+          state.addons.splice(existing, 1);
+          btn.classList.remove('selected');
+        } else {
+          state.addons.push({ value: val, price: btn.dataset.price, label: btn.dataset.label });
+          btn.classList.add('selected');
+        }
+      });
+    });
+
+    if (nextBtn) nextBtn.addEventListener('click', function () { goStep(4); });
+    if (backBtn) backBtn.addEventListener('click', function () { if (state.step > 1) goStep(state.step - 1); });
+    if (restartBtn) restartBtn.addEventListener('click', function () {
+      state.vehicle = null; state.pkg = null; state.addons = [];
+      cfg.querySelectorAll('.cfg-opt.selected').forEach(function (b) { b.classList.remove('selected'); });
+      goStep(1);
+    });
+  })();
+
+  /* ----------------------------------------------------------------
+     Sticky mobile CTA bar — show after scrolling past hero
+  ---------------------------------------------------------------- */
+  (function () {
+    var bar = document.getElementById('mcta');
+    if (!bar) return;
+    var hero = document.querySelector('.hero');
+    var triggerY = hero ? hero.offsetHeight * 0.7 : 400;
+    var visible = false;
+    function check() {
+      var should = window.scrollY > triggerY;
+      if (should && !visible) { bar.classList.add('visible'); visible = true; }
+      else if (!should && visible) { bar.classList.remove('visible'); visible = false; }
+    }
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', function () {
+      triggerY = hero ? hero.offsetHeight * 0.7 : 400;
+      check();
+    });
+    check();
+  })();
 })();
