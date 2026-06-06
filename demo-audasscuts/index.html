@@ -16,11 +16,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="is-loading">
+
+  <div class="curtain" id="curtain" aria-hidden="true">
+    <div class="curtain-brand" id="curtainBrand">
+      <span class="ch">A</span><span class="ch">U</span><span class="ch">D</span><span class="ch">A</span><span class="ch">S</span><span class="ch">S</span><span class="ch">C</span><span class="ch">U</span><span class="ch">T</span><span class="ch accent">S</span>
+    </div>
+    <div class="curtain-counter" id="curtainCounter">00</div>
+  </div>
 
   <div class="cursor" aria-hidden="true">
     <div class="cursor-dot"></div>
     <div class="cursor-ring"></div>
+    <span class="cursor-label" id="cursorLabel"></span>
   </div>
 
   <div class="grain" aria-hidden="true"></div>
@@ -46,6 +54,7 @@
   </header>
 
   <section id="top" class="hero">
+    <div class="hero-spotlight" aria-hidden="true"></div>
     <div class="hero-eyebrow">
       <span class="dot"></span>
       <span>Barber - Quebec - Etabli 2025</span>
@@ -108,9 +117,23 @@
         <span>Glow-up complet</span><span class="sep">/</span>
       </div>
     </div>
+    <div class="marquee-band" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Kevin Murphy stockist</span><span class="sep">*</span>
+        <span>Quebec - etabli 2025</span><span class="sep">*</span>
+        <span>Certifie Montreal</span><span class="sep">*</span>
+        <span>150+ clients</span><span class="sep">*</span>
+        <span>40 dispos / sem</span><span class="sep">*</span>
+        <span>Kevin Murphy stockist</span><span class="sep">*</span>
+        <span>Quebec - etabli 2025</span><span class="sep">*</span>
+        <span>Certifie Montreal</span><span class="sep">*</span>
+        <span>150+ clients</span><span class="sep">*</span>
+        <span>40 dispos / sem</span><span class="sep">*</span>
+      </div>
+    </div>
   </section>
 
-  <section id="approche" class="approche">
+  <section id="approche" class="approche section-lift">
     <div class="section-head">
       <span class="eyebrow">01 / Approche</span>
       <h2 class="title-condensed">
@@ -159,7 +182,7 @@
     </div>
   </section>
 
-  <section id="services" class="services">
+  <section id="services" class="services section-lift">
     <div class="section-head section-head--center">
       <span class="eyebrow">02 / Services</span>
       <h2 class="title-condensed">
@@ -242,7 +265,7 @@
     </ol>
   </section>
 
-  <section id="galerie" class="galerie">
+  <section id="galerie" class="galerie section-lift">
     <div class="section-head">
       <span class="eyebrow">03 / Portfolio</span>
       <h2 class="title-condensed">
@@ -345,7 +368,7 @@
     </div>
   </section>
 
-  <section id="barbier" class="barbier">
+  <section id="barbier" class="barbier section-lift">
     <div class="barbier-grid">
       <div class="barbier-text">
         <span class="eyebrow">04 / Le barbier</span>
@@ -406,7 +429,7 @@
     </div>
   </section>
 
-  <section id="contact" class="contact">
+  <section id="contact" class="contact section-lift">
     <div class="contact-inner">
       <span class="eyebrow">05 / Reservation</span>
       <h2 class="title-mega contact-title">

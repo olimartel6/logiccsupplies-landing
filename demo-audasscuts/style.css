@@ -1225,3 +1225,499 @@ section {
     clip-path: none;
   }
 }
+
+/* =========================================================
+   AWWWARDS-TIER LAYER — additive only
+   ========================================================= */
+
+/* ---------- 1. Page-load curtain ---------- */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: all;
+  transform: translateY(0);
+  transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+}
+
+.curtain.is-out {
+  transform: translateY(-101%);
+}
+
+.curtain-brand {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 9vw, 140px);
+  color: var(--paper);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  gap: 0.04em;
+}
+
+.curtain-brand .ch {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: curtainCharRise 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.curtain-brand .ch:nth-child(1) { animation-delay: 0.05s; }
+.curtain-brand .ch:nth-child(2) { animation-delay: 0.10s; }
+.curtain-brand .ch:nth-child(3) { animation-delay: 0.15s; }
+.curtain-brand .ch:nth-child(4) { animation-delay: 0.20s; }
+.curtain-brand .ch:nth-child(5) { animation-delay: 0.25s; }
+.curtain-brand .ch:nth-child(6) { animation-delay: 0.30s; }
+.curtain-brand .ch:nth-child(7) { animation-delay: 0.35s; }
+.curtain-brand .ch:nth-child(8) { animation-delay: 0.40s; }
+.curtain-brand .ch:nth-child(9) { animation-delay: 0.45s; }
+.curtain-brand .ch:nth-child(10) { animation-delay: 0.50s; }
+
+.curtain-brand .ch.accent {
+  color: var(--accent);
+}
+
+@keyframes curtainCharRise {
+  to {
+    transform: translateY(0);
+  }
+}
+
+.curtain-counter {
+  position: absolute;
+  bottom: clamp(24px, 4vw, 48px);
+  right: clamp(24px, 4vw, 48px);
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  color: rgba(255, 253, 247, 0.55);
+}
+
+body.is-loading {
+  overflow: hidden;
+  height: 100vh;
+}
+
+body.is-loading .hero-title .word {
+  animation-play-state: paused;
+}
+
+/* ---------- 2. Hero entrance polish ---------- */
+.hero-title .word {
+  transform: translateY(105%) scale(0.95);
+  transform-origin: bottom left;
+  animation: wordRiseScale 1.05s var(--ease) forwards;
+}
+
+@keyframes wordRiseScale {
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.hero-eyebrow {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp 1s var(--ease) 0.9s forwards;
+}
+
+.hero-foot {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroFadeUp 1.1s var(--ease) 1.25s forwards;
+}
+
+.hero-cta .btn-pill {
+  opacity: 0;
+  transform: translateX(-40px);
+  animation: heroCtaSlide 1s var(--ease) forwards;
+}
+
+.hero-cta .btn-pill:nth-child(1) {
+  animation-delay: 1.4s;
+}
+.hero-cta .btn-pill:nth-child(2) {
+  animation-delay: 1.55s;
+}
+
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroCtaSlide {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---------- 3. Horizontal scroll gallery (desktop) ---------- */
+@media (min-width: 881px) {
+  .galerie.is-enhanced {
+    padding-bottom: 0;
+  }
+  .galerie.is-enhanced .grid-horizontal {
+    position: relative;
+    height: 360vh;
+    margin-left: calc(clamp(24px, 4.5vw, 64px) * -1);
+    margin-right: calc(clamp(24px, 4.5vw, 64px) * -1);
+  }
+  .galerie.is-enhanced .grid-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .galerie.is-enhanced .grid-track {
+    display: flex;
+    gap: clamp(24px, 3vw, 48px);
+    padding: 0 clamp(24px, 4.5vw, 64px);
+    will-change: transform;
+    height: 78vh;
+    align-items: center;
+  }
+  .galerie.is-enhanced .grid-track .grid-item {
+    flex: 0 0 auto;
+    width: clamp(360px, 38vw, 560px);
+    height: 100%;
+    opacity: 1;
+    transform: none;
+  }
+  .galerie.is-enhanced .grid-track .grid-item--tall {
+    width: clamp(300px, 32vw, 460px);
+  }
+  .galerie.is-enhanced .grid-track .grid-img {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+  .galerie.is-enhanced .grid-progress {
+    position: absolute;
+    bottom: clamp(20px, 3vw, 36px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(180px, 22vw, 320px);
+    height: 2px;
+    background: rgba(14, 14, 16, 0.12);
+    overflow: hidden;
+    z-index: 5;
+  }
+  .galerie.is-enhanced .grid-progress-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width 0.05s linear;
+  }
+  .galerie.is-enhanced .grid-count {
+    position: absolute;
+    top: clamp(20px, 3vw, 36px);
+    right: clamp(24px, 4.5vw, 64px);
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+    z-index: 5;
+  }
+}
+
+/* ---------- 4. Text scramble ---------- */
+.scramble {
+  display: inline-block;
+}
+
+.scramble.is-scrambling {
+  color: inherit;
+}
+
+/* ---------- 5. Bg color transition (driven by JS via custom property) ---------- */
+body {
+  background: var(--bg-current, var(--bg));
+  transition: background 0.6s var(--ease);
+}
+
+/* ---------- 6. Counter style ---------- */
+.trust-num .counter-plus {
+  display: inline-block;
+  opacity: 0;
+  color: var(--accent);
+  transform: translateX(-6px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+.trust-num.counter-done .counter-plus {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.trust-num.counter-flash {
+  animation: counterFlash 0.6s var(--ease);
+}
+
+@keyframes counterFlash {
+  0% {
+    color: inherit;
+  }
+  35% {
+    color: var(--accent);
+    text-shadow: 0 0 24px rgba(255, 74, 61, 0.35);
+  }
+  100% {
+    color: inherit;
+    text-shadow: none;
+  }
+}
+
+/* ---------- 7. Service hover image preview ---------- */
+.service-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: clamp(220px, 22vw, 320px);
+  height: clamp(260px, 28vw, 400px);
+  pointer-events: none;
+  z-index: 9990;
+  border-radius: 6px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.92);
+  transition: opacity 0.35s var(--ease), transform 0.45s var(--ease);
+  mix-blend-mode: normal;
+  box-shadow: 0 30px 60px -20px rgba(14, 14, 16, 0.4);
+  will-change: transform, opacity;
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .service-preview {
+    display: block;
+  }
+}
+
+.service-preview.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.service-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.05) contrast(1.05);
+}
+
+/* ---------- 8. Marquee inverted band ---------- */
+.marquee-band {
+  overflow: hidden;
+  background: var(--accent);
+  color: var(--paper);
+  padding: 14px 0;
+  margin-left: calc(clamp(24px, 4.5vw, 64px) * -1);
+  margin-right: calc(clamp(24px, 4.5vw, 64px) * -1);
+  border-top: 1px solid rgba(14, 14, 16, 0.15);
+  border-bottom: 1px solid rgba(14, 14, 16, 0.15);
+}
+
+.marquee-band .marquee-track {
+  animation-duration: 24s;
+  animation-direction: reverse;
+}
+
+.marquee-band .marquee-track .sep {
+  color: var(--paper);
+  opacity: 0.5;
+}
+
+.marquee:hover .marquee-track,
+.marquee-band:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---------- 9. Gallery parallax (mobile / stacked fallback only) ---------- */
+.parallax-img {
+  will-change: transform;
+}
+
+/* ---------- 10. Footer mega reveal ---------- */
+.footer-mega {
+  transform: scale(0.92);
+  opacity: 0.7;
+  transition: transform 1.4s var(--ease-out), opacity 1.4s var(--ease-out);
+  transform-origin: left bottom;
+}
+
+.footer-mega.is-in {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ---------- 12. Cursor label ---------- */
+.cursor-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--paper);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 64px;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease);
+  z-index: 10001;
+  mix-blend-mode: difference;
+}
+
+.cursor.is-label .cursor-label {
+  opacity: 1;
+}
+
+.cursor.is-label .cursor-ring {
+  width: 84px;
+  height: 84px;
+  background: var(--ink);
+  mix-blend-mode: difference;
+  border-color: transparent;
+}
+
+.cursor.is-label .cursor-dot {
+  width: 0;
+  height: 0;
+}
+
+/* ---------- 13. Section enter ---------- */
+.section-lift {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.1s var(--ease-out), transform 1.1s var(--ease-out);
+  will-change: transform, opacity;
+}
+
+.section-lift.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- 14. Mouse spotlight ---------- */
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 74, 61, 0.08),
+    transparent 60%
+  );
+}
+
+.hero {
+  position: relative;
+}
+
+.hero > *:not(.hero-spotlight) {
+  position: relative;
+  z-index: 1;
+}
+
+.hero.is-spot-active .hero-spotlight {
+  opacity: 1;
+}
+
+/* ---------- Touch / reduced motion fallbacks ---------- */
+@media (hover: none), (pointer: coarse) {
+  .service-preview,
+  .hero-spotlight,
+  .cursor-label {
+    display: none !important;
+  }
+  .galerie.is-enhanced .grid-horizontal {
+    height: auto;
+  }
+  .galerie.is-enhanced .grid-sticky {
+    position: static;
+    height: auto;
+    display: block;
+  }
+  .galerie.is-enhanced .grid-track {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    height: auto;
+    padding: 0;
+  }
+  .galerie.is-enhanced .grid-track .grid-item,
+  .galerie.is-enhanced .grid-track .grid-item--tall {
+    width: 100%;
+    height: auto;
+  }
+  .galerie.is-enhanced .grid-track .grid-img {
+    aspect-ratio: 4 / 5;
+    height: auto;
+  }
+  .galerie.is-enhanced .grid-progress,
+  .galerie.is-enhanced .grid-count {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curtain {
+    display: none;
+  }
+  .hero-eyebrow,
+  .hero-foot,
+  .hero-cta .btn-pill,
+  .footer-mega,
+  .section-lift {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .galerie.is-enhanced .grid-horizontal {
+    height: auto;
+  }
+  .galerie.is-enhanced .grid-sticky {
+    position: static;
+    height: auto;
+  }
+  .galerie.is-enhanced .grid-track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    height: auto;
+    padding: 0;
+    transform: none !important;
+  }
+  .galerie.is-enhanced .grid-track .grid-item,
+  .galerie.is-enhanced .grid-track .grid-item--tall {
+    width: 100%;
+    height: auto;
+  }
+  .galerie.is-enhanced .grid-track .grid-img {
+    aspect-ratio: 4 / 5;
+    height: auto;
+  }
+}
