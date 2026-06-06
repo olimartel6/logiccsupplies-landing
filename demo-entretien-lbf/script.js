@@ -1,91 +1,143 @@
 /* ============================================
-   ENTRETIEN LBF — Interactions
+   ENTRETIEN LBF — Interactions (perf-tuned)
+   - Single rAF scroll dispatcher
+   - Native scroll (no wheel-hijack lerp)
+   - IO-gated parallax + hscroll
+   - rAF-throttled mouse handlers
    ============================================ */
 
 (function () {
   'use strict';
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+  const isDesktop = window.innerWidth > 900 && !isCoarse;
+
+  /* =====================================================================
+     UNIFIED SCROLL DISPATCHER
+     One rAF, one scroll listener — reads scrollY once per frame and
+     writes to every scroll-driven target together. Avoids layout thrash.
+     ===================================================================== */
+  const scrollSubs = [];
+  let scrollY = window.scrollY;
+  let needsScrollFrame = false;
+
+  function subscribeScroll(fn) { scrollSubs.push(fn); }
+
+  function scrollTick() {
+    needsScrollFrame = false;
+    scrollY = window.scrollY;
+    for (let i = 0; i < scrollSubs.length; i++) {
+      try { scrollSubs[i](scrollY); } catch (_) {}
+    }
+  }
+  function requestScrollFrame() {
+    if (needsScrollFrame) return;
+    needsScrollFrame = true;
+    requestAnimationFrame(scrollTick);
+  }
+  window.addEventListener('scroll', requestScrollFrame, { passive: true });
+  window.addEventListener('resize', requestScrollFrame, { passive: true });
 
   /* ---- LOAD STATE ---- */
   document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(() => document.body.classList.add('is-loaded'));
   });
 
-  /* ---- NAV scrolled state ---- */
+  /* ---- NAV scrolled state + scroll progress ---- */
   const nav = document.getElementById('nav');
-  const onScroll = () => {
-    if (window.scrollY > 30) nav.classList.add('is-scrolled');
-    else nav.classList.remove('is-scrolled');
-
-    // scroll progress bar
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docH > 0 ? (window.scrollY / docH) * 100 : 0;
-    const bar = document.getElementById('scrollProgress');
-    if (bar) bar.style.width = pct + '%';
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  const bar = document.getElementById('scrollProgress');
+  subscribeScroll((y) => {
+    if (nav) {
+      if (y > 30) nav.classList.add('is-scrolled');
+      else nav.classList.remove('is-scrolled');
+    }
+    if (bar) {
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docH > 0 ? (y / docH) * 100 : 0;
+      bar.style.width = pct.toFixed(2) + '%';
+    }
+  });
 
   /* ---- REVEAL on scroll ---- */
-  const io = new IntersectionObserver(
+  const revealIo = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
         if (e.isIntersecting) {
           e.target.classList.add('is-in');
-          io.unobserve(e.target);
+          revealIo.unobserve(e.target);
         }
       });
     },
     { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
   );
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  document.querySelectorAll('.reveal').forEach((el) => revealIo.observe(el));
 
   /* ---- CURSOR (desktop, fine pointer) ---- */
-  const isCoarse = window.matchMedia('(pointer: coarse)').matches;
-  if (!isCoarse && window.innerWidth > 900) {
+  if (isDesktop) {
     const dot = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
 
-    let mx = window.innerWidth / 2,
-      my = window.innerHeight / 2;
-    let rx = mx,
-      ry = my;
+    if (dot && ring) {
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+      let rx = mx, ry = my;
+      let cursorActive = false;
 
-    window.addEventListener('mousemove', (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-      dot.style.left = mx + 'px';
-      dot.style.top = my + 'px';
-    });
+      // mousemove stores values; rAF writes
+      window.addEventListener('mousemove', (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        if (!cursorActive) {
+          cursorActive = true;
+          requestAnimationFrame(cursorTick);
+        }
+      }, { passive: true });
 
-    const tick = () => {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      ring.style.left = rx + 'px';
-      ring.style.top = ry + 'px';
-      requestAnimationFrame(tick);
-    };
-    tick();
+      function cursorTick() {
+        rx += (mx - rx) * 0.18;
+        ry += (my - ry) * 0.18;
+        // Use left/top because the CSS uses transform: translate(-50%, -50%) for centering.
+        dot.style.left = mx + 'px';
+        dot.style.top = my + 'px';
+        ring.style.left = rx + 'px';
+        ring.style.top = ry + 'px';
+        if (Math.abs(mx - rx) < 0.5 && Math.abs(my - ry) < 0.5) {
+          cursorActive = false;
+          return;
+        }
+        requestAnimationFrame(cursorTick);
+      }
 
-    document
-      .querySelectorAll('a, button, [data-magnet], .service, .contact-card, .travaux-item')
-      .forEach((el) => {
-        el.addEventListener('mouseenter', () => ring.classList.add('is-hover'));
-        el.addEventListener('mouseleave', () => ring.classList.remove('is-hover'));
-      });
+      document
+        .querySelectorAll('a, button, [data-magnet], .service, .contact-card, .travaux-item')
+        .forEach((el) => {
+          el.addEventListener('mouseenter', () => ring.classList.add('is-hover'));
+          el.addEventListener('mouseleave', () => ring.classList.remove('is-hover'));
+        });
+    }
   }
 
-  /* ---- MAGNETIC buttons ---- */
+  /* ---- MAGNETIC buttons (rAF-throttled) ---- */
   if (!isCoarse) {
     document.querySelectorAll('[data-magnet]').forEach((el) => {
       const strength = 0.28;
+      let pending = false;
+      let lastE = null;
       el.addEventListener('mousemove', (e) => {
-        const r = el.getBoundingClientRect();
-        const dx = e.clientX - (r.left + r.width / 2);
-        const dy = e.clientY - (r.top + r.height / 2);
-        el.style.transform = `translate(${dx * strength}px, ${dy * strength}px)`;
+        lastE = e;
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(() => {
+          pending = false;
+          if (!lastE) return;
+          const r = el.getBoundingClientRect();
+          const dx = lastE.clientX - (r.left + r.width / 2);
+          const dy = lastE.clientY - (r.top + r.height / 2);
+          el.style.transform = `translate3d(${dx * strength}px, ${dy * strength}px, 0)`;
+        });
       });
       el.addEventListener('mouseleave', () => {
-        el.style.transform = 'translate(0, 0)';
+        el.style.transform = 'translate3d(0, 0, 0)';
       });
     });
   }
@@ -95,9 +147,8 @@
   if (clock) {
     const update = () => {
       const now = new Date();
-      const tz = 'America/Toronto';
       const time = now.toLocaleTimeString('fr-CA', {
-        timeZone: tz,
+        timeZone: 'America/Toronto',
         hour: '2-digit',
         minute: '2-digit',
       });
@@ -107,7 +158,7 @@
     setInterval(update, 30000);
   }
 
-  /* ---- SMOOTH anchor scroll (manual, slightly slower) ---- */
+  /* ---- SMOOTH anchor scroll (rely on CSS scroll-behavior) ---- */
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
       const id = a.getAttribute('href');
@@ -119,27 +170,12 @@
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
-})();
 
-/* =====================================================================
-   AWWWARDS-TIER ANIMATION LAYER
-   Additive — runs after the IIFE above. Vanilla, no libs.
-   ===================================================================== */
-(function () {
-  'use strict';
-
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isCoarse = window.matchMedia('(pointer: coarse)').matches;
-  const isDesktop = window.innerWidth > 900 && !isCoarse;
-
-  /* ---- 1. PAGE-LOAD CURTAIN ---- */
+  /* ---- PAGE-LOAD CURTAIN ---- */
   const curtain = document.getElementById('curtain');
   if (curtain && !reduced) {
     document.documentElement.classList.add('is-curtain');
-    // Strip is-loaded that the first IIFE may have set, so the hero
-    // entrance only fires once the curtain is wiping.
     document.body.classList.remove('is-loaded');
-    // Watch for the original IIFE re-adding it and revert until curtain lifts.
     const stripObs = new MutationObserver(() => {
       if (document.documentElement.classList.contains('is-curtain')) {
         document.body.classList.remove('is-loaded');
@@ -153,7 +189,6 @@
         curtain.classList.add('is-gone');
         document.documentElement.classList.remove('is-curtain');
         stripObs.disconnect();
-        // Trigger hero load AFTER curtain reveals hero
         requestAnimationFrame(() => document.body.classList.add('is-loaded'));
         setTimeout(() => { curtain.remove(); }, 1300);
       }, 1100);
@@ -162,52 +197,7 @@
     curtain.remove();
   }
 
-  /* ---- 4. SMOOTH (LENIS-STYLE) SCROLL ---- */
-  if (isDesktop && !reduced) {
-    let target = window.scrollY;
-    let current = window.scrollY;
-    const ease = 0.085;
-    let rafId = null;
-    let active = true;
-
-    document.addEventListener('wheel', (e) => {
-      if (!active) return;
-      // Skip if inside an element that scrolls itself
-      let n = e.target;
-      while (n && n !== document.body) {
-        const s = getComputedStyle(n);
-        if ((s.overflowY === 'auto' || s.overflowY === 'scroll') && n.scrollHeight > n.clientHeight) return;
-        n = n.parentNode;
-      }
-      e.preventDefault();
-      target += e.deltaY;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      target = Math.max(0, Math.min(max, target));
-      if (!rafId) loop();
-    }, { passive: false });
-
-    // Resync on programmatic scroll (anchor clicks)
-    window.addEventListener('scroll', () => {
-      if (Math.abs(window.scrollY - current) > 80) {
-        target = window.scrollY;
-        current = window.scrollY;
-      }
-    }, { passive: true });
-
-    function loop() {
-      current += (target - current) * ease;
-      if (Math.abs(target - current) < 0.4) {
-        current = target;
-        window.scrollTo(0, current);
-        rafId = null;
-        return;
-      }
-      window.scrollTo(0, current);
-      rafId = requestAnimationFrame(loop);
-    }
-  }
-
-  /* ---- 5. TEXT SCRAMBLE ---- */
+  /* ---- TEXT SCRAMBLE ---- */
   const chars = '!<>-_\\/[]{}—=+*^?#________';
   function scramble(el) {
     const finalText = el.dataset.scrambleText || el.textContent.trim();
@@ -216,14 +206,11 @@
     const len = finalText.length;
     const queue = [];
     for (let i = 0; i < len; i++) {
-      const from = '';
-      const to = finalText[i];
       const start = Math.floor(Math.random() * 10);
       const end = start + Math.floor(Math.random() * 20) + 10;
-      queue.push({ from, to, start, end, char: '' });
+      queue.push({ to: finalText[i], start, end, char: '' });
     }
     let frame = 0;
-    const total = 36;
     function update() {
       let output = '';
       let complete = 0;
@@ -233,7 +220,7 @@
         else if (frame >= q.start) {
           if (!q.char || Math.random() < 0.3) q.char = chars[Math.floor(Math.random() * chars.length)];
           output += q.char;
-        } else output += q.from;
+        } else output += '';
       }
       el.textContent = output;
       if (complete === queue.length) {
@@ -257,7 +244,7 @@
     document.querySelectorAll('[data-scramble]').forEach((el) => scrambleIo.observe(el));
   }
 
-  /* ---- 6. ANIMATED COUNTERS ---- */
+  /* ---- ANIMATED COUNTERS ---- */
   function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
   function animateCount(el) {
     const target = parseFloat(el.dataset.count);
@@ -291,93 +278,131 @@
     document.querySelectorAll('[data-count]').forEach((el) => countIo.observe(el));
   }
 
-  /* ---- 7. CURSOR-FOLLOWING PREVIEW (gallery hover) ---- */
+  /* ---- CURSOR-FOLLOWING PREVIEW (gallery hover) ---- */
   const cursorPreview = document.getElementById('cursorPreview');
   const ringLabel = document.getElementById('cursorRingLabel');
-  const ring = document.getElementById('cursorRing');
+  const ringEl = document.getElementById('cursorRing');
   if (cursorPreview && isDesktop && !reduced) {
     let px = 0, py = 0, tx = 0, ty = 0;
-    document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
-    (function follow() {
+    let previewVisible = false;
+    let previewActive = false;
+
+    document.addEventListener('mousemove', (e) => {
+      if (!previewVisible) return;
+      tx = e.clientX; ty = e.clientY;
+      if (!previewActive) {
+        previewActive = true;
+        requestAnimationFrame(followPreview);
+      }
+    }, { passive: true });
+
+    function followPreview() {
       px += (tx - px) * 0.22;
       py += (ty - py) * 0.22;
+      // Use left/top to avoid clobbering the CSS scale transform on .is-on.
       cursorPreview.style.left = px + 'px';
       cursorPreview.style.top = py + 'px';
-      requestAnimationFrame(follow);
-    })();
+      if (!previewVisible && Math.abs(tx - px) < 0.5 && Math.abs(ty - py) < 0.5) {
+        previewActive = false;
+        return;
+      }
+      if (previewVisible) {
+        requestAnimationFrame(followPreview);
+      } else {
+        previewActive = false;
+      }
+    }
 
-    // Gallery items show preview
     document.querySelectorAll('[data-preview], .travaux-item, .hscroll-item').forEach((el) => {
       const url = el.dataset.preview || (el.querySelector('img') && el.querySelector('img').src);
       el.addEventListener('mouseenter', () => {
         if (url) cursorPreview.style.backgroundImage = `url("${url}")`;
         cursorPreview.classList.add('is-on');
-        if (ringLabel && ring) {
+        previewVisible = true;
+        if (!previewActive) { previewActive = true; requestAnimationFrame(followPreview); }
+        if (ringLabel && ringEl) {
           ringLabel.textContent = 'VOIR';
-          ring.classList.add('is-label');
+          ringEl.classList.add('is-label');
         }
       });
       el.addEventListener('mouseleave', () => {
         cursorPreview.classList.remove('is-on');
-        if (ring) ring.classList.remove('is-label');
+        previewVisible = false;
+        if (ringEl) ringEl.classList.remove('is-label');
         if (ringLabel) ringLabel.textContent = '';
       });
     });
 
-    // Service rows: arrow in ring
     document.querySelectorAll('.service').forEach((el) => {
       el.addEventListener('mouseenter', () => {
-        if (ringLabel && ring) { ringLabel.textContent = '→'; ring.classList.add('is-label'); }
+        if (ringLabel && ringEl) { ringLabel.textContent = '→'; ringEl.classList.add('is-label'); }
       });
       el.addEventListener('mouseleave', () => {
-        if (ring) ring.classList.remove('is-label');
+        if (ringEl) ringEl.classList.remove('is-label');
       });
     });
   }
 
-  /* ---- 9. BACKGROUND TINT SHIFT ON SCROLL ---- */
+  /* ---- BACKGROUND TINT SHIFT ON SCROLL ---- */
   if (!reduced) {
     const tints = ['#f5f3ee', '#f0eee7', '#ecebe4', '#eeece5', '#f5f3ee'];
     let lastIdx = -1;
-    window.addEventListener('scroll', () => {
+    subscribeScroll((y) => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       if (max <= 0) return;
-      const pct = Math.min(1, Math.max(0, window.scrollY / max));
+      const pct = Math.min(1, Math.max(0, y / max));
       const idx = Math.min(tints.length - 1, Math.floor(pct * (tints.length - 1)));
       if (idx !== lastIdx) {
         document.body.style.backgroundColor = tints[idx];
         lastIdx = idx;
       }
-    }, { passive: true });
+    });
   }
 
-  /* ---- 10. PARALLAX ---- */
+  /* ---- PARALLAX (IO-gated, single rAF) ---- */
   if (!reduced && !isCoarse) {
     const parallaxEls = Array.from(document.querySelectorAll('.parallax'));
+    const inView = new WeakSet();
+    if (parallaxEls.length) {
+      const pio = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) inView.add(e.target);
+          else inView.delete(e.target);
+        });
+      }, { rootMargin: '200px 0px 200px 0px' });
+      parallaxEls.forEach((el) => pio.observe(el));
+    }
+
     const hero = document.querySelector('.hero');
     const heroContent = document.querySelector('.hero-content');
     const heroGrid = document.querySelector('.hero-grid');
-    function onParallax() {
-      const y = window.scrollY;
-      parallaxEls.forEach((el) => {
-        const rate = parseFloat(el.dataset.parallax || '0.1');
-        const r = el.getBoundingClientRect();
-        // Only animate when in viewport-ish
-        if (r.bottom > -200 && r.top < window.innerHeight + 200) {
-          const center = r.top + r.height / 2 - window.innerHeight / 2;
-          el.style.transform = `translate3d(0, ${center * rate * -1}px, 0)`;
-        }
-      });
-      if (hero) {
+    // Cache hero rect; refresh on resize
+    let heroBottom = 0;
+    function measureHero() {
+      if (hero) heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;
+    }
+    measureHero();
+    window.addEventListener('resize', measureHero, { passive: true });
+
+    subscribeScroll((y) => {
+      // Hero parallax — only while still in/near view
+      if (hero && y < heroBottom + 200) {
         if (heroContent) heroContent.style.transform = `translate3d(0, ${y * 0.12}px, 0)`;
         if (heroGrid) heroGrid.style.transform = `translate3d(0, ${y * 0.22}px, 0)`;
       }
-    }
-    window.addEventListener('scroll', onParallax, { passive: true });
-    onParallax();
+      // Element parallax — only those in view
+      for (let i = 0; i < parallaxEls.length; i++) {
+        const el = parallaxEls[i];
+        if (!inView.has(el)) continue;
+        const rate = parseFloat(el.dataset.parallax || '0.1');
+        const r = el.getBoundingClientRect();
+        const center = r.top + r.height / 2 - window.innerHeight / 2;
+        el.style.transform = `translate3d(0, ${center * rate * -1}px, 0)`;
+      }
+    });
   }
 
-  /* ---- 11. CLIP-PATH REVEAL ON SCROLL ---- */
+  /* ---- CLIP-PATH REVEAL ON SCROLL ---- */
   if (!reduced) {
     const clipIo = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
@@ -392,34 +417,49 @@
     document.querySelectorAll('.clip-reveal').forEach((el) => el.classList.add('is-in'));
   }
 
-  /* ---- 13. MAGNETIC + 3D TILT on service rows ---- */
+  /* ---- 3D TILT + magnetic on service rows / gallery (rAF-throttled) ---- */
   if (isDesktop && !reduced) {
     document.querySelectorAll('.service').forEach((el) => {
+      let pending = false, lastE = null;
       el.addEventListener('mousemove', (e) => {
-        const r = el.getBoundingClientRect();
-        const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
-        const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
-        el.style.transform = `perspective(1200px) rotateY(${dx * 3}deg) rotateX(${dy * -2}deg) translateZ(0)`;
+        lastE = e;
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(() => {
+          pending = false;
+          if (!lastE) return;
+          const r = el.getBoundingClientRect();
+          const dx = (lastE.clientX - (r.left + r.width / 2)) / r.width;
+          const dy = (lastE.clientY - (r.top + r.height / 2)) / r.height;
+          el.style.transform = `perspective(1200px) rotateY(${dx * 3}deg) rotateX(${dy * -2}deg) translateZ(0)`;
+        });
       });
       el.addEventListener('mouseleave', () => {
         el.style.transform = '';
       });
     });
 
-    // Magnetic pull on gallery items
     document.querySelectorAll('.travaux-item, .hscroll-item').forEach((el) => {
       const strength = 0.1;
+      let pending = false, lastE = null;
       el.addEventListener('mousemove', (e) => {
-        const r = el.getBoundingClientRect();
-        const dx = e.clientX - (r.left + r.width / 2);
-        const dy = e.clientY - (r.top + r.height / 2);
-        el.style.transform = `translate(${dx * strength}px, ${dy * strength}px)`;
+        lastE = e;
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(() => {
+          pending = false;
+          if (!lastE) return;
+          const r = el.getBoundingClientRect();
+          const dx = lastE.clientX - (r.left + r.width / 2);
+          const dy = lastE.clientY - (r.top + r.height / 2);
+          el.style.transform = `translate3d(${dx * strength}px, ${dy * strength}px, 0)`;
+        });
       });
       el.addEventListener('mouseleave', () => { el.style.transform = ''; });
     });
   }
 
-  /* ---- 14. FOOTER WORDMARK reveal ---- */
+  /* ---- FOOTER WORDMARK reveal ---- */
   const wordmark = document.querySelector('.footer-wordmark');
   if (wordmark) {
     const wIo = new IntersectionObserver((entries) => {
@@ -430,40 +470,62 @@
     wIo.observe(wordmark);
   }
 
-  /* ---- 15. HERO SPOTLIGHT (mouse-tracked) ---- */
+  /* ---- HERO SPOTLIGHT (mouse-tracked, gated by hover) ---- */
   const spotlight = document.getElementById('heroSpotlight');
   if (spotlight && isDesktop && !reduced) {
     const heroSec = document.getElementById('hero');
     if (heroSec) {
-      heroSec.addEventListener('mouseenter', () => spotlight.classList.add('is-on'));
-      heroSec.addEventListener('mouseleave', () => spotlight.classList.remove('is-on'));
+      let pending = false, lastE = null, isOn = false;
+      heroSec.addEventListener('mouseenter', () => { isOn = true; spotlight.classList.add('is-on'); });
+      heroSec.addEventListener('mouseleave', () => { isOn = false; spotlight.classList.remove('is-on'); });
       heroSec.addEventListener('mousemove', (e) => {
-        spotlight.style.setProperty('--mx', e.clientX + 'px');
-        spotlight.style.setProperty('--my', e.clientY + 'px');
+        if (!isOn) return;
+        lastE = e;
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(() => {
+          pending = false;
+          if (!lastE) return;
+          spotlight.style.setProperty('--mx', lastE.clientX + 'px');
+          spotlight.style.setProperty('--my', lastE.clientY + 'px');
+        });
       });
     }
   }
 
-  /* ---- 3. HORIZONTAL SCROLL gallery ---- */
+  /* ---- HORIZONTAL SCROLL gallery (IO-gated, single rAF) ---- */
   if (isDesktop && !reduced) {
     const track = document.getElementById('hscrollTrack');
     const section = document.querySelector('.hscroll-section');
     if (track && section) {
-      let trackW = 0, viewW = 0;
+      let trackW = 0, viewW = 0, sectionTop = 0, sectionH = 0;
+      let isInView = false;
       function measure() {
         trackW = track.scrollWidth;
         viewW = window.innerWidth;
+        const r = section.getBoundingClientRect();
+        sectionTop = r.top + window.scrollY;
+        sectionH = section.offsetHeight;
       }
       measure();
-      window.addEventListener('resize', measure);
-      window.addEventListener('scroll', () => {
-        const r = section.getBoundingClientRect();
-        const total = section.offsetHeight - window.innerHeight;
+      window.addEventListener('resize', measure, { passive: true });
+
+      const hio = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { isInView = e.isIntersecting; });
+      }, { rootMargin: '50px 0px 50px 0px' });
+      hio.observe(section);
+
+      subscribeScroll((y) => {
+        if (!isInView) return;
+        const total = sectionH - window.innerHeight;
         if (total <= 0) return;
-        const progress = Math.min(1, Math.max(0, -r.top / total));
+        const progress = Math.min(1, Math.max(0, (y - sectionTop) / total));
         const maxX = Math.max(0, trackW - viewW + 80);
         track.style.transform = `translate3d(${-progress * maxX}px, 0, 0)`;
-      }, { passive: true });
+      });
     }
   }
+
+  // Initial dispatch so first paint reflects scroll-state subscribers
+  requestScrollFrame();
 })();
