@@ -16,11 +16,12 @@
     } else {
       requestAnimationFrame(() => {
         curtain.classList.add('is-gone');
-        setTimeout(() => { curtain.remove(); }, 850);
+        setTimeout(() => { curtain.remove(); }, 1200);
       });
     }
   }
   document.documentElement.classList.remove('is-curtain');
+  document.body.classList.remove('is-curtain');
 
   /* ---- Mark body as loaded so CSS reveals trigger ---- */
   requestAnimationFrame(() => {
@@ -97,6 +98,39 @@
     document.querySelectorAll('.reveal, [data-reveal], .clip-reveal, .footer-wordmark').forEach((el) => el.classList.add('is-in'));
   }
 
+  /* ---- Section counter (sticky tracker) ---- */
+  const counter = document.getElementById('sectionCounter');
+  const counterNum = document.getElementById('scNum');
+  const counterLabel = document.getElementById('scLabel');
+  if (counter && counterNum && counterLabel && 'IntersectionObserver' in window) {
+    const sections = document.querySelectorAll('[data-sc-num]');
+    if (sections.length > 0) {
+      const sectionIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.25) {
+            const num = entry.target.getAttribute('data-sc-num');
+            const label = entry.target.getAttribute('data-sc-label');
+            if (num) counterNum.textContent = num;
+            if (label) counterLabel.textContent = label;
+            counter.classList.add('is-visible');
+          }
+        });
+      }, { threshold: [0, 0.25, 0.5] });
+
+      sections.forEach((s) => sectionIO.observe(s));
+
+      // Hide counter at top of page (in hero)
+      const heroIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            counter.classList.remove('is-visible');
+          }
+        });
+      }, { threshold: 0.6 });
+      if (hero) heroIO.observe(hero);
+    }
+  }
+
   /* ---- Animated counters (data-count attribute, lightweight) ---- */
   if ('IntersectionObserver' in window && !reduced) {
     const counterIO = new IntersectionObserver((entries) => {
@@ -142,7 +176,7 @@
       try {
         const d = new Date();
         const opts = { hour: '2-digit', minute: '2-digit', timeZone: 'America/Toronto' };
-        clock.textContent = 'Lévis · ' + d.toLocaleTimeString('fr-CA', opts);
+        clock.textContent = 'Québec · ' + d.toLocaleTimeString('fr-CA', opts);
       } catch (e) {}
     }
     safeUpdate();

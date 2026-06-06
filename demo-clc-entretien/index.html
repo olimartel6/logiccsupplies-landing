@@ -3,30 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CLC Entretien — Lavage et détail de VR, roulottes et véhicules commerciaux · Québec / Lévis</title>
-<meta name="description" content="CLC Entretien — Lavage extérieur du toit au roue, détail de VR, roulottes, 5e roue et véhicules commerciaux. Service à domicile, région de Québec et Lévis. Soumission gratuite : 581-928-4788.">
-<meta property="og:title" content="CLC Entretien — L'entretien, propre du toit au roue.">
-<meta property="og:description" content="VR, roulottes, 5e roue, véhicules commerciaux. Service à domicile · Québec / Lévis. Soumission gratuite.">
+<title>CLC Entretien — Détail VR, roulottes & véhicules commerciaux · Région de Québec</title>
+<meta name="description" content="CLC Entretien — Esthétique mobile pour VR, roulottes, 5e roue et véhicules commerciaux. Du toit au roue. Service à domicile et au camping, région de Québec et Cantons-de-l'Est. Soumission : 581-928-4788.">
+<meta property="og:title" content="CLC Entretien — Du toit au roue.">
+<meta property="og:description" content="Esthétique mobile pour VR, roulottes et véhicules commerciaux. Région de Québec et Cantons-de-l'Est.">
 <meta property="og:image" content="https://logiccsupplies.ca/demo-clc-entretien/assets/clc-post-20.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/jpeg" href="assets/clc-logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20260606">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;500;700;800;900&family=Inter+Tight:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20260606r2">
 </head>
-<body>
+<body class="is-curtain">
 
-<!-- Page curtain (CSS-only) -->
+<!-- Page-load curtain -->
 <div class="curtain" id="curtain" aria-hidden="true">
+  <div class="curtain-stripes">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
   <div class="curtain-inner">
     <span class="curtain-mark">CLC</span>
-    <span class="curtain-sub">Entretien · Québec / Lévis</span>
+    <span class="curtain-sub">Entretien — Région de Québec</span>
   </div>
 </div>
 
-<!-- Scroll progress -->
+<!-- Scroll progress + section counter -->
 <div class="scroll-progress" id="scrollProgress"></div>
+<div class="section-counter" id="sectionCounter" aria-hidden="true">
+  <span class="sc-num" id="scNum">01</span>
+  <span class="sc-sep">/</span>
+  <span class="sc-total">06</span>
+  <span class="sc-label" id="scLabel">Plein écran</span>
+</div>
 
 <!-- NAV -->
 <header id="nav" class="nav">
@@ -35,326 +44,362 @@
       <span class="brand-mark-img"><img src="assets/clc-logo.jpg" alt="CLC Entretien"></span>
       <span class="brand-text">
         <span class="brand-name">CLC Entretien</span>
-        <span class="brand-sub">Québec · Lévis</span>
+        <span class="brand-sub">Esthétique mobile · QC</span>
       </span>
     </a>
     <nav class="nav-links" aria-label="Menu principal">
-      <a href="#approche">Approche</a>
+      <a href="#playground">Terrains</a>
       <a href="#services">Services</a>
       <a href="#travaux">Travaux</a>
-      <a href="#process">Procédé</a>
+      <a href="#approche">Approche</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a href="tel:+15819284788" class="nav-cta">Soumission</a>
+    <a href="tel:+15819284788" class="nav-cta">
+      <span class="nav-cta-dot"></span>
+      <span>581 928-4788</span>
+    </a>
   </div>
 </header>
 
-<!-- HERO -->
+<!-- HERO — magazine cover -->
 <section id="hero" class="hero">
-  <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-bg" aria-hidden="true">
     <img src="assets/clc-post-20.jpg" alt="" loading="eager">
-    <div class="hero-bg-overlay"></div>
+    <div class="hero-bg-tint"></div>
+    <div class="hero-bg-grid"></div>
   </div>
 
-  <div class="hero-top">
-    <span class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      <span>Saison ouverte · Soumission gratuite</span>
+  <div class="hero-header">
+    <span class="hero-meta-pill">
+      <span class="hmp-dot"></span>
+      <span>Issue 01 · Saison 2026</span>
     </span>
+    <span class="hero-meta-coord">N 46.81° · W 71.21°</span>
   </div>
 
-  <div class="hero-content container">
-    <p class="hero-eyebrow"><span>Entretien esthétique</span> <span class="dot">·</span> <span>VR &amp; véhicules commerciaux</span> <span class="dot">·</span> <span>Québec / Lévis</span></p>
-    <h1 class="hero-title">
-      <span class="hl-line"><span class="hl-word">Propre</span></span>
-      <span class="hl-line"><span class="hl-word">du toit</span> <span class="hl-word accent"><em>au roue.</em></span></span>
-    </h1>
-    <p class="hero-sub">VR, roulottes, 5<sup>e</sup> roue, motorisés, pick-ups et flottes commerciales — du lavage extérieur complet jusqu'au détail intérieur. On se déplace, on prépare votre véhicule pour la saison, et on repart sans laisser de trace.</p>
-    <div class="hero-cta">
-      <a href="#contact" class="btn btn-primary"><span>Demander une soumission</span></a>
-      <a href="#services" class="btn btn-ghost"><span>Voir nos services</span></a>
+  <div class="hero-wordmark" aria-hidden="true">
+    <span class="hw-row hw-row-1"><em>Du toit</em></span>
+    <span class="hw-row hw-row-2">au roue</span>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="hero-bottom-left">
+      <p class="hero-eyebrow">Esthétique mobile · VR, roulottes &amp; véhicules commerciaux</p>
+      <p class="hero-sub">CLC Entretien remet les véhicules en état pour la route. On vient à vous — domicile, camping ou cour d'entreprise — avec les produits, l'eau et les bras qu'il faut.</p>
     </div>
-    <div class="hero-meta">
-      <div><strong data-count="2025">2025</strong><span>CLC Entretien, depuis</span></div>
-      <div><strong>VR + Comm.</strong><span>Roulottes & flottes</span></div>
-      <div><strong data-count="100" data-count-suffix=" %">100 %</strong><span>Service à domicile</span></div>
+    <div class="hero-bottom-right">
+      <a href="#contact" class="btn btn-primary"><span>Soumission</span><span class="btn-arrow" aria-hidden="true">→</span></a>
+      <a href="#services" class="btn btn-ghost"><span>Voir les services</span></a>
     </div>
   </div>
 
-  <a href="#approche" class="hero-scroll" aria-label="Découvrir">
-    <span class="hs-line"></span>
-    <em>Découvrir</em>
-  </a>
+  <div class="hero-strip">
+    <div class="hs-cell"><span class="hs-label">Établi</span><strong data-count="2025">2025</strong></div>
+    <div class="hs-cell"><span class="hs-label">Service</span><strong>Mobile</strong></div>
+    <div class="hs-cell"><span class="hs-label">Zone</span><strong>Québec &amp; CDE</strong></div>
+    <div class="hs-cell"><span class="hs-label">Soumission</span><strong data-count="100" data-count-suffix=" %">100 %</strong></div>
+    <div class="hs-cell hs-cell-cta">
+      <a href="#playground"><span>Découvrir</span><span class="arrow-down" aria-hidden="true">↓</span></a>
+    </div>
+  </div>
 </section>
 
 <!-- MARQUEE -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span class="m-item">Lavage extérieur du toit au roue</span><span class="m-sep">◆</span>
-    <span class="m-item">Détail intérieur</span><span class="m-sep">◆</span>
-    <span class="m-item">VR · Roulottes · 5<sup>e</sup> roue</span><span class="m-sep">◆</span>
-    <span class="m-item">Véhicules commerciaux</span><span class="m-sep">◆</span>
-    <span class="m-item">Service à domicile</span><span class="m-sep">◆</span>
-    <span class="m-item">Québec / Lévis</span><span class="m-sep">◆</span>
-    <span class="m-item">581 928-4788</span><span class="m-sep">◆</span>
-    <!-- duplicate -->
-    <span class="m-item">Lavage extérieur du toit au roue</span><span class="m-sep">◆</span>
-    <span class="m-item">Détail intérieur</span><span class="m-sep">◆</span>
-    <span class="m-item">VR · Roulottes · 5<sup>e</sup> roue</span><span class="m-sep">◆</span>
-    <span class="m-item">Véhicules commerciaux</span><span class="m-sep">◆</span>
-    <span class="m-item">Service à domicile</span><span class="m-sep">◆</span>
-    <span class="m-item">Québec / Lévis</span><span class="m-sep">◆</span>
-    <span class="m-item">581 928-4788</span><span class="m-sep">◆</span>
+    <span class="m-item">Lavage du toit au roue</span><span class="m-sep">◇</span>
+    <span class="m-item">Détail intérieur cabine</span><span class="m-sep">◇</span>
+    <span class="m-item">5<sup>e</sup> roue · Motorisés · Roulottes</span><span class="m-sep">◇</span>
+    <span class="m-item">Flotte commerciale</span><span class="m-sep">◇</span>
+    <span class="m-item">Camping &amp; domicile</span><span class="m-sep">◇</span>
+    <span class="m-item">Région de Québec · Cantons-de-l'Est</span><span class="m-sep">◇</span>
+    <span class="m-item">581 928-4788</span><span class="m-sep">◇</span>
+    <span class="m-item">Lavage du toit au roue</span><span class="m-sep">◇</span>
+    <span class="m-item">Détail intérieur cabine</span><span class="m-sep">◇</span>
+    <span class="m-item">5<sup>e</sup> roue · Motorisés · Roulottes</span><span class="m-sep">◇</span>
+    <span class="m-item">Flotte commerciale</span><span class="m-sep">◇</span>
+    <span class="m-item">Camping &amp; domicile</span><span class="m-sep">◇</span>
+    <span class="m-item">Région de Québec · Cantons-de-l'Est</span><span class="m-sep">◇</span>
+    <span class="m-item">581 928-4788</span><span class="m-sep">◇</span>
   </div>
 </div>
 
-<!-- APPROCHE -->
-<section id="approche" class="approche reveal">
-  <div class="container approche-grid">
-    <div class="approche-left">
-      <p class="eyebrow">L'approche</p>
+<!-- PLAYGROUND — Nos terrains de jeu -->
+<section id="playground" class="playground reveal" data-sc-num="01" data-sc-label="Terrains de jeu">
+  <div class="container playground-grid">
+    <div class="playground-text">
+      <p class="eyebrow">01 · Nos terrains</p>
       <h2 class="display">
-        Un véhicule propre,<br>
-        <em>c'est plus qu'esthétique.</em>
+        Les <em>campings</em>,<br>
+        les <em>garages</em>,<br>
+        votre <em>cour</em>.
       </h2>
+      <p class="lead">On s'installe là où le véhicule se trouve. Une roulotte au lac, un motorisé dans l'entrée, une flotte de cubes dans un stationnement d'entreprise — on arrive avec le matériel complet et on repart sans laisser de trace.</p>
+      <p>Notre travail se fait dehors, avec les bons produits et le bon timing. Le client retrouve son VR prêt à partir, son camion propre devant ses clients, sa fin de semaine sauvée d'une corvée.</p>
     </div>
-    <div class="approche-right">
-      <p class="lead">Une roulotte préparée comme il faut au début de saison, c'est un toit qui dure plus longtemps, des joints qui restent étanches, des décalques qui ne brûlent pas. Un véhicule commercial bien entretenu, c'est une image de marque qui parle pour vous avant que vous ouvriez la bouche.</p>
-      <p>Chez CLC Entretien, on traite chaque véhicule comme s'il était le nôtre. Produits spécialisés, méthode éprouvée, lavage extérieur du toit jusqu'aux roues — et toujours un coup d'œil aux détails que les autres oublient.</p>
-      <div class="approche-stats">
-        <div><strong data-count="3" data-count-pad="2">03</strong><span>étapes par<br>véhicule</span></div>
-        <div><strong>Spécialisés</strong><span>produits VR<br>&amp; commercial</span></div>
-        <div><strong>Mobile</strong><span>on se déplace<br>chez vous</span></div>
-      </div>
+    <div class="playground-photo clip-reveal">
+      <img src="assets/clc-post-21.jpg" alt="Roulotte Durango sous ciel bleu au camping, après lavage" loading="lazy">
+      <span class="pp-tag">N° 01 · Camping printanier</span>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services" class="services reveal">
+<!-- SERVICES — magazine list -->
+<section id="services" class="services reveal" data-sc-num="02" data-sc-label="Services">
   <div class="container">
     <div class="services-head">
-      <p class="eyebrow">Services</p>
-      <h2 class="display">Ce qu'on fait, <em>et comment.</em></h2>
-      <p class="services-lead">Pour les propriétaires de VR comme pour les opérateurs de flotte — la même rigueur, la même finition. Les prix sont sur soumission parce que chaque véhicule est différent.</p>
+      <p class="eyebrow">02 · Services</p>
+      <h2 class="display">
+        Cinq <em>façons</em><br>
+        de <em>remettre</em> un véhicule en état.
+      </h2>
+      <p class="services-lead">Chaque mandat est sur soumission parce qu'un fifth-wheel de 44 pieds et un pick-up d'entreprise, ce n'est pas le même temps, ce n'est pas la même méthode. On regarde, on chiffre, on exécute.</p>
     </div>
-    <div class="services-list">
-      <article class="service">
-        <div class="service-num">01</div>
-        <div class="service-body">
+
+    <div class="services-stack">
+      <article class="srv">
+        <div class="srv-num"><span>S.01</span></div>
+        <div class="srv-main">
           <h3>Lavage extérieur VR &amp; roulottes</h3>
-          <p>Du toit jusqu'aux roues : décontamination, lavage en profondeur, rinçage. On enlève l'oxydation de saison, les traces noires de stationnement, les éclaboussures de route. Votre roulotte ressort prête pour le premier camping.</p>
-          <ul class="service-tags">
-            <li>Toit + parois</li>
-            <li>Roues &amp; pneus</li>
-            <li>Produits spécialisés</li>
-          </ul>
+          <p>Décontamination, lavage en profondeur du toit jusqu'aux roues, rinçage. On retire l'oxydation hivernale, les traces noires de stationnement, les éclaboussures de route. Produits adaptés au gel coat, à la fibre de verre, à l'aluminium.</p>
         </div>
-        <div class="service-price">Sur<br><em>soumission</em></div>
+        <div class="srv-tags">
+          <span>Toit + parois</span>
+          <span>Décalques préservés</span>
+          <span>Roues &amp; pneus</span>
+        </div>
       </article>
 
-      <article class="service">
-        <div class="service-num">02</div>
-        <div class="service-body">
+      <article class="srv">
+        <div class="srv-num"><span>S.02</span></div>
+        <div class="srv-main">
           <h3>Entretien de début de saison</h3>
-          <p>Le forfait préparation printanier : lavage extérieur complet, vérification visuelle, nettoyage des baies et accessoires. Réservation tôt = place garantie avant le rush des longues fins de semaine.</p>
-          <ul class="service-tags">
-            <li>Préparation campings</li>
-            <li>Sortie d'hivernage</li>
-            <li>Forfait clé en main</li>
-          </ul>
+          <p>Le forfait préparation printanier : lavage complet, vérification visuelle des joints, des décalques et des baies. Réservez tôt — les places en mai et juin partent vite avant le rush des longues fins de semaine.</p>
         </div>
-        <div class="service-price">Sur<br><em>soumission</em></div>
+        <div class="srv-tags">
+          <span>Sortie d'hivernage</span>
+          <span>Préparation campings</span>
+          <span>Forfait clé en main</span>
+        </div>
       </article>
 
-      <article class="service">
-        <div class="service-num">03</div>
-        <div class="service-body">
+      <article class="srv">
+        <div class="srv-num"><span>S.03</span></div>
+        <div class="srv-main">
           <h3>Détail intérieur cabine</h3>
-          <p>Aspiration profonde, nettoyage des tableaux de bord, tapis, plafond, vitres intérieures. Pour les pick-ups, fourgonnettes commerciales et habitacles de motorisés. Une cabine qui sent le neuf après une journée de chantier.</p>
-          <ul class="service-tags">
-            <li>Aspiration</li>
-            <li>Plastiques &amp; tissus</li>
-            <li>Vitres intérieures</li>
-          </ul>
+          <p>Aspiration profonde, nettoyage des tableaux de bord, tapis, plafond, vitres intérieures. Pour pick-ups d'entreprise, fourgonnettes commerciales, habitacles de motorisés. Une cabine qui sent le neuf après une journée de chantier.</p>
         </div>
-        <div class="service-price">Sur<br><em>soumission</em></div>
+        <div class="srv-tags">
+          <span>Aspiration profonde</span>
+          <span>Plastiques &amp; tissus</span>
+          <span>Vitres intérieures</span>
+        </div>
       </article>
 
-      <article class="service">
-        <div class="service-num">04</div>
-        <div class="service-body">
+      <article class="srv">
+        <div class="srv-num"><span>S.04</span></div>
+        <div class="srv-main">
           <h3>Lavage de flotte commerciale</h3>
-          <p>Camions cubes, fourgonnettes, pick-ups d'entreprise, remorques. On vient sur place — chantier, garage, stationnement d'entreprise. Vos véhicules présentent votre marque, on s'assure qu'ils la présentent bien.</p>
-          <ul class="service-tags">
-            <li>Cubes &amp; vans</li>
-            <li>Lettrage protégé</li>
-            <li>Récurrence dispo</li>
-          </ul>
+          <p>Camions cubes, fourgonnettes, pick-ups d'entreprise, remorques. On vient sur place — chantier, garage, stationnement d'entreprise. Vos véhicules portent votre marque. On s'assure qu'ils la portent bien.</p>
         </div>
-        <div class="service-price">Sur<br><em>soumission</em></div>
+        <div class="srv-tags">
+          <span>Cubes &amp; vans</span>
+          <span>Lettrage protégé</span>
+          <span>Contrats récurrents</span>
+        </div>
       </article>
 
-      <article class="service">
-        <div class="service-num">05</div>
-        <div class="service-body">
-          <h3>Service à domicile</h3>
-          <p>Roulotte au camping, motorisé dans l'entrée, flotte au garage : on se déplace dans la région de Québec et Lévis avec l'équipement complet. Vous n'avez pas à déplacer le véhicule — on s'installe, on travaille, on remballe.</p>
-          <ul class="service-tags">
-            <li>Camping inclus</li>
-            <li>Domicile</li>
-            <li>Sans déplacer</li>
-          </ul>
+      <article class="srv">
+        <div class="srv-num"><span>S.05</span></div>
+        <div class="srv-main">
+          <h3>Service à domicile &amp; camping</h3>
+          <p>On apporte l'équipement complet — eau, pression, produits, bras. Roulotte au camping, motorisé dans l'entrée, flotte au garage : aucun déplacement de votre côté. Région de Québec et Cantons-de-l'Est sur demande.</p>
         </div>
-        <div class="service-price">Inclus<br><em>région QC/Lévis</em></div>
-      </article>
-
-      <article class="service">
-        <div class="service-num">06</div>
-        <div class="service-body">
-          <h3>Évaluation &amp; devis</h3>
-          <p>On regarde le véhicule, on jase de ce qui doit être fait, on revient avec un prix clair. Pas de surprise sur la facture, pas de pression pour réserver. Si on n'est pas le bon choix, on vous le dit.</p>
-          <ul class="service-tags">
-            <li>Sans engagement</li>
-            <li>Réponse 24-48 h</li>
-            <li>Prix clair</li>
-          </ul>
+        <div class="srv-tags">
+          <span>Camping inclus</span>
+          <span>Domicile inclus</span>
+          <span>Aucun déplacement</span>
         </div>
-        <div class="service-price">Toujours<br><em>gratuite</em></div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- TRAVAUX -->
-<section id="travaux" class="travaux reveal">
-  <div class="container">
-    <div class="travaux-head">
-      <p class="eyebrow">Travaux récents</p>
-      <h2 class="display">Le travail, <em>tel quel.</em></h2>
-      <p class="travaux-lead">Photos prises sur place après intervention. Aucune retouche. Plus de clichés sur <a href="https://www.instagram.com/clc_entretien/" target="_blank" rel="noopener">@clc_entretien</a>.</p>
-    </div>
+<!-- TRAVAUX — full bleed alternating -->
+<section id="travaux" class="travaux reveal" data-sc-num="03" data-sc-label="Travaux récents">
+  <div class="container travaux-head">
+    <p class="eyebrow">03 · Travaux récents</p>
+    <h2 class="display">Photos prises<br><em>sur place.</em></h2>
+    <p class="travaux-lead">Aucune retouche, aucun filtre. Le travail tel qu'il sort de la cour. Plus de clichés sur <a href="https://www.instagram.com/clc_entretien/" target="_blank" rel="noopener">@clc_entretien</a>.</p>
+  </div>
 
-    <div class="travaux-grid">
-      <figure class="travaux-item travaux-item--big clip-reveal">
+  <div class="bleed-stack">
+
+    <article class="bleed bleed--right clip-reveal">
+      <div class="bleed-photo">
         <img src="assets/clc-post-20.jpg" alt="Fifth-wheel Durango Gold après lavage extérieur complet" loading="lazy">
-        <figcaption><span class="ti-num">01</span><span>Fifth-wheel Durango Gold · Lévis</span></figcaption>
-      </figure>
-      <figure class="travaux-item clip-reveal">
-        <img src="assets/clc-post-21.jpg" alt="Roulotte Durango sous ciel bleu, entretien printanier" loading="lazy">
-        <figcaption><span class="ti-num">02</span><span>Entretien printanier · Camping</span></figcaption>
-      </figure>
-      <figure class="travaux-item clip-reveal">
-        <img src="assets/clc-post-09.jpg" alt="Roulotte Sabre après lavage extérieur sur terrain pavé" loading="lazy">
-        <figcaption><span class="ti-num">03</span><span>Roulotte Sabre · Détail complet</span></figcaption>
-      </figure>
-      <figure class="travaux-item clip-reveal">
+      </div>
+      <div class="bleed-text">
+        <span class="bl-num">N° 01</span>
+        <h3>Fifth-wheel Durango Gold</h3>
+        <p>Lavage complet du toit jusqu'aux roues. Préparation pour la saison de camping.</p>
+        <span class="bl-tag">Toit · Parois · Roues</span>
+      </div>
+    </article>
+
+    <article class="bleed bleed--left clip-reveal">
+      <div class="bleed-photo">
         <img src="assets/clc-post-16.jpg" alt="Motorisé Fleetwood Discovery propre du toit au roue" loading="lazy">
-        <figcaption><span class="ti-num">04</span><span>Motorisé Fleetwood · Saison ouverte</span></figcaption>
-      </figure>
-      <figure class="travaux-item clip-reveal">
-        <img src="assets/clc-post-18.jpg" alt="Détail des roues et bas de caisse après lavage" loading="lazy">
-        <figcaption><span class="ti-num">05</span><span>Détail roues &amp; bas de caisse</span></figcaption>
-      </figure>
-      <figure class="travaux-item clip-reveal">
+      </div>
+      <div class="bleed-text">
+        <span class="bl-num">N° 02</span>
+        <h3>Motorisé Fleetwood Discovery</h3>
+        <p>Sortie d'hivernage. Lavage complet sur site, sans avoir à déplacer le motorisé.</p>
+        <span class="bl-tag">Mobile · Sortie d'hiver</span>
+      </div>
+    </article>
+
+    <article class="bleed bleed--right clip-reveal">
+      <div class="bleed-photo">
         <img src="assets/clc-post-13.jpg" alt="Roulotte 5e roue Rogue avec moto, lavage extérieur" loading="lazy">
-        <figcaption><span class="ti-num">06</span><span>5<sup>e</sup> roue Rogue · Domicile</span></figcaption>
-      </figure>
-    </div>
+      </div>
+      <div class="bleed-text">
+        <span class="bl-num">N° 03</span>
+        <h3>5<sup>e</sup> roue Rogue</h3>
+        <p>Lavage à domicile, dans l'entrée du client. Décalques préservés, roues nettes, prêt pour le départ.</p>
+        <span class="bl-tag">Domicile · Détail</span>
+      </div>
+    </article>
+
+    <article class="bleed bleed--left clip-reveal">
+      <div class="bleed-photo">
+        <img src="assets/clc-post-09.jpg" alt="Roulotte Sabre après lavage extérieur sur terrain pavé" loading="lazy">
+      </div>
+      <div class="bleed-text">
+        <span class="bl-num">N° 04</span>
+        <h3>Roulotte Sabre</h3>
+        <p>Lavage extérieur complet. Décontamination du toit, traces noires de stationnement retirées.</p>
+        <span class="bl-tag">Décontamination</span>
+      </div>
+    </article>
+
+    <article class="bleed bleed--right clip-reveal">
+      <div class="bleed-photo">
+        <img src="assets/clc-post-18.jpg" alt="Détail des roues et bas de caisse après lavage" loading="lazy">
+      </div>
+      <div class="bleed-text">
+        <span class="bl-num">N° 05</span>
+        <h3>Détail roues &amp; bas de caisse</h3>
+        <p>Le travail que les lavages express oublient. Ce qui fait la différence entre « lavé » et « prêt pour la photo ».</p>
+        <span class="bl-tag">Finition</span>
+      </div>
+    </article>
+
   </div>
 </section>
 
-<!-- PROCESS (3 STEPS) -->
-<section id="process" class="process reveal">
+<!-- APPROCHE — 3 columns industrial -->
+<section id="approche" class="approche reveal" data-sc-num="04" data-sc-label="L'approche">
   <div class="container">
-    <div class="process-head">
-      <p class="eyebrow">Le procédé</p>
-      <h2 class="display">Trois étapes, <em>aucun raccourci.</em></h2>
+    <div class="approche-head">
+      <p class="eyebrow">04 · L'approche</p>
+      <h2 class="display">Trois étapes,<br><em>aucun raccourci.</em></h2>
     </div>
-    <div class="process-grid">
-      <article class="process-step">
-        <span class="ps-num">01</span>
+    <div class="approche-grid">
+      <article class="step">
+        <span class="step-num">01</span>
+        <span class="step-line"></span>
         <h3>Décontamination</h3>
-        <p>Pré-rinçage pour décoller débris et insectes, puis traitement ciblé sur l'oxydation, les traces noires et les résidus de route. C'est ce que les lavages express oublient.</p>
+        <p>Pré-rinçage pour décoller débris et insectes, puis traitement ciblé sur l'oxydation, les traces noires et les résidus de route. C'est ce que les lavages express sautent.</p>
       </article>
-      <article class="process-step">
-        <span class="ps-num">02</span>
-        <h3>Lavage extérieur complet</h3>
-        <p>Du toit jusqu'aux roues, avec des produits adaptés au substrat (fibre de verre, aluminium, gel coat, décalques). Pas de brosse abrasive, pas de produit qui jaunit le scellant.</p>
+      <article class="step">
+        <span class="step-num">02</span>
+        <span class="step-line"></span>
+        <h3>Lavage complet</h3>
+        <p>Du toit jusqu'aux roues, avec des produits adaptés au substrat — fibre de verre, aluminium, gel coat, décalques. Pas de brosse abrasive, pas de produit qui jaunit le scellant.</p>
       </article>
-      <article class="process-step">
-        <span class="ps-num">03</span>
-        <h3>Finition &amp; détails</h3>
-        <p>Vitres claires, roues nettes, joints essuyés, baies propres. C'est l'étape qui fait la différence entre « lavé » et « prêt pour la photo ».</p>
+      <article class="step">
+        <span class="step-num">03</span>
+        <span class="step-line"></span>
+        <h3>Finition</h3>
+        <p>Vitres claires, roues nettes, joints essuyés, baies propres. C'est l'étape qui fait passer un véhicule de « lavé » à « prêt pour la photo ».</p>
       </article>
     </div>
   </div>
 </section>
 
 <!-- TEAM -->
-<section id="team" class="team reveal">
+<section id="team" class="team reveal" data-sc-num="05" data-sc-label="L'équipe">
   <div class="container team-grid">
-    <div class="team-img clip-reveal">
-      <img src="assets/clc-post-27.jpg" alt="L'équipe CLC Entretien en train de détailler une fourgonnette commerciale" loading="lazy">
-      <span class="team-tag">CLC Entretien · Atelier &amp; mobile</span>
-    </div>
     <div class="team-text">
-      <p class="eyebrow">L'équipe</p>
-      <h2 class="display">Deux gars de Lévis, <em>un seul standard.</em></h2>
-      <p class="lead">CLC Entretien a démarré en 2025 avec une idée simple : faire le travail comme on aimerait qu'il soit fait sur notre propre véhicule. Investir dans les bons produits, prendre le temps qu'il faut, ne jamais livrer une roulotte ou un camion qu'on ne serait pas fier de montrer.</p>
-      <p>On dessert la région de Québec et de Lévis — campings, domiciles, garages d'entreprise. Pour les propriétaires de VR, les opérateurs de flotte, les transporteurs et tous ceux qui comprennent qu'un véhicule propre, c'est un véhicule qui dure.</p>
-      <div class="team-quote">
-        <span class="quote-mark">«</span>
-        <p>Du toit au roue, on s'occupe de tout. Vous arrivez au camping, votre roulotte est prête. C'est ça notre métier.</p>
-        <span class="quote-attr">— L'équipe CLC</span>
+      <p class="eyebrow">05 · L'équipe</p>
+      <h2 class="display">Une équipe,<br><em>un standard.</em></h2>
+      <p class="lead">CLC Entretien a démarré en 2025 avec une idée simple : traiter chaque véhicule comme s'il était le nôtre. Investir dans les bons produits, prendre le temps qu'il faut, ne jamais livrer une roulotte ou un camion qu'on ne serait pas fier de montrer.</p>
+      <p>On dessert la grande région de Québec et les Cantons-de-l'Est — campings, domiciles, garages d'entreprise. Pour les propriétaires de VR, les opérateurs de flotte et tous ceux qui comprennent qu'un véhicule propre, c'est un véhicule qui dure.</p>
+      <div class="team-stats">
+        <div><strong>2025</strong><span>Année d'origine</span></div>
+        <div><strong>Mobile</strong><span>Service complet sur place</span></div>
+        <div><strong>VR + Comm.</strong><span>Roulottes &amp; flottes</span></div>
+      </div>
+    </div>
+    <div class="team-photo clip-reveal">
+      <img src="assets/clc-post-27.jpg" alt="L'équipe CLC Entretien en train de détailler un véhicule commercial" loading="lazy">
+      <div class="team-photo-cap">
+        <span class="tpc-mark">CLC</span>
+        <span class="tpc-sub">Atelier mobile · 2025—</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="contact reveal">
+<section id="contact" class="contact reveal" data-sc-num="06" data-sc-label="Contact">
   <div class="container">
     <div class="contact-head">
-      <p class="eyebrow">Contact</p>
+      <p class="eyebrow">06 · Contact</p>
       <h2 class="display contact-h2">
-        On passe<br>
+        On se déplace<br>
         <em>chez vous.</em>
       </h2>
-      <p class="contact-lead">Roulotte au camping, motorisé dans l'entrée, flotte au garage. Appelez, écrivez ou DM Instagram — on revient avec un plan et un prix clair, généralement dans les 24 à 48 heures.</p>
+      <p class="contact-lead">Appelez, textez ou DM Instagram. On revient avec un plan, un horaire et un prix clair — généralement dans les 24 à 48 heures.</p>
     </div>
 
     <div class="contact-grid">
-      <a href="tel:+15819284788" class="contact-card">
-        <p class="cc-label">Téléphone</p>
-        <p class="cc-value">581 928-4788</p>
-        <p class="cc-meta">Lun → Sam · 8 h → 19 h</p>
+      <a href="tel:+15819284788" class="ccard">
+        <span class="cc-label">01 · Téléphone</span>
+        <span class="cc-value">581 928-4788</span>
+        <span class="cc-meta">Lun → Sam · 8 h → 19 h</span>
         <span class="cc-arrow">→</span>
       </a>
-      <a href="sms:+15819284788" class="contact-card">
-        <p class="cc-label">Texto</p>
-        <p class="cc-value">581 928-4788</p>
-        <p class="cc-meta">Réponse rapide en saison</p>
+      <a href="sms:+15819284788" class="ccard">
+        <span class="cc-label">02 · Texto</span>
+        <span class="cc-value">581 928-4788</span>
+        <span class="cc-meta">Réponse rapide en saison</span>
         <span class="cc-arrow">→</span>
       </a>
-      <a href="https://www.instagram.com/clc_entretien/" target="_blank" rel="noopener" class="contact-card">
-        <p class="cc-label">Instagram</p>
-        <p class="cc-value">@clc_entretien</p>
-        <p class="cc-meta">Travaux récents · DM ouvert</p>
+      <a href="mailto:entretienclc@gmail.com" class="ccard">
+        <span class="cc-label">03 · Courriel</span>
+        <span class="cc-value">entretienclc<br>@gmail.com</span>
+        <span class="cc-meta">Réponse sous 48 h ouvrables</span>
         <span class="cc-arrow">→</span>
       </a>
-      <a href="#services" class="contact-card">
-        <p class="cc-label">Service</p>
-        <p class="cc-value">À domicile</p>
-        <p class="cc-meta">Région Québec / Lévis</p>
+      <a href="https://www.instagram.com/clc_entretien/" target="_blank" rel="noopener" class="ccard">
+        <span class="cc-label">04 · Instagram</span>
+        <span class="cc-value">@clc_entretien</span>
+        <span class="cc-meta">Travaux récents · DM ouvert</span>
         <span class="cc-arrow">→</span>
       </a>
     </div>
 
     <div class="contact-area">
-      <p class="ca-label">Zone desservie</p>
-      <p class="ca-value">Lévis · St-Romuald · Pintendre · Charny · St-Nicolas · St-Rédempteur · St-Étienne · Québec · Rive-Sud · Campings de la région sur demande</p>
+      <div class="ca-row">
+        <span class="ca-label">Zone desservie</span>
+        <p class="ca-value">Région de Québec · Sainte-Foy · Cap-Rouge · Charlesbourg · Beauport · Cantons-de-l'Est · Sherbrooke · Magog · Orford · Bromont · Campings de la région sur demande.</p>
+      </div>
+      <div class="ca-row">
+        <span class="ca-label">Hors zone ?</span>
+        <p class="ca-value">Sur demande, on évalue les déplacements en dehors de notre zone régulière pour les contrats de flotte et les rassemblements de campeurs.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -362,23 +407,25 @@
 <!-- FOOTER -->
 <footer id="footer" class="footer">
   <div class="footer-wordmark" aria-hidden="true">
-    <span>CLC</span>
-    <span class="fw-accent">ENTRETIEN</span>
+    <span class="fw-line-1">CLC</span>
+    <span class="fw-line-2">Entretien</span>
   </div>
   <div class="container footer-grid">
     <div class="footer-brand">
       <div class="footer-mark"><img src="assets/clc-logo.jpg" alt="CLC Entretien"></div>
       <p class="footer-name">CLC Entretien</p>
-      <p class="footer-tag">Établi 2025 · Québec / Lévis</p>
+      <p class="footer-tag">Établi 2025 · Région de Québec &amp; Cantons-de-l'Est</p>
     </div>
     <div class="footer-col">
       <p class="foot-label">Coordonnées</p>
       <a href="tel:+15819284788">581 928-4788</a>
+      <a href="mailto:entretienclc@gmail.com">entretienclc@gmail.com</a>
       <a href="sms:+15819284788">Texto bienvenu</a>
     </div>
     <div class="footer-col">
       <p class="foot-label">Social</p>
       <a href="https://www.instagram.com/clc_entretien/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/people/CLC-Entretien/61575565913186/" target="_blank" rel="noopener">Facebook</a>
       <a href="#travaux">Travaux récents</a>
     </div>
     <div class="footer-col">
@@ -405,6 +452,6 @@
   </a>
 </div>
 
-<script src="script.js?v=20260606"></script>
+<script src="script.js?v=20260606r2"></script>
 </body>
 </html>
