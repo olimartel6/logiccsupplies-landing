@@ -77,7 +77,7 @@
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in');
+          entry.target.classList.add('is-in');
           io.unobserve(entry.target);
         }
       });
@@ -85,7 +85,7 @@
 
     document.querySelectorAll('.reveal, [data-reveal], .clip-reveal').forEach((el) => io.observe(el));
   } else {
-    document.querySelectorAll('.reveal, [data-reveal], .clip-reveal').forEach((el) => el.classList.add('in'));
+    document.querySelectorAll('.reveal, [data-reveal], .clip-reveal').forEach((el) => el.classList.add('is-in'));
   }
 
   /* ---- Animated counters (lightweight) ---- */
