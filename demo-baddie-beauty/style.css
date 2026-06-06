@@ -1,5 +1,5 @@
 /* ============================================
-   BADDIE BEAUTY — Roxanne, Lévis
+   BADDIE BEAUTY — Laurie, Lévis
    Design DNA: Fraunces + Manrope
    Palette: nude #f5e9e4 · charcoal #2b1b1a · dusty mauve #a8617a
    ============================================ */
@@ -705,35 +705,35 @@ body.is-loaded .hero-scroll { opacity: 1; }
   .portfolio-item--big { grid-row: auto; aspect-ratio: 4 / 5; }
 }
 
-/* ============ ROXANNE ============ */
-.roxanne {
+/* ============ LAURIE ============ */
+.laurie {
   padding: clamp(120px, 14vw, 180px) 0;
   background: var(--ink);
   color: var(--cream);
 }
-.roxanne .eyebrow { color: var(--accent-soft); }
-.roxanne .eyebrow::before { background: var(--accent-soft); }
-.roxanne .display em { color: var(--accent-soft); }
-.roxanne-grid {
+.laurie .eyebrow { color: var(--accent-soft); }
+.laurie .eyebrow::before { background: var(--accent-soft); }
+.laurie .display em { color: var(--accent-soft); }
+.laurie-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
   gap: clamp(40px, 6vw, 100px);
   align-items: center;
 }
-.roxanne-img, .roxanne-text { min-width: 0; }
-.roxanne-img {
+.laurie-img, .laurie-text { min-width: 0; }
+.laurie-img {
   position: relative;
   border-radius: 6px;
   overflow: hidden;
   aspect-ratio: 4 / 5;
 }
-.roxanne-img img {
+.laurie-img img {
   width: 100%; height: 100%;
   object-fit: cover;
   filter: contrast(1.03) saturate(1.05);
   transition: transform 1.2s var(--easing);
 }
-.roxanne-tag {
+.laurie-tag {
   position: absolute;
   left: 16px; bottom: 16px;
   padding: 8px 14px;
@@ -746,18 +746,18 @@ body.is-loaded .hero-scroll { opacity: 1; }
   border-radius: 999px;
   font-weight: 500;
 }
-.roxanne-text .lead {
+.laurie-text .lead {
   color: var(--cream);
   opacity: .92;
 }
-.roxanne-text p {
+.laurie-text p {
   color: var(--cream);
   opacity: .78;
   font-size: 16px;
   line-height: 1.75;
   margin-bottom: 22px;
 }
-.roxanne-quote {
+.laurie-quote {
   margin-top: 40px;
   padding: 32px;
   border: 1px solid rgba(250,241,237,0.18);
@@ -774,7 +774,7 @@ body.is-loaded .hero-scroll { opacity: 1; }
   margin-bottom: 10px;
   font-style: italic;
 }
-.roxanne-quote p {
+.laurie-quote p {
   font-family: var(--display);
   font-style: italic;
   font-size: clamp(18px, 1.8vw, 24px);
@@ -1050,7 +1050,7 @@ body.is-loaded .hero-scroll { opacity: 1; }
 /* ============ RESPONSIVE TWEAKS ============ */
 @media (max-width: 880px) {
   .approche-grid { grid-template-columns: 1fr; gap: 48px; }
-  .roxanne-grid { grid-template-columns: 1fr; gap: 48px; }
+  .laurie-grid { grid-template-columns: 1fr; gap: 48px; }
   .hero-meta { grid-template-columns: 1fr; max-width: 380px; }
 }
 
@@ -1063,7 +1063,7 @@ body.is-loaded .hero-scroll { opacity: 1; }
     transform: scale(1.015);
   }
   .portfolio-item:hover img { transform: scale(1.04); }
-  .roxanne-img:hover img { transform: scale(1.03); }
+  .laurie-img:hover img { transform: scale(1.03); }
   .service:hover {
     background: linear-gradient(to right, transparent, rgba(240,212,221,0.4) 50%, transparent);
     padding-left: 16px; padding-right: 16px;
@@ -1080,7 +1080,7 @@ body.is-loaded .hero-scroll { opacity: 1; }
     padding-left: 0; padding-right: 0;
   }
   .portfolio-item:hover img,
-  .roxanne-img:hover img { transform: none; }
+  .laurie-img:hover img { transform: none; }
   .nav-cta:hover { background: var(--ink); color: var(--cream); }
   .btn:hover::before { transform: translateY(101%); }
   .btn:hover { color: inherit; border-color: var(--ink); }
@@ -1135,10 +1135,10 @@ body.is-loaded .hero-scroll { opacity: 1; }
   .hero-scroll { display: none; }
 
   /* Section padding mobile */
-  .approche, .services, .portfolio, .roxanne, .contact { padding: 80px 0; }
+  .approche, .services, .portfolio, .laurie, .contact { padding: 80px 0; }
   .approche-grid { gap: 32px; }
   .approche-left .display, .services-head .display,
-  .portfolio-head .display, .roxanne-text .display,
+  .portfolio-head .display, .laurie-text .display,
   .contact-head .display {
     font-size: clamp(34px, 9vw, 52px);
   }
@@ -1168,11 +1168,11 @@ body.is-loaded .hero-scroll { opacity: 1; }
   .portfolio-lead { font-size: 12px; margin-top: 14px; }
   .portfolio-item figcaption { padding: 14px 16px; font-size: 10px; gap: 10px; }
 
-  /* Roxanne mobile */
-  .roxanne-quote { margin-top: 28px; padding: 24px; }
+  /* Laurie mobile */
+  .laurie-quote { margin-top: 28px; padding: 24px; }
   .quote-mark { font-size: 56px; margin-bottom: 6px; }
-  .roxanne-quote p { font-size: 18px; }
-  .roxanne-text p { font-size: 15px; }
+  .laurie-quote p { font-size: 18px; }
+  .laurie-text p { font-size: 15px; }
 
   /* Contact mobile */
   .contact { padding: 80px 0 140px; }
