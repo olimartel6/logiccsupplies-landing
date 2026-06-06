@@ -121,12 +121,20 @@
   const body = document.body;
 
   if (curtain && !prefersReduce) {
+    // Mobile = faster timing (mobile users bail quicker)
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const tickRate = isMobile ? 60 : 90;
+    const tailDelay = isMobile ? 200 : 320;
+    const loadDelay = isMobile ? 700 : 1100;
+    const readyDelay = isMobile ? 1100 : 1600;
+    const hardFallback = isMobile ? 2400 : 3500;
+
     let pct = 0;
     const tick = () => {
       pct += Math.random() * 14 + 4;
       if (pct > 99) pct = 99;
       if (curtainCounter) curtainCounter.textContent = String(Math.floor(pct)).padStart(2, "0");
-      if (pct < 99) setTimeout(tick, 90);
+      if (pct < 99) setTimeout(tick, tickRate);
     };
     tick();
 
@@ -136,15 +144,15 @@
         curtain.classList.add("is-out");
         body.classList.remove("is-loading");
         setTimeout(() => curtain.remove(), 1400);
-      }, 320);
+      }, tailDelay);
     };
 
     if (document.readyState === "complete") {
-      setTimeout(finishCurtain, 1600);
+      setTimeout(finishCurtain, readyDelay);
     } else {
-      window.addEventListener("load", () => setTimeout(finishCurtain, 1100));
+      window.addEventListener("load", () => setTimeout(finishCurtain, loadDelay));
       // Hard fallback
-      setTimeout(finishCurtain, 3500);
+      setTimeout(finishCurtain, hardFallback);
     }
   } else if (curtain) {
     curtain.remove();
@@ -421,6 +429,37 @@
     lifts.forEach((s) => lio.observe(s));
   } else {
     lifts.forEach((s) => s.classList.add("is-in"));
+  }
+
+  // ---------- Mobile sticky CTA bar ----------
+  const mobileCta = document.getElementById("mobileCta");
+  const heroEl = document.querySelector(".hero");
+  if (mobileCta && heroEl) {
+    let ctaVisible = false;
+    let ctaTicking = false;
+    const contactSection = document.getElementById("contact");
+    const updateCta = () => {
+      const heroBottom = heroEl.getBoundingClientRect().bottom;
+      // Hide when contact section is in view (already showing CTA there)
+      const contactTop = contactSection ? contactSection.getBoundingClientRect().top : Infinity;
+      const shouldShow = heroBottom < 80 && contactTop > window.innerHeight * 0.5;
+      if (shouldShow !== ctaVisible) {
+        ctaVisible = shouldShow;
+        mobileCta.classList.toggle("is-visible", shouldShow);
+      }
+      ctaTicking = false;
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ctaTicking) {
+          requestAnimationFrame(updateCta);
+          ctaTicking = true;
+        }
+      },
+      { passive: true }
+    );
+    updateCta();
   }
 
   // ---------- 14. Hero mouse spotlight ----------
