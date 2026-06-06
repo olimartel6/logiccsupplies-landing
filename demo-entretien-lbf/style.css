@@ -916,3 +916,369 @@ body.is-loaded .hero-meta { opacity: 1; transform: translateY(0); }
   .hero-cta { flex-direction: column; align-items: stretch; }
   .btn { width: 100%; }
 }
+
+/* =====================================================================
+   AWWWARDS-TIER ANIMATION LAYER
+   Additive — does not modify existing rules above.
+   ===================================================================== */
+
+/* Lock scroll while curtain is up */
+html.is-curtain, html.is-curtain body { overflow: hidden; height: 100%; }
+
+/* ---------- 1. Page-load curtain ---------- */
+.curtain {
+  position: fixed; inset: 0;
+  z-index: 10000;
+  background: #0a0c0f;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  transform: translateY(0);
+  transition: transform 1.2s cubic-bezier(.77,0,.18,1);
+}
+.curtain::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 60%, rgba(93,122,74,0.22), transparent 60%);
+  opacity: 0;
+  transition: opacity .6s ease;
+}
+body.curtain-glow .curtain::before { opacity: 1; }
+.curtain.is-gone { transform: translateY(-101%); }
+.curtain-inner {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.curtain-mark {
+  display: inline-flex;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(72px, 14vw, 180px);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: #f5f3ee;
+  overflow: hidden;
+}
+.curtain-mark > span {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition: transform .9s cubic-bezier(.22,.61,.36,1), opacity .9s ease;
+}
+.curtain-mark .cm-f { color: #5d7a4a; font-style: italic; font-weight: 700; }
+body.curtain-reveal .curtain-mark .cm-l { transform: translateY(0); opacity: 1; transition-delay: .10s; }
+body.curtain-reveal .curtain-mark .cm-b { transform: translateY(0); opacity: 1; transition-delay: .22s; }
+body.curtain-reveal .curtain-mark .cm-f { transform: translateY(0); opacity: 1; transition-delay: .34s; }
+.curtain-sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(245,243,238,0.55);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .6s ease .55s, transform .6s ease .55s;
+}
+body.curtain-reveal .curtain-sub { opacity: 1; transform: translateY(0); }
+
+/* ---------- 2. Hero entrance choreography (additive, scale-up word) ---------- */
+.hero-title .word {
+  transition: transform 1s var(--easing), opacity 1s var(--easing);
+  opacity: 0;
+  transform: translateY(110%) scale(0.96);
+}
+body.is-loaded .hero-title .word {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.hero-eyebrow {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .8s var(--easing) .15s, transform .8s var(--easing) .15s;
+}
+body.is-loaded .hero-eyebrow { opacity: 1; transform: translateY(0); }
+.hero-status {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity .8s var(--easing) .05s, transform .8s var(--easing) .05s;
+}
+body.is-loaded .hero-status { opacity: 1; transform: translateY(0); }
+.hero-scroll {
+  opacity: 0;
+  transition: opacity .8s var(--easing) 1.4s;
+}
+body.is-loaded .hero-scroll { opacity: 1; }
+
+/* ---------- 3. Horizontal scroll portfolio band ---------- */
+.hscroll-section {
+  position: relative;
+  margin-top: 80px;
+  height: 320vh; /* defines scroll length */
+}
+.hscroll-sticky {
+  position: sticky; top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex; align-items: center;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.hscroll-track {
+  display: flex; align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  padding: 0 clamp(24px, 4vw, 64px);
+  height: 78vh;
+  will-change: transform;
+}
+.hscroll-head {
+  flex: 0 0 clamp(320px, 30vw, 460px);
+  display: flex; flex-direction: column;
+  gap: 16px;
+}
+.hscroll-title {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(36px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+.hscroll-title em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 600;
+}
+.hscroll-sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+  margin-top: 12px;
+}
+.hscroll-item {
+  flex: 0 0 clamp(320px, 32vw, 520px);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--ink);
+}
+.hscroll-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.6s var(--easing);
+}
+.hscroll-item:hover img { transform: scale(1.05); }
+.hscroll-item figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 18px 22px;
+  background: linear-gradient(to top, rgba(13,16,20,0.82), transparent);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex; gap: 14px; align-items: center;
+}
+.hscroll-item figcaption span:first-child {
+  color: var(--accent-soft);
+  font-weight: 600;
+}
+@media (max-width: 900px), (pointer: coarse) {
+  .hscroll-section { height: auto; margin-top: 32px; }
+  .hscroll-sticky { position: static; height: auto; padding: 32px 0; }
+  .hscroll-track {
+    flex-direction: column; height: auto; gap: 24px;
+    transform: none !important;
+  }
+  .hscroll-head, .hscroll-item { flex: 0 0 auto; width: 100%; }
+  .hscroll-item { aspect-ratio: 4/3; }
+}
+
+/* ---------- 5. Text scramble cursor (subtle accent during scramble) ---------- */
+[data-scramble].is-scrambling {
+  color: var(--accent-deep);
+}
+
+/* ---------- 6. Animated counter — flash on complete ---------- */
+[data-count].count-done {
+  animation: countFlash .9s var(--easing);
+}
+@keyframes countFlash {
+  0% { color: var(--accent); text-shadow: 0 0 0 rgba(93,122,74,0); }
+  40% { color: var(--accent); text-shadow: 0 0 14px rgba(93,122,74,0.45); }
+  100% { color: inherit; text-shadow: 0 0 0 rgba(93,122,74,0); }
+}
+
+/* ---------- 7. Cursor preview (thumbnail follower) ---------- */
+.cursor-preview {
+  position: fixed;
+  top: 0; left: 0;
+  width: 220px; height: 280px;
+  pointer-events: none;
+  z-index: 9997;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--ink) center/cover no-repeat;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  transition: opacity .35s var(--easing), transform .5s var(--easing);
+  box-shadow: 0 24px 60px rgba(13,16,20,0.35);
+}
+.cursor-preview.is-on {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+@media (max-width: 900px), (pointer: coarse) {
+  .cursor-preview { display: none; }
+}
+
+/* ---------- Cursor ring label ---------- */
+.cursor-ring-label {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #fff;
+  opacity: 0;
+  transition: opacity .2s ease;
+  pointer-events: none;
+}
+.cursor-ring.is-label .cursor-ring-label { opacity: 1; }
+
+/* ---------- 9. Background tint shift (driven by JS) ---------- */
+body {
+  transition: background-color .8s linear;
+}
+
+/* ---------- 11. Clip-path reveal on scroll ---------- */
+.clip-reveal {
+  clip-path: inset(40% 0 40% 0);
+  -webkit-clip-path: inset(40% 0 40% 0);
+  transition: clip-path 1.4s cubic-bezier(.22,.61,.36,1), -webkit-clip-path 1.4s cubic-bezier(.22,.61,.36,1);
+}
+.clip-reveal.is-in {
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
+}
+
+/* ---------- 13. Service row 3D tilt ---------- */
+.services-list { perspective: 1200px; }
+.service {
+  will-change: transform;
+  transform-style: preserve-3d;
+  transition: padding .3s var(--easing), background .3s var(--easing), transform .35s var(--easing);
+}
+
+/* ---------- 14. Footer giant wordmark ---------- */
+.footer { position: relative; overflow: hidden; }
+.footer-wordmark {
+  position: relative;
+  display: block;
+  margin: 0 auto 60px;
+  padding: 0 clamp(24px, 4vw, 64px);
+  max-width: 1440px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(72px, 16vw, 260px);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: rgba(245,243,238,0.07);
+  text-align: left;
+  pointer-events: none;
+  user-select: none;
+  transform: scale(0.92);
+  opacity: 0;
+  transition: transform 1.2s var(--easing), opacity 1.2s var(--easing);
+}
+.footer-wordmark.is-in { transform: scale(1); opacity: 1; }
+.footer-wordmark .fw-accent {
+  color: rgba(93,122,74,0.40);
+  font-style: italic;
+  margin-left: 0.18em;
+}
+.footer-wordmark span { display: inline-block; }
+
+/* ---------- 15. Hero mouse-tracked spotlight ---------- */
+.hero-spotlight {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(93,122,74,0.22), transparent 60%);
+  transition: opacity .6s var(--easing);
+  mix-blend-mode: multiply;
+}
+.hero-spotlight.is-on { opacity: 1; }
+@media (pointer: coarse) { .hero-spotlight { display: none; } }
+
+/* ---------- 17. Animated grain overlay on hero ---------- */
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.7 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
+  animation: grainShift 1.8s steps(4) infinite;
+}
+@keyframes grainShift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-4%, 2%); }
+  50% { transform: translate(3%, -3%); }
+  75% { transform: translate(-2%, 4%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ---------- 18. Section enter (lift) — additive to .reveal already present ---------- */
+.reveal > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .9s var(--easing), transform .9s var(--easing);
+}
+.reveal.is-in > * { opacity: 1; transform: translateY(0); }
+.reveal.is-in > *:nth-child(1) { transition-delay: .05s; }
+.reveal.is-in > *:nth-child(2) { transition-delay: .15s; }
+.reveal.is-in > *:nth-child(3) { transition-delay: .25s; }
+.reveal.is-in > *:nth-child(4) { transition-delay: .35s; }
+
+/* The .approche-grid, .freres-grid etc are inside .container so the stagger
+   targets the container — we want children of the container too: */
+.reveal .container > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .9s var(--easing), transform .9s var(--easing);
+}
+.reveal.is-in .container > * { opacity: 1; transform: translateY(0); }
+.reveal.is-in .container > *:nth-child(1) { transition-delay: .05s; }
+.reveal.is-in .container > *:nth-child(2) { transition-delay: .15s; }
+.reveal.is-in .container > *:nth-child(3) { transition-delay: .25s; }
+
+/* ---------- Marquee pause on hover ---------- */
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---------- Parallax (JS sets --py) ---------- */
+.parallax { will-change: transform; }
+
+/* ---------- Reduced motion respect ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .curtain { display: none; }
+  .clip-reveal { clip-path: inset(0); -webkit-clip-path: inset(0); }
+  .hscroll-section { height: auto; }
+  .hscroll-sticky { position: static; height: auto; padding: 32px 0; }
+  .hscroll-track { flex-direction: column; height: auto; transform: none !important; }
+  .hero-grain, .hero-spotlight, .cursor-preview { display: none; }
+  .reveal > *, .reveal .container > * { opacity: 1; transform: none; transition: none; }
+  .footer-wordmark { transform: scale(1); opacity: 1; }
+  body { transition: none; }
+  [data-count].count-done { animation: none; }
+}

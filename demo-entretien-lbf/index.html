@@ -17,12 +17,30 @@
 </head>
 <body>
 
+<!-- Page-load curtain -->
+<div class="curtain" id="curtain" aria-hidden="true">
+  <div class="curtain-inner">
+    <span class="curtain-mark" aria-hidden="true">
+      <span class="cm-l">L</span><span class="cm-b">B</span><span class="cm-f">F</span>
+    </span>
+    <span class="curtain-sub">Les Beaux Frères — Lévis</span>
+  </div>
+</div>
+
 <!-- Scroll progress -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
+<!-- Hero spotlight -->
+<div class="hero-spotlight" id="heroSpotlight" aria-hidden="true"></div>
+
+<!-- Cursor follower preview -->
+<div class="cursor-preview" id="cursorPreview" aria-hidden="true"></div>
+
 <!-- Cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-ring" id="cursorRing">
+  <span class="cursor-ring-label" id="cursorRingLabel"></span>
+</div>
 
 <!-- NAV -->
 <header id="nav" class="nav">
@@ -48,6 +66,7 @@
 <!-- HERO -->
 <section id="hero" class="hero">
   <div class="hero-grid"></div>
+  <div class="hero-grain" aria-hidden="true"></div>
   <span class="hero-status">
     <span class="hero-status-dot"></span>
     <span>Saison ouverte · Soumission gratuite</span>
@@ -64,9 +83,9 @@
       <a href="#services" class="btn btn-ghost" data-magnet><span>Voir nos services</span></a>
     </div>
     <div class="hero-meta">
-      <div><strong>2025</strong><span>Les Beaux Frères, depuis</span></div>
+      <div><strong data-count="2025">2025</strong><span>Les Beaux Frères, depuis</span></div>
       <div><strong>Lévis</strong><span>Et Rive-Sud de Québec</span></div>
-      <div><strong>100 %</strong><span>Soumissions gratuites</span></div>
+      <div><strong data-count="100" data-count-suffix=" %">100 %</strong><span>Soumissions gratuites</span></div>
     </div>
   </div>
   <div class="hero-scroll" aria-hidden="true"><span></span><em>Découvrir</em></div>
@@ -97,7 +116,7 @@
 <section id="approche" class="approche reveal">
   <div class="container approche-grid">
     <div class="approche-left">
-      <p class="eyebrow">L'approche</p>
+      <p class="eyebrow" data-scramble>L'approche</p>
       <h2 class="display">
         <span class="concat">Travailbienfait,</span>
         <span class="concat">d'unbordàl'autre.</span>
@@ -107,7 +126,7 @@
       <p class="lead">On n'arrive pas chez vous avec un boyau d'arrosage et un seau. On arrive avec l'équipement, la méthode, le respect du bâtiment — et l'idée qu'un travail mal fait vaut moins que pas de travail du tout.</p>
       <p>Que ce soit vider une gouttière obstruée, redonner de la clarté à des vitres saisonnières, ou refaire briller un revêtement, l'approche est la même : on regarde, on planifie, on exécute proprement. Pas de raccourci.</p>
       <div class="approche-stats">
-        <div><strong>02</strong><span>frères<br>aux commandes</span></div>
+        <div><strong data-count="2" data-count-pad="2">02</strong><span>frères<br>aux commandes</span></div>
         <div><strong>Tucker®</strong><span>pôle à eau<br>purifiée</span></div>
         <div><strong>Rés. +<br>Comm.</strong><span>résidentiel<br>et commercial</span></div>
       </div>
@@ -119,7 +138,7 @@
 <section id="services" class="services reveal">
   <div class="container">
     <div class="services-head">
-      <p class="eyebrow">Services</p>
+      <p class="eyebrow" data-scramble>Services</p>
       <h2 class="display">Ce qu'on fait, <em>et comment.</em></h2>
     </div>
     <div class="services-list">
@@ -214,23 +233,52 @@
 <section id="travaux" class="travaux reveal">
   <div class="container">
     <div class="travaux-head">
-      <p class="eyebrow">Travaux récents</p>
+      <p class="eyebrow" data-scramble>Travaux récents</p>
       <h2 class="display">Le travail, <em>tel quel.</em></h2>
       <p class="travaux-lead">Aucune retouche, aucun filtre. Ce sont des photos prises sur des chantiers réels par Jérémy et Nathan. Plus de clichés sur <a href="https://www.instagram.com/entretien_lbf/" target="_blank" rel="noopener">@entretien_lbf</a>.</p>
     </div>
     <div class="travaux-grid">
-      <figure class="travaux-item travaux-item--big">
+      <figure class="travaux-item travaux-item--big clip-reveal" data-preview="assets/reel-gouttieres.jpg">
         <img src="assets/reel-gouttieres.jpg" alt="Gouttière propre, vue plongeante après intervention" loading="lazy">
         <figcaption><span class="ti-num">01</span><span>Gouttières propres · Lévis</span></figcaption>
       </figure>
-      <figure class="travaux-item">
+      <figure class="travaux-item clip-reveal" data-preview="assets/fb-post1.jpg">
         <img src="assets/fb-post1.jpg" alt="Gouttière obstruée par les débris avant intervention" loading="lazy">
         <figcaption><span class="ti-num">02</span><span>Avant intervention · Saison de feuilles</span></figcaption>
       </figure>
-      <figure class="travaux-item">
+      <figure class="travaux-item clip-reveal" data-preview="assets/fb-post2.jpg">
         <img src="assets/fb-post2.jpg" alt="Jérémy avec le pôle Tucker à eau purifiée et la remorque d'équipement" loading="lazy">
         <figcaption><span class="ti-num">03</span><span>Pôle Tucker® · Équipement complet</span></figcaption>
       </figure>
+    </div>
+
+    <!-- Horizontal portfolio band (desktop only) -->
+    <div class="hscroll-section" aria-hidden="false">
+      <div class="hscroll-sticky">
+        <div class="hscroll-track" id="hscrollTrack">
+          <div class="hscroll-head">
+            <p class="eyebrow" data-scramble>Galerie · Défilement</p>
+            <h3 class="hscroll-title">Quatre chantiers,<br><em>un seul standard.</em></h3>
+            <p class="hscroll-sub">Défilez. Vertical devient horizontal.</p>
+          </div>
+          <figure class="hscroll-item clip-reveal">
+            <img src="assets/reel-gouttieres.jpg" alt="Gouttière nette après nettoyage Lévis" loading="lazy">
+            <figcaption><span>01</span> Gouttières · Après</figcaption>
+          </figure>
+          <figure class="hscroll-item clip-reveal">
+            <img src="assets/fb-post1.jpg" alt="Gouttière saisonnière encombrée" loading="lazy">
+            <figcaption><span>02</span> Avant · Saison de feuilles</figcaption>
+          </figure>
+          <figure class="hscroll-item clip-reveal">
+            <img src="assets/fb-post2.jpg" alt="Pôle Tucker à eau purifiée, équipement complet" loading="lazy">
+            <figcaption><span>03</span> Tucker® · Eau purifiée</figcaption>
+          </figure>
+          <figure class="hscroll-item clip-reveal">
+            <img src="assets/reel-gouttieres.jpg" alt="Vue rapprochée d'une gouttière redevenue propre" loading="lazy">
+            <figcaption><span>04</span> Détail · Finition</figcaption>
+          </figure>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -238,12 +286,12 @@
 <!-- FRERES -->
 <section id="freres" class="freres reveal">
   <div class="container freres-grid">
-    <div class="freres-img">
+    <div class="freres-img clip-reveal parallax" data-parallax="0.12">
       <img src="assets/fb-post2.jpg" alt="L'un des Beaux Frères devant la remorque, équipement professionnel" loading="lazy">
       <span class="freres-tag">Jérémy & Nathan · Lévis</span>
     </div>
     <div class="freres-text">
-      <p class="eyebrow">Les Beaux Frères</p>
+      <p class="eyebrow" data-scramble>Les Beaux Frères</p>
       <h2 class="display">Deux frères, <em>un standard.</em></h2>
       <p class="lead">Jérémy Couture et Nathan Lambert ont lancé Entretien LBF en 2025 avec une idée simple : faire le travail comme on aimerait qu'il soit fait chez nous. Investir dans le bon équipement, prendre le temps qu'il faut, livrer un résultat dont on est fier de mettre une photo en ligne.</p>
       <p>Le reste, c'est de la rigueur. Soumissions claires, rendez-vous respectés, propriété laissée plus propre qu'à l'arrivée. C'est de l'entretien extérieur, mais c'est traité comme un métier.</p>
@@ -260,7 +308,7 @@
 <section id="contact" class="contact reveal">
   <div class="container">
     <div class="contact-head">
-      <p class="eyebrow">Contact</p>
+      <p class="eyebrow" data-scramble>Contact</p>
       <h2 class="display contact-h2">
         On passe<br>
         <em>quand vous voulez.</em>
@@ -304,6 +352,10 @@
 
 <!-- FOOTER -->
 <footer id="footer" class="footer">
+  <div class="footer-wordmark" aria-hidden="true">
+    <span>ENTRETIEN</span>
+    <span class="fw-accent">LBF</span>
+  </div>
   <div class="container footer-grid">
     <div class="footer-brand">
       <div class="footer-mark"><img src="assets/lbf-logo.jpg" alt="Entretien LBF"></div>
