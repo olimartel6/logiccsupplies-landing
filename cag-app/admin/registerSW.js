@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/cag-app/admin/sw.js', { scope: '/cag-app/admin/' })})}
