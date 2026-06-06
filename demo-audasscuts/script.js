@@ -475,6 +475,62 @@
     });
   }
 
+  // ---------- Gallery videos: autoplay on scroll ----------
+  // Mute + loop + playsInline set in markup. IntersectionObserver plays when
+  // ~50% in view, pauses when leaving. Respects prefers-reduced-motion.
+  const galleryVideos = document.querySelectorAll(
+    ".gallery-video[data-autoplay-scroll]"
+  );
+  if (galleryVideos.length) {
+    if (prefersReduce) {
+      // Reduced motion: keep poster, never autoplay.
+      galleryVideos.forEach((v) => {
+        v.removeAttribute("autoplay");
+        v.preload = "none";
+      });
+    } else if ("IntersectionObserver" in window) {
+      const setPlaying = (v, playing) => {
+        const item = v.closest(".grid-item");
+        if (item) item.classList.toggle("is-playing", playing);
+      };
+      const videoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const v = entry.target;
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+              const p = v.play();
+              if (p && typeof p.then === "function") {
+                p.then(() => setPlaying(v, true)).catch(() => {});
+              } else {
+                setPlaying(v, true);
+              }
+            } else {
+              v.pause();
+              setPlaying(v, false);
+            }
+          });
+        },
+        { threshold: [0, 0.5, 1], rootMargin: "0px 0px -5% 0px" }
+      );
+      galleryVideos.forEach((v) => {
+        // Force a poster-style first frame even before play
+        v.addEventListener("loadeddata", () => {
+          try {
+            v.currentTime = 0.05;
+          } catch (e) {
+            /* ignore */
+          }
+        });
+        videoObserver.observe(v);
+      });
+    } else {
+      // No IntersectionObserver: just kick all to play (muted policy compliant)
+      galleryVideos.forEach((v) => {
+        v.play().catch(() => {});
+      });
+    }
+  }
+
   // ---------- 3. Horizontal scroll gallery (desktop only) ----------
   const galerie = document.querySelector(".galerie");
   const gridEl = galerie ? galerie.querySelector(".grid") : null;
