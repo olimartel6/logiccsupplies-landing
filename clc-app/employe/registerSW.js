@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/clc-app/employe/sw.js', { scope: '/clc-app/employe/' })})}

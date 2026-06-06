@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#161e29" />
+    <title>CLC Entretien — Opérations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { height: 100%; background: #0d131c; color: #f5f7fa; font-family: 'Inter Tight', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      .wrap { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 1.5rem; }
+      .brand { text-align: center; margin-bottom: 3rem; }
+      .brand .clc { color: #3aa8e0; font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-size: clamp(3.5rem, 12vw, 5.5rem); letter-spacing: 0.15em; line-height: 0.9; }
+      .brand .name { color: white; font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 5vw, 2.25rem); letter-spacing: 0.1em; margin-top: 0.25rem; }
+      .brand .tag { color: #a3b0c5; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.3em; margin-top: 0.75rem; }
+      .btns { display: grid; grid-template-columns: 1fr; gap: 1rem; width: 100%; max-width: 28rem; }
+      @media (min-width: 600px) { .btns { grid-template-columns: 1fr 1fr; max-width: 36rem; } }
+      .btn { display: flex; flex-direction: column; align-items: flex-start; padding: 1.5rem; border-radius: 1rem; text-decoration: none; transition: transform 0.15s, border-color 0.15s; border: 1px solid #1f2c44; background: #161e29; }
+      .btn:hover { transform: translateY(-2px); border-color: #3aa8e0; }
+      .btn .role { color: #a3b0c5; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.25em; font-weight: 600; }
+      .btn .label { color: white; font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 2rem; letter-spacing: 0.05em; margin-top: 0.5rem; line-height: 1; }
+      .btn .desc { color: #5d7494; font-size: 0.8rem; margin-top: 0.75rem; line-height: 1.4; }
+      .btn .arrow { color: #3aa8e0; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin-top: 1rem; }
+      footer { color: #5d7494; font-size: 0.65rem; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin-top: 3rem; }
+      footer a { color: #5d7494; text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="brand">
+        <div class="clc">CLC</div>
+        <div class="name">ENTRETIEN</div>
+        <div class="tag">Application opérationnelle</div>
+      </div>
+
+      <div class="btns">
+        <a href="employe/" class="btn">
+          <div class="role">Espace</div>
+          <div class="label">EMPLOYÉ</div>
+          <div class="desc">Contrats du jour, itinéraire optimal, punch in/out, disponibilités.</div>
+          <div class="arrow">Entrer →</div>
+        </a>
+        <a href="admin/" class="btn">
+          <div class="role">Espace</div>
+          <div class="label">ADMIN</div>
+          <div class="desc">Tableau de bord temps réel, contrats, équipe, dispos.</div>
+          <div class="arrow">Entrer →</div>
+        </a>
+      </div>
+
+      <footer>
+        <a href="/">← Retour à logiccsupplies.ca</a>
+      </footer>
+    </div>
+  </body>
+</html>
