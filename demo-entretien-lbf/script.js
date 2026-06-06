@@ -1,6 +1,6 @@
 /* ============================================
    ENTRETIEN LBF — Minimal interactions
-   Strict minimum to make the page load smoothly.
+   Lightweight only: IO-driven, no scroll loops.
    ============================================ */
 
 (function () {
@@ -14,7 +14,6 @@
     if (reduced) {
       curtain.remove();
     } else {
-      // Quick fade-out, no complex choreography
       requestAnimationFrame(() => {
         curtain.classList.add('is-gone');
         setTimeout(() => { curtain.remove(); }, 800);
@@ -28,20 +27,30 @@
     document.body.classList.add('is-loaded');
   });
 
-  /* ---- Sticky nav state ---- */
+  /* ---- Sticky nav + sticky CTA bar (single passive scroll listener) ---- */
   const nav = document.getElementById('nav');
-  if (nav) {
-    let scrolled = false;
-    window.addEventListener('scroll', () => {
-      const isScrolled = window.scrollY > 30;
-      if (isScrolled !== scrolled) {
-        scrolled = isScrolled;
-        nav.classList.toggle('is-scrolled', isScrolled);
+  const ctaBar = document.getElementById('mobileCtaBar');
+  const hero = document.getElementById('hero');
+  let scrolled = false;
+  let ctaShown = false;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const isScrolled = y > 30;
+    if (nav && isScrolled !== scrolled) {
+      scrolled = isScrolled;
+      nav.classList.toggle('is-scrolled', isScrolled);
+    }
+    if (ctaBar && hero) {
+      const heroBottom = hero.offsetHeight - 120;
+      const shouldShow = y > heroBottom;
+      if (shouldShow !== ctaShown) {
+        ctaShown = shouldShow;
+        ctaBar.classList.toggle('is-visible', shouldShow);
       }
-    }, { passive: true });
-  }
+    }
+  }, { passive: true });
 
-  /* ---- Scroll progress bar ---- */
+  /* ---- Scroll progress bar (rAF throttled) ---- */
   const bar = document.getElementById('scrollProgress');
   if (bar) {
     let ticking = false;
@@ -83,37 +92,60 @@
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.reveal, [data-reveal], .clip-reveal').forEach((el) => io.observe(el));
+    document.querySelectorAll('.reveal, [data-reveal], .clip-reveal, .footer-wordmark').forEach((el) => io.observe(el));
   } else {
-    document.querySelectorAll('.reveal, [data-reveal], .clip-reveal').forEach((el) => el.classList.add('is-in'));
+    document.querySelectorAll('.reveal, [data-reveal], .clip-reveal, .footer-wordmark').forEach((el) => el.classList.add('is-in'));
   }
 
-  /* ---- Animated counters (lightweight) ---- */
+  /* ---- Animated counters (data-count attribute, lightweight) ---- */
   if ('IntersectionObserver' in window && !reduced) {
     const counterIO = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const el = entry.target;
-        const txt = el.textContent.trim();
-        const num = parseInt(txt.replace(/[^0-9]/g, ''), 10);
-        const suffix = txt.replace(/[0-9]/g, '');
-        if (isNaN(num) || num === 0) {
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        const suffix = el.getAttribute('data-count-suffix') || '';
+        const pad = parseInt(el.getAttribute('data-count-pad'), 10) || 0;
+        if (isNaN(target)) {
           counterIO.unobserve(el);
           return;
         }
         const start = performance.now();
         const dur = 1200;
+        function fmt(n) {
+          let s = String(n);
+          if (pad > 0) s = s.padStart(pad, '0');
+          return s + suffix;
+        }
         function tick(now) {
           const t = Math.min(1, (now - start) / dur);
           const eased = 1 - Math.pow(1 - t, 3);
-          el.textContent = Math.round(num * eased) + suffix;
-          if (t < 1) requestAnimationFrame(tick);
-          else el.textContent = num + suffix;
+          el.textContent = fmt(Math.round(target * eased));
+          if (t < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            el.textContent = fmt(target);
+            el.classList.add('count-done');
+          }
         }
         requestAnimationFrame(tick);
         counterIO.unobserve(el);
       });
     }, { threshold: 0.5 });
-    document.querySelectorAll('[data-counter]').forEach((el) => counterIO.observe(el));
+    document.querySelectorAll('[data-count]').forEach((el) => counterIO.observe(el));
+  }
+
+  /* ---- Footer clock (updates every minute) ---- */
+  const clock = document.getElementById('footerClock');
+  if (clock) {
+    function safeUpdate() {
+      try {
+        const d = new Date();
+        const opts = { hour: '2-digit', minute: '2-digit', timeZone: 'America/Toronto' };
+        clock.textContent = 'Lévis · ' + d.toLocaleTimeString('fr-CA', opts);
+      } catch (e) {}
+    }
+    safeUpdate();
+    setInterval(safeUpdate, 60000);
   }
 })();

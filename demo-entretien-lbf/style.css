@@ -31,6 +31,8 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-tap-highlight-color: transparent;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -163,6 +165,7 @@ em { font-style: italic; font-family: var(--display); }
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   padding: clamp(140px, 18vh, 200px) 0 clamp(60px, 8vh, 100px);
   display: flex; flex-direction: column;
   background: var(--bg);
@@ -400,10 +403,12 @@ body.is-loaded .hero-meta { opacity: 1; transform: translateY(0); }
 .approche { padding: clamp(120px, 14vw, 180px) 0; }
 .approche-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: clamp(40px, 6vw, 100px);
   align-items: start;
 }
+.approche-left, .approche-right { min-width: 0; }
+.approche-right p { overflow-wrap: break-word; word-wrap: break-word; }
 .eyebrow {
   font-family: var(--mono);
   font-size: 11px;
@@ -640,10 +645,11 @@ body.is-loaded .hero-meta { opacity: 1; transform: translateY(0); }
 .freres .display em { color: var(--accent-soft); }
 .freres-grid {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
   gap: clamp(40px, 6vw, 100px);
   align-items: center;
 }
+.freres-img, .freres-text { min-width: 0; }
 .freres-img {
   position: relative;
   border-radius: 6px;
@@ -1281,4 +1287,305 @@ body {
   .footer-wordmark { transform: scale(1); opacity: 1; }
   body { transition: none; }
   [data-count].count-done { animation: none; }
+  .mobile-cta-bar { transform: none !important; }
+}
+
+/* =====================================================================
+   MOBILE-FIRST POLISH PASS — 2026-06-06
+   Primary target: 390px (iPhone 12/13/14/15)
+   ===================================================================== */
+
+/* Disable hover-only effects on touch (no stuck hover) */
+@media (hover: none) {
+  .service:hover {
+    background: transparent;
+    padding-left: 0; padding-right: 0;
+  }
+  .travaux-item:hover img,
+  .freres-img:hover img,
+  .hscroll-item:hover img { transform: none; }
+  .contact-card:hover {
+    background: var(--bg);
+    color: var(--ink);
+    border-color: var(--line);
+  }
+  .contact-card:hover .cc-label,
+  .contact-card:hover .cc-meta { color: var(--ink-mute); }
+  .contact-card:hover .cc-arrow {
+    color: var(--accent-deep);
+    transform: none;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--bg); }
+  .btn:hover::before { transform: translateY(101%); }
+  .btn:hover { color: inherit; border-color: var(--ink); }
+  .btn-primary:hover { color: var(--bg); }
+  .btn-ghost:hover { color: var(--ink); }
+  .marquee:hover .marquee-track { animation-play-state: running; }
+}
+
+/* Press feedback on mobile */
+@media (hover: none) {
+  .btn:active, .nav-cta:active, .contact-card:active,
+  .mobile-cta-bar a:active, .service:active {
+    transform: scale(0.97);
+    transition: transform .12s ease;
+  }
+}
+
+/* ---------- Tablet & mobile breakpoint adjustments ---------- */
+@media (max-width: 768px) {
+  .hero {
+    padding: clamp(110px, 16vh, 160px) 0 clamp(80px, 10vh, 120px);
+  }
+  .hero-status {
+    margin-bottom: 24px;
+    padding: 7px 13px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+  .hero-eyebrow {
+    margin-bottom: 24px;
+    font-size: 11px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hero-title {
+    font-size: clamp(48px, 13vw, 90px);
+    margin-bottom: 24px;
+    line-height: 0.95;
+  }
+  .hero-sub {
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+  .hero-cta { margin-bottom: 48px; }
+  .hero-meta {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    padding-top: 22px;
+  }
+  .hero-meta strong { font-size: 22px; margin-bottom: 6px; }
+  .hero-scroll { display: none; }
+
+  /* Approche mobile */
+  .approche { padding: 80px 0; }
+  .approche-grid { gap: 32px; }
+  .approche-left .display, .services-head .display,
+  .travaux-head .display, .freres-text .display,
+  .contact-head .display {
+    font-size: clamp(34px, 9vw, 52px);
+  }
+  .lead { font-size: 17px; }
+  .approche-right p { font-size: 15px; line-height: 1.65; }
+  .approche-stats {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    padding-top: 22px;
+    margin-top: 28px;
+  }
+  .approche-stats strong { font-size: 22px; }
+  .approche-stats span { font-size: 9px; }
+
+  /* Services mobile */
+  .services { padding: 80px 0; }
+  .services-head { margin-bottom: 40px; }
+  .service { padding: 28px 0; gap: 12px; }
+  .service-num { font-size: 11px; padding-top: 4px; }
+  .service-body h3 { font-size: 22px; margin-bottom: 10px; }
+  .service-body p { font-size: 14px; }
+  .service-tags li { font-size: 9px; padding: 4px 8px; }
+  .service-price em { font-size: 18px; }
+
+  /* Travaux mobile */
+  .travaux { padding: 80px 0; }
+  .travaux-head { margin-bottom: 40px; }
+  .travaux-lead { font-size: 12px; margin-top: 14px; }
+  .travaux-item figcaption { padding: 14px 16px; font-size: 10px; gap: 10px; }
+
+  /* Freres mobile */
+  .freres { padding: 80px 0; }
+  .freres-quote { margin-top: 28px; padding: 24px; }
+  .quote-mark { font-size: 48px; margin-bottom: 12px; }
+  .freres-quote p { font-size: 17px; }
+  .freres-text p { font-size: 15px; }
+
+  /* Contact mobile */
+  .contact { padding: 80px 0 140px; }
+  .contact-head { margin-bottom: 40px; }
+  .contact-grid { gap: 12px; margin-bottom: 48px; }
+  .contact-card {
+    padding: 22px 20px;
+    min-height: 160px;
+  }
+  .cc-label { margin-bottom: 12px; font-size: 10px; }
+  .cc-value { font-size: 18px; }
+  .cc-meta { font-size: 9px; margin-top: 16px; }
+  .cc-arrow { top: 20px; right: 20px; font-size: 18px; }
+  .contact-area { padding-top: 28px; gap: 14px; }
+  .ca-value { font-size: 15px; }
+
+  /* Marquee mobile */
+  .marquee { padding: 16px 0; }
+  .marquee-track {
+    font-size: 22px;
+    gap: 22px;
+    animation-duration: 22s;
+  }
+
+  /* Footer mobile */
+  .footer { padding: 60px 0 calc(24px + env(safe-area-inset-bottom)); }
+  .footer-grid { gap: 28px; padding-bottom: 32px; text-align: left; }
+  .footer-wordmark {
+    margin-bottom: 36px;
+    font-size: clamp(56px, 18vw, 110px);
+    text-align: center;
+  }
+  .footer-name { font-size: 28px; }
+  .footer-base {
+    flex-direction: column; gap: 10px;
+    text-align: center;
+  }
+
+  /* Nav mobile */
+  .nav { padding: 14px 0; }
+  .nav.is-scrolled { padding: 10px 0; }
+  .brand-mark-img { width: 32px; height: 32px; }
+  .brand-mark { font-size: 14px; }
+  .brand-sub { font-size: 9px; }
+  .nav-cta { padding: 10px 16px; font-size: 12px; }
+
+  /* CTA full-width pills with proper tap height */
+  .btn {
+    min-height: 52px;
+    padding: 16px 28px;
+    width: 100%;
+  }
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+}
+
+/* 480px — smaller phones, tighten further */
+@media (max-width: 480px) {
+  .container { padding: 0 20px; }
+  .nav-inner { padding: 0 20px; gap: 12px; }
+  .hero-status {
+    margin-left: 20px; margin-right: 20px;
+  }
+  .hero-content { padding: 0 20px; }
+  .hero-title { font-size: clamp(44px, 14vw, 70px); }
+
+  .approche-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .approche-stats > div {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+  }
+  .approche-stats > div:last-child { border-bottom: none; padding-bottom: 0; }
+  .approche-stats strong { margin-bottom: 0; }
+  .approche-stats span { font-size: 10px; }
+
+  .hero-meta { grid-template-columns: 1fr; max-width: 340px; }
+
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+/* 360px — iPhone SE */
+@media (max-width: 360px) {
+  .hero-title { font-size: 40px; }
+  .display { font-size: 32px !important; }
+  .container { padding: 0 16px; }
+  .nav-inner { padding: 0 16px; }
+  .brand-sub { display: none; }
+}
+
+/* ---------- Sticky mobile CTA bar ---------- */
+.mobile-cta-bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 90;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  display: none;
+  gap: 10px;
+  background: rgba(245, 243, 238, 0.88);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-top: 1px solid var(--line);
+  transform: translateY(110%);
+  transition: transform .45s var(--easing);
+}
+.mobile-cta-bar.is-visible { transform: translateY(0); }
+.mobile-cta-bar a {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 12px 14px;
+  border-radius: var(--r-pill);
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  transition: transform .15s ease, background .25s ease;
+}
+.mobile-cta-bar .mcb-call {
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+}
+.mobile-cta-bar .mcb-quote {
+  background: var(--accent);
+  color: var(--bg);
+  border: 1px solid var(--accent);
+}
+.mobile-cta-bar svg {
+  width: 16px; height: 16px;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .mobile-cta-bar { display: flex; }
+}
+
+/* ---------- Eyebrow underline draw on view ---------- */
+.eyebrow {
+  position: relative;
+}
+.eyebrow::after {
+  content: '';
+  position: absolute;
+  left: 30px; right: auto;
+  bottom: -6px;
+  height: 1px;
+  width: 0;
+  background: var(--accent);
+  transition: width .9s var(--easing) .2s;
+}
+.reveal.is-in .eyebrow::after { width: 60px; }
+.freres .eyebrow::after { background: var(--accent-soft); }
+
+/* ---------- Tasteful card hover scale (desktop only) ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .service { transition: padding .3s var(--easing), background .3s var(--easing), transform .35s var(--easing); }
+  .travaux-item, .hscroll-item {
+    transition: transform .5s var(--easing);
+  }
+  .travaux-item:hover, .hscroll-item:hover {
+    transform: scale(1.015);
+  }
+}
+
+/* ---------- Reduced motion: kill the sticky bar slide, just show ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-cta-bar { transition: none; }
+  .eyebrow::after { transition: none; width: 60px; }
 }
