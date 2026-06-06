@@ -1,22 +1,22 @@
 /* ============================================
    CLC ENTRETIEN — Esthétique mobile VR & flotte
    Design DNA: Big Shoulders Display + Inter Tight + IBM Plex Mono
-   Palette: deep navy #0a1628 · warm cream #f1ebdd · amber #ff8c42 · chrome #c8cdd6
+   Palette officielle CLC: dark navy charcoal + electric cyan blue (extrait du logo)
    ============================================ */
 
 :root {
-  --bg: #0a1628;
-  --bg-alt: #0f1f33;
-  --bg-deep: #050d18;
-  --ink: #f1ebdd;
-  --ink-soft: #c8cdd6;
-  --ink-mute: #7d8a9b;
-  --line: rgba(241, 235, 221, 0.12);
-  --line-strong: rgba(241, 235, 221, 0.28);
-  --accent: #ff8c42;          /* amber sunset */
-  --accent-deep: #d96b1f;
-  --accent-soft: rgba(255, 140, 66, 0.14);
-  --chrome: #c8cdd6;
+  --bg: #161e29;
+  --bg-alt: #1f2733;
+  --bg-deep: #0d131c;
+  --ink: #f4f6f9;
+  --ink-soft: #c6cdd6;
+  --ink-mute: #7d8694;
+  --line: rgba(244, 246, 249, 0.10);
+  --line-strong: rgba(244, 246, 249, 0.26);
+  --accent: #3aa8e0;          /* electric cyan — CLC signature */
+  --accent-deep: #2188be;
+  --accent-soft: rgba(58, 168, 224, 0.14);
+  --chrome: #c6cdd6;
   --display: 'Big Shoulders Display', 'Inter Tight', system-ui, sans-serif;
   --body: 'Inter Tight', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -112,7 +112,7 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  background: rgba(10, 22, 40, 0.7);
+  background: rgba(22, 30, 41, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--line);
@@ -147,12 +147,12 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 100;
   padding: 18px 0;
-  background: rgba(10, 22, 40, 0);
+  background: rgba(22, 30, 41, 0);
   transition: background .35s var(--easing), padding .35s var(--easing), border-color .35s;
   border-bottom: 1px solid transparent;
 }
 .nav.is-scrolled {
-  background: rgba(10, 22, 40, 0.86);
+  background: rgba(22, 30, 41, 0.86);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: 10px 0;
@@ -265,8 +265,8 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 .hero-bg-tint {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse at 30% 70%, rgba(255, 140, 66, 0.18) 0%, transparent 55%),
-    linear-gradient(180deg, rgba(10, 22, 40, 0.7) 0%, rgba(10, 22, 40, 0.5) 35%, rgba(10, 22, 40, 0.85) 90%);
+    radial-gradient(ellipse at 30% 70%, rgba(58, 168, 224, 0.18) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(22, 30, 41, 0.7) 0%, rgba(22, 30, 41, 0.5) 35%, rgba(22, 30, 41, 0.85) 90%);
 }
 .hero-bg-grid {
   position: absolute; inset: 0;
@@ -294,7 +294,7 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
 }
 .hero-meta-pill {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(10, 22, 40, 0.55);
+  background: rgba(22, 30, 41, 0.55);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--line-strong);
@@ -305,7 +305,7 @@ sup { font-size: .55em; vertical-align: super; line-height: 0; }
   width: 8px; height: 8px;
   border-radius: 999px;
   background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(255, 140, 66, 0.18);
+  box-shadow: 0 0 0 4px rgba(58, 168, 224, 0.18);
   animation: pulse 2.4s infinite;
 }
 .hero-meta-coord {
@@ -1111,7 +1111,7 @@ section p {
 .fw-line-2 {
   font-size: clamp(60px, 9vw, 130px);
   margin-top: -12px;
-  color: rgba(255, 140, 66, 0.08);
+  color: rgba(58, 168, 224, 0.08);
 }
 .footer-grid {
   position: relative; z-index: 1;
