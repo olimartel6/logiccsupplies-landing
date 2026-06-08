@@ -1,21 +1,21 @@
 /* ============================================
    FA FINITION — Ébénisterie · Soudure · Saguenay
    Design DNA: Spectral + Inter Tight + Spectral italic
-   Palette: bone #e8e3d8 · ink #16120e · brushed brass #a47a3d
+   Palette: forest #3d4937 · sage #99a790 · cream #ece9de (logo officiel FB)
    ============================================ */
 
 :root {
-  --bg: #e8e3d8;
-  --bg-alt: #ddd6c5;
-  --ink: #1a1612;
-  --ink-deep: #16120e;
-  --ink-soft: #3a322a;
-  --ink-mute: #6a5f50;
-  --line: #c9c0a8;
-  --accent: #a47a3d;        /* brushed brass */
-  --accent-deep: #7d5a25;
-  --accent-soft: #d9c399;
-  --cream: #f3eee2;
+  --bg: #ece9de;
+  --bg-alt: #dcdccc;
+  --ink: #1f2a1b;
+  --ink-deep: #3d4937;       /* deep forest green (logo bg) */
+  --ink-soft: #4d5a44;
+  --ink-mute: #6a7461;
+  --line: #c2c8b5;
+  --accent: #7d8f73;         /* deep sage (CTAs) */
+  --accent-deep: #5d6e54;
+  --accent-soft: #b9c4ad;
+  --cream: #f1ede2;
   --display: 'Spectral', 'Georgia', serif;
   --body: 'Inter Tight', system-ui, -apple-system, sans-serif;
   --italic: 'Spectral', Georgia, serif;
